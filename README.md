@@ -138,8 +138,9 @@ yarn install
    /* Example: sh renderflow.sh com.benchamrking 10 */
    ```
 6. Run the following command to get flashlight score (supported only on Android):
-   ```cd AutomationScripts
-      sh flashlightflow.sh
+   ```
+   cd AutomationScripts
+   sh flashlightflow.sh
    ```
 
 > NOTE: 1. Benchmarking numbers can be found at same locations for respective platform's as specfied above. 2. Flashlight report can be found under **AutomationScripts** (from where the script was originally started) with name result.json.
