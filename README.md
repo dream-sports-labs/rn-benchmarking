@@ -135,7 +135,7 @@ yarn install
    ```
    cd AutomationScripts
    sh renderflow.sh <PACKAGE_NAME> <ITERATION_COUNT> <DEVICE_ID (OPTIONAL)>
-   // Example: sh renderflow.sh com.benchamrking 10
+   /* Example: sh renderflow.sh com.benchamrking 10 */
    ```
 6. Run the following command to get flashlight score (supported only on Android):
    ```cd AutomationScripts
