@@ -1,0 +1,32 @@
+{
+    "name": "rtn-performance",
+    "version": "0.0.1",
+    "description": "Performance benchamrking numbers with Turbo Native Modules",
+    "react-native": "js/index",
+    "source": "js/index",
+    "files": [
+      "js",
+      "android",
+      "ios",
+      "!android/build",
+      "!ios/build",
+      "!**/__tests__",
+      "!**/__fixtures__",
+      "!**/__mocks__"
+    ],
+    "keywords": ["react-native", "ios", "android"],
+    "license": "MIT",
+    "devDependencies": {},
+    "peerDependencies": {
+      "react": "*",
+      "react-native": "*"
+    },
+    "codegenConfig": {
+      "name": "RTNPerformanceSpec",
+      "type": "all",
+      "jsSrcsDir": "js",
+      "android": {
+        "javaPackageName": "com.rtnperformance"
+      }
+    }
+  }

@@ -1,0 +1,23 @@
+{
+  "name": "react-native-performance",
+  "version": "0.0.1",
+  "description": "Performance benchamrking numbers with Native Modules",
+  "source": "js/index",
+  "files": [
+    "js",
+    "android",
+    "ios",
+    "!android/build",
+    "!ios/build",
+    "!**/__tests__",
+    "!**/__fixtures__",
+    "!**/__mocks__"
+  ],
+  "keywords": ["react-native", "ios", "android"],
+  "license": "MIT",
+  "devDependencies": {},
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  }
+}
