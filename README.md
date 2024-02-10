@@ -51,6 +51,7 @@ yarn install
    ```
    cd ios
    RCT_NEW_ARCH_ENABLED=0 bundle exec pod install
+   rm -rf build
    ```
 3. Replace the following imports in files present inside src/ directory if any:
    ```
@@ -107,6 +108,7 @@ yarn install
    ```
    cd ios
    RCT_NEW_ARCH_ENABLED=1 bundle exec pod install
+   rm -rf build
    ```
 3. **RCT_NEW_ARCH_ENABLED=1** will enable new architecture and generate codegen artifacts.
 4. Replace the following imports in files present inside src/ directory if any:
