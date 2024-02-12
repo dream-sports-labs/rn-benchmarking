@@ -39,7 +39,7 @@ yarn install
    1. rtn-performance/js/NativePerformanceModule => react-native-performance/js/RNPerformanceModule
    2. rtn-performance/js/PerformanceLoggerViewNativeComponent => react-native-performance/js/RNPerformanceView
    ```
-4. Run app in release mode using `yarn android`.
+4. Run app in release mode using `yarn android --mode release`.
 5. After benchamrking numbers can be found under **D11PerformanceLog** of device storage.
 
 > NOTE: Before getting benchmarking numbers make sure android app has storage permissions.
@@ -58,7 +58,7 @@ yarn install
    1. rtn-performance/js/NativePerformanceModule => react-native-performance/js/RNPerformanceModule
    2. rtn-performance/js/PerformanceLoggerViewNativeComponent => react-native-performance/js/RNPerformanceView
    ```
-4. Run app in release mode using `yarn ios`.
+4. Run app in release mode using `yarn ios --mode Release`.
 5. For iOS numbers can be found under **D11PerformanceLog** of app's document directory.
 6. The document directory of any installed app on pysical device can be accessed via using tools like [iexplorer](https://macroplant.com/iexplorer).
 7. To get number's from iOS simulator use command:
@@ -96,7 +96,7 @@ yarn install
    1. react-native-performance/js/RNPerformanceModule => rtn-performance/js/NativePerformanceModule
    2. react-native-performance/js/RNPerformanceView => rtn-performance/js/PerformanceLoggerViewNativeComponent
    ```
-5. Run app in release mode using `yarn android`.
+5. Run app in release mode using `yarn android --mode release`.
 6. After benchamrking numbers can be found under **D11PerformanceLog** of device storage.
 
 > NOTE: Before getting benchmarking numbers make sure android app has storage permissions.
@@ -116,7 +116,7 @@ yarn install
    1. rtn-performance/js/NativePerformanceModule => react-native-performance/js/RNPerformanceModule
    2. rtn-performance/js/PerformanceLoggerViewNativeComponent => react-native-performance/js/RNPerformanceView
    ```
-5. Run app in release mode using `yarn ios`.
+5. Run app in release mode using `yarn ios --mode Release`.
 6. For iOS numbers can be found under **D11PerformanceLog** of app's document directory.
 7. The document directory of any installed app on pysical device can be accessed via using tools like [iexplorer](https://macroplant.com/iexplorer).
 8. To get number's from iOS simulator use command:
