@@ -11,16 +11,19 @@ export type MainProps = {
 
 function Main({itemsToRender = 1000}: MainProps) {
   const [toRender, setToRender] = useState<RENDERING_CONSTANTS>();
+  const renderedItem = useRef<RENDERING_CONSTANTS>();
 
   const onPress = (toRender: RENDERING_CONSTANTS, timeStamp: string) => {
     if (
       toRender !== RENDERING_CONSTANTS.RESET_VIEW &&
       toRender !== RENDERING_CONSTANTS.RENDER_FLATLIST &&
-      toRender !== RENDERING_CONSTANTS.RENDER_ANIMATIONS
+      toRender !== RENDERING_CONSTANTS.RENDER_ANIMATIONS &&
+      toRender !== renderedItem.current
     ) {
       PerformanceLogger?.logTimeToStorage(toRender.toString(), timeStamp);
     }
 
+    renderedItem.current = toRender;
     setToRender(toRender);
   };
 
