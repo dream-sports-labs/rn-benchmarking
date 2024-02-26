@@ -49,6 +49,7 @@ yarn install
 1. Before running benchmarking on old architecture we need to make sure it's enabled.
 2. Run the following command to enable old architecture.
    ```
+   bundle install
    cd ios
    RCT_NEW_ARCH_ENABLED=0 bundle exec pod install
    rm -rf build
@@ -106,6 +107,7 @@ yarn install
 1. Before running benchmarking on new architecture we need to make sure it's enabled.
 2. Run the following command to enable old architecture.
    ```
+   bundle install
    cd ios
    RCT_NEW_ARCH_ENABLED=1 bundle exec pod install
    rm -rf build
