@@ -1,15 +1,14 @@
 import React from 'react';
 import {StyleSheet, Image, View} from 'react-native';
-import PerformanceLoggerView from 'react-native-performance/js/RNPerformanceView';
-// import PerformanceLoggerView from 'rtn-performance/js/PerformanceLoggerViewNativeComponent';
+import PerformanceLoggerView from 'benchmarking-package/src/Component';
 import {RENDERING_CONSTANTS, TEST_ID_CONSTANTS} from '../../Constants';
-import {MainProps} from './Main';
 
 type NImagesProps = {
   itemsToRender: number;
-} & MainProps;
+  tagName: RENDERING_CONSTANTS
+}
 
-function NImages({itemsToRender}: NImagesProps) {
+function NImages({itemsToRender, tagName}: NImagesProps) {
   const items = Array.from(Array(itemsToRender).keys()).map(x => (
     <Image
       accessible={true}
@@ -24,7 +23,7 @@ function NImages({itemsToRender}: NImagesProps) {
   return (
     <View accessible={false}>
       {items}
-      <PerformanceLoggerView tagName={RENDERING_CONSTANTS.NImages} />
+      <PerformanceLoggerView tagName={tagName} />
     </View>
   );
 }

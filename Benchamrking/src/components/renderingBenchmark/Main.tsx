@@ -2,14 +2,10 @@ import React, {useRef, useState} from 'react';
 import {View, Button, StyleSheet, SafeAreaView} from 'react-native';
 import {RENDERING_CONSTANTS, TEST_ID_CONSTANTS} from '../../Constants';
 import RenderingContainer from './RenderingContainer';
-import PerformanceLogger from 'react-native-performance/js/RNPerformanceModule';
-// import PerformanceLogger from 'rtn-performance/js/NativePerformanceModule';
+import PerformanceLogger from "benchmarking-package/src/Module"
+import { generateReport } from '../../helpers/generateReport';
 
-export type MainProps = {
-  itemsToRender: number;
-};
-
-function Main({itemsToRender = 1000}: MainProps) {
+function Main() {
   const [toRender, setToRender] = useState<RENDERING_CONSTANTS>();
   const renderedItem = useRef<RENDERING_CONSTANTS>();
 
@@ -20,19 +16,22 @@ function Main({itemsToRender = 1000}: MainProps) {
       toRender !== RENDERING_CONSTANTS.RENDER_ANIMATIONS &&
       toRender !== renderedItem.current
     ) {
-      PerformanceLogger?.logTimeToStorage(toRender.toString(), timeStamp);
+      PerformanceLogger?.logStartTime(toRender.toString(), timeStamp);
     }
-
+    
     renderedItem.current = toRender;
     setToRender(toRender);
   };
 
-  const getReport = async () => {
-    const report = await PerformanceLogger?.generateReport();
-    console.log('********************');
-    console.log(report);
-    console.log('********************');
-  };
+  const getLogs = async () => {
+      const logs = await PerformanceLogger?.getLogs();
+      // console.log(logs)
+      const response = await generateReport(logs)
+      if (response) {
+        console.log("Report generated successfully.")
+        return
+      }
+  }
 
   const resetLogs = () => {
     PerformanceLogger?.resetLogs();
@@ -42,35 +41,58 @@ function Main({itemsToRender = 1000}: MainProps) {
     <SafeAreaView>
       <View style={styles.buttonsContainer}>
         <Button
-          title={RENDERING_CONSTANTS.NViews}
-          testID={TEST_ID_CONSTANTS.RENDER_VIEW_BUTTON}
+          title={RENDERING_CONSTANTS['1500View']}
+          testID={TEST_ID_CONSTANTS.RENDER_1500_VIEW_BUTTON}
           onPress={({timeStamp}) =>
-            onPress(RENDERING_CONSTANTS.NViews, timeStamp.toString())
+            onPress(RENDERING_CONSTANTS['1500View'], timeStamp.toString())
           }
         />
         <Button
-          title={RENDERING_CONSTANTS.NTexts}
-          testID={TEST_ID_CONSTANTS.RENDER_TEXT_BUTTON}
+          title={RENDERING_CONSTANTS['1500Text']}
+          testID={TEST_ID_CONSTANTS.RENDER_1500_TEXT_BUTTON}
           onPress={({timeStamp}) =>
-            onPress(RENDERING_CONSTANTS.NTexts, timeStamp.toString())
+            onPress(RENDERING_CONSTANTS['1500Text'], timeStamp.toString())
+          }
+        />
+      <Button
+          title={RENDERING_CONSTANTS['1500Image']}
+          testID={TEST_ID_CONSTANTS.RENDER_1500_IMAGE_BUTTON}
+          onPress={({timeStamp}) =>
+            onPress(RENDERING_CONSTANTS['1500Image'], timeStamp.toString())
+          }
+        />
+        </View>
+        <View style={styles.buttonsContainer}>
+        <Button
+          title={RENDERING_CONSTANTS['5000View']}
+          testID={TEST_ID_CONSTANTS.RENDER_5000_VIEW_BUTTON}
+          onPress={({timeStamp}) =>
+            onPress(RENDERING_CONSTANTS['5000View'], timeStamp.toString())
           }
         />
         <Button
-          title={RENDERING_CONSTANTS.NImages}
-          testID={TEST_ID_CONSTANTS.RENDER_IMAGE_BUTTON}
+          title={RENDERING_CONSTANTS['5000Text']}
+          testID={TEST_ID_CONSTANTS.RENDER_5000_TEXT_BUTTON}
           onPress={({timeStamp}) =>
-            onPress(RENDERING_CONSTANTS.NImages, timeStamp.toString())
+            onPress(RENDERING_CONSTANTS['5000Text'], timeStamp.toString())
           }
         />
-        <Button
+              <Button
+          title={RENDERING_CONSTANTS['5000Image']}
+          testID={TEST_ID_CONSTANTS.RENDER_5000_IMAGE_BUTTON}
+          onPress={({timeStamp}) =>
+            onPress(RENDERING_CONSTANTS['5000Image'], timeStamp.toString())
+          }
+        />
+      </View>
+      <View style={styles.buttonsContainer}>
+      <Button
           title={RENDERING_CONSTANTS.RESET_VIEW}
           testID={TEST_ID_CONSTANTS.RESET_VIEW_BUTTON}
           onPress={({timeStamp}) =>
             onPress(RENDERING_CONSTANTS.RESET_VIEW, timeStamp.toString())
           }
         />
-      </View>
-      <View style={styles.buttonsContainer}>
         <Button
           title={RENDERING_CONSTANTS.RENDER_FLATLIST}
           testID={TEST_ID_CONSTANTS.RENDER_FLATLIST_BUTTON}
@@ -90,13 +112,15 @@ function Main({itemsToRender = 1000}: MainProps) {
           testID={TEST_ID_CONSTANTS.RESET_LOGS_BUTTON}
           onPress={resetLogs}
         />
-        <Button
+      </View>
+      <View style={styles.buttonsContainer}>
+      <Button
           title={RENDERING_CONSTANTS.GET_REPORT}
           testID={TEST_ID_CONSTANTS.GET_REPORT_BUTTON}
-          onPress={getReport}
+          onPress={getLogs}
         />
       </View>
-      <RenderingContainer toRender={toRender} itemsToRender={itemsToRender} />
+      <RenderingContainer toRender={toRender} />
     </SafeAreaView>
   );
 }

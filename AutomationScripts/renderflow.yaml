@@ -11,7 +11,7 @@ appId: ${APP_ID}
     times: ${ITERATIONS}
     commands:
       - tapOn:
-          id: ${MAESTRO_RENDER_VIEW_BUTTON}
+          id: ${MAESTRO_RENDER_1500_VIEW_BUTTON}
           retryTapIfNoChange: false
           waitToSettleTimeoutMs: 1000
       - assertVisible:
@@ -25,7 +25,7 @@ appId: ${APP_ID}
           id: ${MAESTRO_EMPTY_VIEW}
           waitToSettleTimeoutMs: 1000
       - tapOn:
-          id: ${MAESTRO_RENDER_TEXT_BUTTON}
+          id: ${MAESTRO_RENDER_1500_TEXT_BUTTON}
           retryTapIfNoChange: false
           waitToSettleTimeoutMs: 1000
       - assertVisible:
@@ -39,7 +39,49 @@ appId: ${APP_ID}
           id: ${MAESTRO_EMPTY_VIEW}
           waitToSettleTimeoutMs: 1000
       - tapOn:
-          id: ${MAESTRO_RENDER_IMAGE_BUTTON}
+          id: ${MAESTRO_RENDER_1500_IMAGE_BUTTON}
+          retryTapIfNoChange: false
+          waitToSettleTimeoutMs: 1000
+      - assertVisible:
+          id: ${MAESTRO_IMAGE_CONTAINER}
+          waitToSettleTimeoutMs: 1000
+      - tapOn:
+          id: ${MAESTRO_RESET_VIEW_BUTTON}
+          retryTapIfNoChange: false
+          waitToSettleTimeoutMs: 1000
+      - assertVisible:
+          id: ${MAESTRO_EMPTY_VIEW}
+          waitToSettleTimeoutMs: 1000
+      - tapOn:
+          id: ${MAESTRO_RENDER_5000_VIEW_BUTTON}
+          retryTapIfNoChange: false
+          waitToSettleTimeoutMs: 1000
+      - assertVisible:
+          id: ${MAESTRO_VIEW_CONTAINER}
+          waitToSettleTimeoutMs: 1000
+      - tapOn:
+          id: ${MAESTRO_RESET_VIEW_BUTTON}
+          retryTapIfNoChange: false
+          waitToSettleTimeoutMs: 1000
+      - assertVisible:
+          id: ${MAESTRO_EMPTY_VIEW}
+          waitToSettleTimeoutMs: 1000
+      - tapOn:
+          id: ${MAESTRO_RENDER_5000_TEXT_BUTTON}
+          retryTapIfNoChange: false
+          waitToSettleTimeoutMs: 1000
+      - assertVisible:
+          id: ${MAESTRO_TEXT_CONTAINER}
+          waitToSettleTimeoutMs: 1000
+      - tapOn:
+          id: ${MAESTRO_RESET_VIEW_BUTTON}
+          retryTapIfNoChange: false
+          waitToSettleTimeoutMs: 1000
+      - assertVisible:
+          id: ${MAESTRO_EMPTY_VIEW}
+          waitToSettleTimeoutMs: 1000
+      - tapOn:
+          id: ${MAESTRO_RENDER_5000_IMAGE_BUTTON}
           retryTapIfNoChange: false
           waitToSettleTimeoutMs: 1000
       - assertVisible:

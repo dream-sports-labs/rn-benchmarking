@@ -9,7 +9,8 @@ import React from 'react';
 import Main from './src/components/renderingBenchmark/Main';
 
 function App() {
-  return <Main itemsToRender={1500} />;
+
+  return <Main />;
 }
 
 export default App;

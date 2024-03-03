@@ -5,31 +5,39 @@ import NTexts from './NTexts';
 import NImages from './NImages';
 import FlatlistPerformance from './FlatlistPerformace';
 import AnimationPerformance from './AnimationPerformance';
-import {MainProps} from './Main';
 
 type RenderingContainerProps = {
   toRender: RENDERING_CONSTANTS | undefined;
-} & MainProps;
+}
 function RenderingContainer(props: RenderingContainerProps) {
-  const {toRender, itemsToRender} = props;
+  const {toRender} = props;
 
   let content;
 
   switch (toRender) {
-    case RENDERING_CONSTANTS.NViews:
-      content = <NViews itemsToRender={itemsToRender} />;
+    case RENDERING_CONSTANTS['1500View']:
+      content = <NViews itemsToRender={1500} tagName={RENDERING_CONSTANTS['1500View']} />;
       break;
-    case RENDERING_CONSTANTS.NTexts:
-      content = <NTexts itemsToRender={itemsToRender} />;
+    case RENDERING_CONSTANTS['1500Text']:
+      content = <NTexts itemsToRender={1500} tagName={RENDERING_CONSTANTS['1500Text']}/>;
       break;
-    case RENDERING_CONSTANTS.NImages:
-      content = <NImages itemsToRender={itemsToRender} />;
+    case RENDERING_CONSTANTS['1500Image']:
+        content = <NImages itemsToRender={1500} tagName={RENDERING_CONSTANTS['1500Image']}/>;
+        break;
+    case RENDERING_CONSTANTS['5000View']:
+      content = <NViews itemsToRender={5000} tagName={RENDERING_CONSTANTS['5000View']} />;
       break;
+    case RENDERING_CONSTANTS['5000Text']:
+      content = <NTexts itemsToRender={5000} tagName={RENDERING_CONSTANTS['5000Text']} />;
+      break;
+    case RENDERING_CONSTANTS['5000Image']:
+        content = <NImages itemsToRender={5000} tagName={RENDERING_CONSTANTS['5000Image']}/>;
+        break;
     case RENDERING_CONSTANTS.RENDER_FLATLIST:
-      content = <FlatlistPerformance itemsToRender={itemsToRender} />;
+      content = <FlatlistPerformance itemsToRender={1500} />;
       break;
     case RENDERING_CONSTANTS.RENDER_ANIMATIONS:
-      content = <AnimationPerformance itemsToRender={itemsToRender} />;
+      content = <AnimationPerformance itemsToRender={1500} />;
       break;
     case RENDERING_CONSTANTS.RESET_VIEW:
       content = <View style={styles.emptyView} testID="render_empty_view" />;

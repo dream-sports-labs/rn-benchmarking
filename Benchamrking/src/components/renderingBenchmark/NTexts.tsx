@@ -1,15 +1,14 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {RENDERING_CONSTANTS, TEST_ID_CONSTANTS} from '../../Constants';
-import PerformanceLoggerView from 'react-native-performance/js/RNPerformanceView';
-// import PerformanceLoggerView from 'rtn-performance/js/PerformanceLoggerViewNativeComponent';
-import {MainProps} from './Main';
+import PerformanceLoggerView from 'benchmarking-package/src/Component';
 
 type NTextsProps = {
   itemsToRender: number;
-} & MainProps;
+  tagName: RENDERING_CONSTANTS
+}
 
-function NTexts({itemsToRender}: NTextsProps) {
+function NTexts({itemsToRender, tagName}: NTextsProps) {
   const items = Array.from(Array(itemsToRender).keys()).map(x => (
     <Text
       key={x}
@@ -23,7 +22,7 @@ function NTexts({itemsToRender}: NTextsProps) {
   return (
     <View accessible={false}>
       {items}
-      <PerformanceLoggerView tagName={RENDERING_CONSTANTS.NTexts} />
+      <PerformanceLoggerView tagName={tagName} />
     </View>
   );
 }
