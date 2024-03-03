@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.source          = { :git => package["repository"], :tag => "#{s.version}" }
 
   s.source_files    = "ios/**/*.{h,m,mm,swift}"
-  install_modules_dependencies(s)
+  # install_modules_dependencies(s)
   s.dependency "React-Core"
 
     # if ENV['RCT_NEW_ARCH_ENABLED'] == '1' then
