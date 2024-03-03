@@ -1,3 +1,5 @@
+#ifndef RCT_NEW_ARCH_ENABLED
+
 #import "PerformanceLoggerView.h"
 #import "PerformanceLoggerStorage.h"
 
@@ -28,3 +30,5 @@
 }
 
 @end
+
+#endif

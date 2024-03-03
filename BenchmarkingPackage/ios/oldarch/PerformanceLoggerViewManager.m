@@ -1,3 +1,5 @@
+#ifndef RCT_NEW_ARCH_ENABLED
+
 #import "PerformanceLoggerViewManager.h"
 #import "PerformanceLoggerView.h"
 
@@ -12,3 +14,5 @@ RCT_EXPORT_VIEW_PROPERTY(tagName, NSString)
 }
 
 @end
+
+#endif

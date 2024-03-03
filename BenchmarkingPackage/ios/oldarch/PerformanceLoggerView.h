@@ -1,3 +1,4 @@
+#ifndef RCT_NEW_ARCH_ENABLED
 
 #import <UIKit/UIKit.h>
 
@@ -6,3 +7,5 @@
 @property (nonatomic, copy) NSString *tagName;
 
 @end
+
+#endif

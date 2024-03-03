@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PerformanceLoggerModuleImpl {
-    public static final String NAME = "PerformanceLogger";
+    public static final String NAME = "PerformanceLoggerModule";
 
     PerformanceLoggerStorage storage = new PerformanceLoggerStorage();
 

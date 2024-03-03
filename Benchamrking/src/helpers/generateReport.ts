@@ -3,8 +3,8 @@ import RNFS from "react-native-fs"
 import { IS_NEW_ARCHITECTURE_ENABLED, NEW_ARCHITECTURE_FILE_NAME, OLD_ARCHITECTURE_FILE_NAME, PAINT_END_TIME, PAINT_START_TIME } from "../Constants"
 import { GenerateHtmlTemplate, generateHtmlTemplate } from "./generateHtmlTemplate"
 
-export async function generateReport(logs: Record<string, Array<Record<string, number>>>) {
-    if (!Object.entries(logs).length) {
+export async function generateReport(logs: Record<string, Array<Record<string, number>>> | undefined) {
+    if (!logs || !Object.entries(logs).length) {
         return
     }
 

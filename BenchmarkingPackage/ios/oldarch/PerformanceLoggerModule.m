@@ -1,15 +1,17 @@
-#import "React/RCTBridgeModule.h"
+#ifndef RCT_NEW_ARCH_ENABLED
+
 #import "PerformanceLoggerStorage.h"
+#import "React/RCTBridgeModule.h"
 
-@interface PerformanceLoggerModule : NSObject <RCTBridgeModule>
+ @interface PerformanceLoggerModule : NSObject <RCTBridgeModule>
 
-@property (nonatomic, strong) PerformanceLoggerStorage *storage;
+ @property (nonatomic, strong) PerformanceLoggerStorage *storage;
 
-@end
+ @end
 
 @implementation PerformanceLoggerModule
 
-RCT_EXPORT_MODULE(PerformanceLogger)
+RCT_EXPORT_MODULE(PerformanceLoggerModule)
 
 - (instancetype)init {
     self = [super init];
@@ -37,3 +39,5 @@ RCT_EXPORT_METHOD(resetLogs) {
 }
 
 @end
+
+#endif

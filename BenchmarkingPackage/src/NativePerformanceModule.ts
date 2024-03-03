@@ -8,5 +8,5 @@ export interface Spec extends TurboModule {
 }
 
 export default TurboModuleRegistry.get<Spec>(
-    'PerformanceLogger'
+    'PerformanceLoggerModule'
 ) as Spec | null
