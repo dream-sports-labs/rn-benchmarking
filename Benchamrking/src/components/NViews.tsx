@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import PerformanceLoggerView from 'benchmarking-package/src/Component';
-import {RENDERING_CONSTANTS, TEST_ID_CONSTANTS} from '../../Constants';
+import {RENDERING_CONSTANTS, TEST_ID_CONSTANTS} from '../Constants';
 
 type NViewsProps = {
   itemsToRender: number;

@@ -1,23 +1,24 @@
 import { Platform } from "react-native"
 import RNFS from "react-native-fs"
 import { IS_NEW_ARCHITECTURE_ENABLED, NEW_ARCHITECTURE_FILE_NAME, OLD_ARCHITECTURE_FILE_NAME, PAINT_END_TIME, PAINT_START_TIME } from "../Constants"
-import { GenerateHtmlTemplate, generateHtmlTemplate } from "./generateHtmlTemplate"
 
 export async function generateReport(logs: Record<string, Array<Record<string, number>>> | undefined) {
     if (!logs || !Object.entries(logs).length) {
         return
     }
 
-    const labels = []
-    const dataForLables = []
+    const report: Record<string, any> = {
+        data: logs,
+        means: {},
+        labels: [],
+        dataForLabels: []
+    }
 
-    const reportParams: GenerateHtmlTemplate | any = {}
-
-    reportParams.heading = IS_NEW_ARCHITECTURE_ENABLED ? `${NEW_ARCHITECTURE_FILE_NAME}` : `${OLD_ARCHITECTURE_FILE_NAME}`
+    const fileName = IS_NEW_ARCHITECTURE_ENABLED ? `${NEW_ARCHITECTURE_FILE_NAME}` : `${OLD_ARCHITECTURE_FILE_NAME}`
 
     for (const key in logs) {
         const values = logs[key]
-        labels.push(`${key}`)
+        
         let mean = 0
         let sum = 0
 
@@ -28,20 +29,16 @@ export async function generateReport(logs: Record<string, Array<Record<string, n
         })
 
         mean = sum / values.length
-        reportParams[key] = mean
-        dataForLables.push(mean)
+        report.means[key] = mean
+        report.labels.push(`${key}`)
+        report.dataForLabels.push(mean)
+        
     }
-
-    reportParams.labels = labels
-    reportParams.dataForLables = dataForLables
-
-
-    const report = generateHtmlTemplate(reportParams)
 
     try {
         const directoryPath = Platform.OS === "android" ? RNFS.ExternalDirectoryPath : RNFS.DocumentDirectoryPath
-        const filePath = `${directoryPath}/${reportParams.heading}.html`
-        await RNFS.write(filePath, report)
+        const filePath = `${directoryPath}/${fileName}.json`
+        await RNFS.write(filePath, JSON.stringify(report))
         return true
     } catch(error) {
         console.log("An error occured while writing to file: ", error)

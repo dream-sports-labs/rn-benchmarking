@@ -1,9 +1,9 @@
 import React, {useRef, useState} from 'react';
 import {View, Button, StyleSheet, SafeAreaView} from 'react-native';
-import {RENDERING_CONSTANTS, TEST_ID_CONSTANTS} from '../../Constants';
+import {RENDERING_CONSTANTS, TEST_ID_CONSTANTS} from '../Constants';
 import RenderingContainer from './RenderingContainer';
 import PerformanceLogger from "benchmarking-package/src/Module"
-import { generateReport } from '../../helpers/generateReport';
+import { generateReport } from "../helpers/generateReport";
 
 function Main() {
   const [toRender, setToRender] = useState<RENDERING_CONSTANTS>();

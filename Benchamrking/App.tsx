@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import Main from './src/components/renderingBenchmark/Main';
+import Main from './src/components/Main';
 
 function App() {
 

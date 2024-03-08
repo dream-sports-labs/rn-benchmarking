@@ -1,6 +1,6 @@
 import React from 'react';
 import {FlatList, StyleSheet, View, Text} from 'react-native';
-import {TEST_ID_CONSTANTS} from '../../Constants';
+import {TEST_ID_CONSTANTS} from '../Constants';
 
 type ItemProps = {
   title: string;

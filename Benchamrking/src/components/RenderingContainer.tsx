@@ -1,5 +1,5 @@
 import React, {View, ScrollView, StyleSheet} from 'react-native';
-import {RENDERING_CONSTANTS} from '../../Constants';
+import {RENDERING_CONSTANTS} from '../Constants';
 import NViews from './NViews';
 import NTexts from './NTexts';
 import NImages from './NImages';
@@ -40,9 +40,10 @@ function RenderingContainer(props: RenderingContainerProps) {
       content = <AnimationPerformance itemsToRender={1500} />;
       break;
     case RENDERING_CONSTANTS.RESET_VIEW:
-      content = <View style={styles.emptyView} testID="render_empty_view" />;
+      content = <View style={styles.emptyView} testID="render_empty_view"></View>;
       break;
   }
+  
 
   if (
     toRender === RENDERING_CONSTANTS.RENDER_FLATLIST ||

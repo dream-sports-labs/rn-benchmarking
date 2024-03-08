@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from 'react';
 import {Animated, Easing, StyleSheet, View} from 'react-native';
-import {TEST_ID_CONSTANTS} from '../../Constants';
+import {TEST_ID_CONSTANTS} from '../Constants';
 
 type AnimationPerformanceProps = {
   itemsToRender: number;

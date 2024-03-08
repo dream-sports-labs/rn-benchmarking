@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Image, View} from 'react-native';
 import PerformanceLoggerView from 'benchmarking-package/src/Component';
-import {RENDERING_CONSTANTS, TEST_ID_CONSTANTS} from '../../Constants';
+import {RENDERING_CONSTANTS, TEST_ID_CONSTANTS} from '../Constants';
 
 type NImagesProps = {
   itemsToRender: number;
@@ -15,7 +15,7 @@ function NImages({itemsToRender, tagName}: NImagesProps) {
       testID={`${TEST_ID_CONSTANTS.IMAGE_CONTAINER}_${x}`}
       key={x}
       style={styles.image}
-      source={require('../../assets/Mumbai.jpeg')}
+      source={require('../assets/Mumbai.jpeg')}
       resizeMode="cover"
     />
   ));
