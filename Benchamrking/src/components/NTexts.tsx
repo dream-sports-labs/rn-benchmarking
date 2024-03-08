@@ -29,9 +29,6 @@ function NTexts({itemsToRender, tagName}: NTextsProps) {
 
 const styles = StyleSheet.create({
   text: {
-    color: '#0088a9',
-    fontSize: 20,
-    fontWeight: 'bold',
     textAlign: 'center',
   },
 });
