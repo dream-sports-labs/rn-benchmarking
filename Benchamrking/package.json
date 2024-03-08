@@ -9,7 +9,8 @@
     "start": "react-native start",
     "test": "jest",
     "get:numbers:android": "cd scripts/node && ts-node getNumbers.ts android com.benchamrking",
-    "get:numbers:ios": "cd scripts/node && ts-node getNumbers.ts ios com.benchamrking"
+    "get:numbers:ios": "cd scripts/node && ts-node getNumbers.ts ios com.benchamrking",
+    "get:flashlight:score": "cd scripts/node && ts-node getFlashlightScore com.benchamrking"
   },
   "dependencies": {
     "benchmarking-package": "../BenchmarkingPackage",
