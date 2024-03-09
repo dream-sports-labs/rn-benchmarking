@@ -1,0 +1,36 @@
+{
+    "name": "benchmarking-package",
+    "version": "0.0.1",
+    "description": "Showcase Turbomodule with backward compatibility",
+    "react-native": "src/index",
+    "source": "src/index",
+    "files": [
+        "src",
+        "android",
+        "ios",
+        "benchmarkingpackage.podspec",
+        "!android/build",
+        "!ios/build",
+        "!**/__tests__",
+        "!**/__fixtures__",
+        "!**/__mocks__"
+    ],
+    "keywords": ["react-native", "ios", "android"],
+    "repository": "https://github.com/dream11/rn-benchmarking",
+    "author": "Swapnil Mistry <swapnil.mistry@dream11.com@> (https://github.com/mistryswapnil-dream11)",
+    "license": "MIT",
+    "homepage": "https://github.com/dream11/rn-benchmarking#readme",
+    "devDependencies": {},
+    "peerDependencies": {
+        "react": "*",
+        "react-native": "*"
+    },
+    "codegenConfig": {
+        "name": "PerformanceLoggerSpec",
+        "type": "all",
+        "jsSrcsDir": "src",
+        "android": {
+            "javaPackageName": "com.benchmarkingpackage"
+        }
+    }
+}
