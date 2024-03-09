@@ -1,0 +1,280 @@
+{
+    "data": {
+      "5000Image": [
+        {
+          "PAINT_START_TIME": 1709968657159,
+          "PAINT_END_TIME": 1709968659024.456
+        },
+        {
+          "PAINT_START_TIME": 1709968662063,
+          "PAINT_END_TIME": 1709968663908.212
+        },
+        {
+          "PAINT_START_TIME": 1709968665772,
+          "PAINT_END_TIME": 1709968667637.004
+        },
+        {
+          "PAINT_START_TIME": 1709968669426,
+          "PAINT_END_TIME": 1709968671301.272
+        },
+        {
+          "PAINT_START_TIME": 1709968672913,
+          "PAINT_END_TIME": 1709968674786.7332
+        },
+        {
+          "PAINT_START_TIME": 1709968676133,
+          "PAINT_END_TIME": 1709968678002.3289
+        },
+        {
+          "PAINT_START_TIME": 1709968679701,
+          "PAINT_END_TIME": 1709968681573.2788
+        },
+        {
+          "PAINT_START_TIME": 1709968683172,
+          "PAINT_END_TIME": 1709968685059.15
+        },
+        {
+          "PAINT_START_TIME": 1709968687101,
+          "PAINT_END_TIME": 1709968688967.287
+        },
+        {
+          "PAINT_START_TIME": 1709968690547,
+          "PAINT_END_TIME": 1709968692416.0818
+        }
+      ],
+      "1500Text": [
+        {
+          "PAINT_START_TIME": 1709968563847,
+          "PAINT_END_TIME": 1709968564479.779
+        },
+        {
+          "PAINT_START_TIME": 1709968566605,
+          "PAINT_END_TIME": 1709968567216.933
+        },
+        {
+          "PAINT_START_TIME": 1709968569451,
+          "PAINT_END_TIME": 1709968570068.5781
+        },
+        {
+          "PAINT_START_TIME": 1709968572043,
+          "PAINT_END_TIME": 1709968572657.309
+        },
+        {
+          "PAINT_START_TIME": 1709968574435,
+          "PAINT_END_TIME": 1709968575043.408
+        },
+        {
+          "PAINT_START_TIME": 1709968576843,
+          "PAINT_END_TIME": 1709968577454.4512
+        },
+        {
+          "PAINT_START_TIME": 1709968579505,
+          "PAINT_END_TIME": 1709968580119.154
+        },
+        {
+          "PAINT_START_TIME": 1709968581751,
+          "PAINT_END_TIME": 1709968582362.313
+        },
+        {
+          "PAINT_START_TIME": 1709968584110,
+          "PAINT_END_TIME": 1709968584717.221
+        },
+        {
+          "PAINT_START_TIME": 1709968586330,
+          "PAINT_END_TIME": 1709968586940.182
+        }
+      ],
+      "1500Image": [
+        {
+          "PAINT_START_TIME": 1709968628905,
+          "PAINT_END_TIME": 1709968629535.707
+        },
+        {
+          "PAINT_START_TIME": 1709968631868,
+          "PAINT_END_TIME": 1709968632437.9392
+        },
+        {
+          "PAINT_START_TIME": 1709968634633,
+          "PAINT_END_TIME": 1709968635187.335
+        },
+        {
+          "PAINT_START_TIME": 1709968637526,
+          "PAINT_END_TIME": 1709968638090.101
+        },
+        {
+          "PAINT_START_TIME": 1709968640255,
+          "PAINT_END_TIME": 1709968640821.318
+        },
+        {
+          "PAINT_START_TIME": 1709968642797,
+          "PAINT_END_TIME": 1709968643362.767
+        },
+        {
+          "PAINT_START_TIME": 1709968645618,
+          "PAINT_END_TIME": 1709968646184.546
+        },
+        {
+          "PAINT_START_TIME": 1709968648397,
+          "PAINT_END_TIME": 1709968648957.4229
+        },
+        {
+          "PAINT_START_TIME": 1709968651009,
+          "PAINT_END_TIME": 1709968651574.4219
+        },
+        {
+          "PAINT_START_TIME": 1709968653605,
+          "PAINT_END_TIME": 1709968654170.656
+        }
+      ],
+      "1500View": [
+        {
+          "PAINT_START_TIME": 1709968491641,
+          "PAINT_END_TIME": 1709968491858.15
+        },
+        {
+          "PAINT_START_TIME": 1709968493962,
+          "PAINT_END_TIME": 1709968494164.097
+        },
+        {
+          "PAINT_START_TIME": 1709968497284,
+          "PAINT_END_TIME": 1709968497483.0698
+        },
+        {
+          "PAINT_START_TIME": 1709968502734,
+          "PAINT_END_TIME": 1709968502934.112
+        },
+        {
+          "PAINT_START_TIME": 1709968506925,
+          "PAINT_END_TIME": 1709968507124.256
+        },
+        {
+          "PAINT_START_TIME": 1709968511237,
+          "PAINT_END_TIME": 1709968511442.905
+        },
+        {
+          "PAINT_START_TIME": 1709968515317,
+          "PAINT_END_TIME": 1709968515516.7861
+        },
+        {
+          "PAINT_START_TIME": 1709968519404,
+          "PAINT_END_TIME": 1709968519603.228
+        },
+        {
+          "PAINT_START_TIME": 1709968522988,
+          "PAINT_END_TIME": 1709968523187.773
+        },
+        {
+          "PAINT_START_TIME": 1709968526612,
+          "PAINT_END_TIME": 1709968526812.9548
+        }
+      ],
+      "5000Text": [
+        {
+          "PAINT_START_TIME": 1709968590680,
+          "PAINT_END_TIME": 1709968592680.165
+        },
+        {
+          "PAINT_START_TIME": 1709968595630,
+          "PAINT_END_TIME": 1709968597607.833
+        },
+        {
+          "PAINT_START_TIME": 1709968599068,
+          "PAINT_END_TIME": 1709968601058.5762
+        },
+        {
+          "PAINT_START_TIME": 1709968602481,
+          "PAINT_END_TIME": 1709968604498.532
+        },
+        {
+          "PAINT_START_TIME": 1709968605959,
+          "PAINT_END_TIME": 1709968607965.279
+        },
+        {
+          "PAINT_START_TIME": 1709968609589,
+          "PAINT_END_TIME": 1709968611585.9128
+        },
+        {
+          "PAINT_START_TIME": 1709968613260,
+          "PAINT_END_TIME": 1709968615264.044
+        },
+        {
+          "PAINT_START_TIME": 1709968616839,
+          "PAINT_END_TIME": 1709968618993.5042
+        },
+        {
+          "PAINT_START_TIME": 1709968620789,
+          "PAINT_END_TIME": 1709968622776.6162
+        },
+        {
+          "PAINT_START_TIME": 1709968624213,
+          "PAINT_END_TIME": 1709968626210.857
+        }
+      ],
+      "5000View": [
+        {
+          "PAINT_START_TIME": 1709968535025,
+          "PAINT_END_TIME": 1709968535647.842
+        },
+        {
+          "PAINT_START_TIME": 1709968537963,
+          "PAINT_END_TIME": 1709968538593.292
+        },
+        {
+          "PAINT_START_TIME": 1709968541055,
+          "PAINT_END_TIME": 1709968541681.885
+        },
+        {
+          "PAINT_START_TIME": 1709968543780,
+          "PAINT_END_TIME": 1709968544408.222
+        },
+        {
+          "PAINT_START_TIME": 1709968546582,
+          "PAINT_END_TIME": 1709968547189.4788
+        },
+        {
+          "PAINT_START_TIME": 1709968549468,
+          "PAINT_END_TIME": 1709968550104.096
+        },
+        {
+          "PAINT_START_TIME": 1709968552355,
+          "PAINT_END_TIME": 1709968552979.204
+        },
+        {
+          "PAINT_START_TIME": 1709968555043,
+          "PAINT_END_TIME": 1709968555667.171
+        },
+        {
+          "PAINT_START_TIME": 1709968557722,
+          "PAINT_END_TIME": 1709968558344.3809
+        },
+        {
+          "PAINT_START_TIME": 1709968560397,
+          "PAINT_END_TIME": 1709968561028.8958
+        }
+      ]
+    },
+    "means": {
+      "5000Image": 1.8688803466796877,
+      "1500Text": 0.6139328369140625,
+      "1500Image": 0.5709214111328124,
+      "1500View": 0.2016797096946023,
+      "5000Text": 2.01333193359375,
+      "5000View": 0.625446728515625
+    },
+    "labels": [
+      "5000Image",
+      "1500Text",
+      "1500Image",
+      "1500View",
+      "5000Text",
+      "5000View"
+    ],
+    "dataForLabels": [
+      1.8688803466796877,
+      0.6139328369140625,
+      0.5709214111328124,
+      0.2016797096946023,
+      2.01333193359375,
+      0.625446728515625
+    ]
+  }
