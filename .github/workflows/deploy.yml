@@ -1,0 +1,14 @@
+name: Deploy React Native Versions
+on: [push]
+permissions: 
+  contents: write
+jobs:
+  deploy-react-native-page:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: .
