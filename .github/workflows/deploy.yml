@@ -1,5 +1,10 @@
-name: Deploy React Native Versions
-on: [push]
+# https://github.com/marketplace/actions/deploy-to-github-pages
+
+name: Deploy React Native Benchmarking Versions
+on:
+  push:
+    branches:
+      - main
 permissions: 
   contents: write
 jobs:
