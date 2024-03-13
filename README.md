@@ -83,14 +83,25 @@ yarn install
 3. This scripts will help getting numbers for time taken to render N views, texts, images component and flashlight score for spin animations of N views.
 5. Run the following to get rendering time of N views, texts, images (tested on Android emulator & iOS Simulator):
    ```
-    yarn get:numbers:android <IterationCount>
-    // Example: yarn get:numbers:android 10
-    yarn get:numbers:ios <IterationCount>
-    // Example: yarn get:numbers:ios 10
+    yarn get:numbers:android <ITERATION_COUNT>
+    /* Example: yarn get:numbers:android 10 */
+    yarn get:numbers:ios <ITERATION_COUNT>
+    /* Example: yarn get:numbers:ios 10 */
    ```
 6. Run the following command to get flashlight score (supported only on Android):
    ```
-   yarn get:flashlight:score
+   yarn get:flashlight:score <ITERATION_COUNT>
+   /* Example: yarn get:flashlight:score 10 
+      Defaults to 1 iteration 
+   */
    ```
-
-> NOTE: 1. Benchmarking numbers can be found at same locations for respective platform's as specfied above. 2. Flashlight report can be found under **Reports** directory with name **flashlightscore.json**.
+ 7. Check flashlight score by running:
+    ```
+    flashlight report <PATH_TO_FLASHLIGHT_REPORT> 
+    /* Example: flashlight report ../Reports/0.73.5/android/flashlightscore.json (assuming you are inside Benchamrking/ directory) */
+```
+NOTE: 
+1. After running automation scripts the benchmarking numbers can be found under Reports/ 
+2. So, if we are benchmarking for react-native version 0.73.5 the rendering benchmarking numbers will be found under Reports/0.73.5/android for android & Reports/0.73.5/ios for iOS for both architecture
+3. Since flashlight is only supported on android the flashlight score can be found under Reports/<react-native-version>/android
+```
