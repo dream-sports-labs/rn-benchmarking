@@ -105,3 +105,8 @@ NOTE:
 2. So, if we are benchmarking for react-native version 0.73.5 the rendering benchmarking numbers will be found under Reports/0.73.5/android for android & Reports/0.73.5/ios for iOS for both architecture
 3. Since flashlight is only supported on android the flashlight score can be found under Reports/<react-native-version>/android
 ```
+
+References:
+1. https://github.com/react-native-community/RNNewArchitectureLibraries?tab=readme-ov-file
+2. https://github.com/reactwg/react-native-new-architecture/discussions/123
+3. https://github.com/react-native-community/RNNewArchitectureApp/tree/new-architecture-benchmarks
