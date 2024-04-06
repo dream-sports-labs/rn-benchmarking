@@ -133,6 +133,5 @@ NOTE:
 
 ---
 ## Demo:
-
-<video src="./Demo/RNBenchmarking.mp4" type="video/mp4" controls>
-</video>
+Instrested in taking a look at the demonstration!
+You can view or download the video from [here](./Demo/RNBenchmarking.mp4).
