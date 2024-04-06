@@ -2,6 +2,21 @@
 
 This repository can be used for benchmarking react-native versions for old and new architecture on sample app.
 
+## Table of Contents
+
+- [Prerequisite](#prerequisite)
+- [Setup](#Setup)
+  - [Benchmarking Old Architecture](#benchmarking-old-architecture)
+      - [Android](#android)
+      - [iOS](#iOS)
+  - [Benchmarking New Architecture](#benchmarking-new-architecture)
+      - [Android](#android)
+      - [iOS](#iOS)
+  - [Automation](#automation)
+  - [Motivation & References](#motivation--references)
+  - [Webpage](#webpage)
+  - [Demo](#demo)
+
 ## Prerequisite
 
 1. [React Native Environment Setup](https://reactnative.dev/docs/next/environment-setup)
@@ -99,14 +114,25 @@ yarn install
     ```
     flashlight report <PATH_TO_FLASHLIGHT_REPORT> 
     /* Example: flashlight report ../Reports/0.73.5/android/flashlightscore.json (assuming you are inside Benchamrking/ directory) */
-```
-NOTE: 
-1. After running automation scripts the benchmarking numbers can be found under Reports/ 
-2. So, if we are benchmarking for react-native version 0.73.5 the rendering benchmarking numbers will be found under Reports/0.73.5/android for android & Reports/0.73.5/ios for iOS for both architecture
-3. Since flashlight is only supported on android the flashlight score can be found under Reports/<react-native-version>/android
-```
 
-References:
+NOTE: 
+1. After running automation scripts the benchmarking numbers can be found under **Reports** directory. 
+2. So, if we are benchmarking for react-native version 0.73.5 the rendering benchmarking numbers will be found under **Reports/0.73.5/android** for android & **Reports/0.73.5/ios** for iOS for both architecture
+3. Since flashlight is only supported on android the flashlight score can be found under **Reports/react-native-version/android**
+
+---
+## Motivation & References:
 1. https://github.com/react-native-community/RNNewArchitectureLibraries?tab=readme-ov-file
 2. https://github.com/reactwg/react-native-new-architecture/discussions/123
 3. https://github.com/react-native-community/RNNewArchitectureApp/tree/new-architecture-benchmarks
+
+---
+## Webpage:
+1. The repository has a simple webpage build to compare performance of different react-native versions for rendering N views, texts & images.
+2. Please head to https://ideal-invention-lner9k7.pages.github.io/Webpage/index.html to compare the benchmarking numbers.
+
+---
+## Demo:
+
+<video src="./Demo/RNBenchmarking.mp4" type="video/mp4" controls>
+</video>
