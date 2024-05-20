@@ -30,10 +30,19 @@ If you encounter any bugs or issues while using the benchmarking tools or analyz
 
 ### Submitting Pull Requests
 
-If you'd like to contribute code to the project by fixing the existing issues or by adding a new feature, you can do so by [submitting a pull request](https://github.com/dream11/rn-benchmarking/pulls). When raising the pull request, please provide the following information if possible:
+If you'd like to contribute code to the project by fixing existing issues or adding new features, you can do so by submitting a pull request. Please follow these steps to ensure a smooth contribution process:
 
-- A detailed description of the fix / feature
-- How can it improve current working
+**Fork the Repository:** Start by forking the repository to your own GitHub account.
+
+**Validate Changes Locally:** Clone your forked repository and make the necessary changes. Validate your changes locally to ensure they work as intended.
+
+**Create a Pull Request:** Once you've validated your changes, create a pull request from your forked repository to the original repository. Submitted pull request can be found [here](https://github.com/dream11/rn-benchmarking/pulls).
+
+When raising the pull request, please provide the following information if possible:
+- A detailed description of the fix/feature.
+- How the fix/feature can improve current functionality.
+
+Please note that we do not allow creating pull requests directly from the original repository. Always create pull requests from your forked repository.
 
 ### Adding benchmarking for new react-native versions
  
