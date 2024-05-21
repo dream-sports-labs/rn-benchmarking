@@ -58,7 +58,7 @@ yarn install
    ```
    open $(xcrun simctl get_app_container booted com.benchamrking data)
    ```
-6. After running the above benchamrking numbers can be found under **Documents/oldarch.json**.
+6. After running the above benchmarking numbers can be found under **Documents/oldarch.json**.
 
 ---
 
@@ -87,7 +87,7 @@ yarn install
    ```
    open $(xcrun simctl get_app_container booted com.benchamrking data)
    ```
-6. After running the above benchamrking numbers can be found under **Documents/newarch.json**.
+6. After running the above benchmarking numbers can be found under **Documents/newarch.json**.
 
 ---
 
