@@ -40,7 +40,7 @@ yarn install
 1. Before running benchmarking on old architecture we need to make sure it's enabled.
 2. Open android/gradle.properties and make sure **newArchEnabled** is set to **false**.
 3. Run app using `yarn android`.
-4. The benchamrking numbers can be found under **ExternalDirectoryPath** of emulator storage.
+4. The benchmarking numbers can be found under **ExternalDirectoryPath** of emulator storage.
 5. The path will be **/storage/emulated/0/Android/data/com.benchamrking/files/oldarch.json**
 
 ### iOS:
@@ -66,15 +66,15 @@ yarn install
 
 ### Android:
 
-1. Before running benchmarking on old architecture we need to make sure it's enabled.
+1. Before running benchmarking on new architecture we need to make sure it's enabled.
 2. Open android/gradle.properties and make sure **newArchEnabled** is set to **true**.
 3. Run app using `yarn android`.
-4. The benchamrking numbers can be found under **ExternalDirectoryPath** of emulator storage.
+4. The benchmarking numbers can be found under **ExternalDirectoryPath** of emulator storage.
 5. The path will be **/storage/emulated/0/Android/data/com.benchamrking/files/newarch.json**
 
 ### iOS:
 
-1. Before running benchmarking on old architecture we need to make sure it's enabled.
+1. Before running benchmarking on new architecture we need to make sure it's enabled.
 2. Run the following command to enable old architecture.
    ```
    cd ios
