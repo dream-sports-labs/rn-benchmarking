@@ -129,7 +129,7 @@ NOTE:
 ---
 ## Webpage:
 1. The repository has a simple webpage build to compare performance of different react-native versions for rendering N views, texts & images.
-2. Please head to https://ideal-invention-lner9k7.pages.github.io/Webpage/index.html to compare the benchmarking numbers.
+2. Please head to https://dream11.github.io/rn-benchmarking/Webpage/index.html to compare the benchmarking numbers.
 
 ## Contribution:
 See [CONTRIBUTION.md](./CONTRIBUTION.md) to learn how to contribute to the repository and the development workflow.
@@ -140,4 +140,4 @@ See [LICENSE](./LICENSE) to understand more about terms and conditions.
 ---
 ## Demo:
 Instrested in taking a look at the demonstration!
-You can view or download the video from [here](https://ideal-invention-lner9k7.pages.github.io/Demo/RNBenchmarking.mp4).
+You can view or download the video from [here](./Demo/RNBenchmarking.mp4).
