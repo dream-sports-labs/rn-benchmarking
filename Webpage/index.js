@@ -1,4 +1,15 @@
 
+
+const {origin, protocol, host, href} = window.document.location
+
+const isLocalHost = origin.includes("127.0.0.1") || origin.includes('localhost')
+
+const reportsPathSuffix = '/Reports/'
+const reportsPath =  isLocalHost ? `${origin}${reportsPathSuffix}` : `${origin}${reportsPathSuffix}`
+
+const supportedVersionsPathSuffix = '/Webpage/supportedVersions.json'
+const  supportedVersionsPath = isLocalHost ? `${origin}${supportedVersionsPathSuffix}` : `${href}${supportedVersionsPathSuffix}`
+
 fetchSupportedVersions().then((data) => {
     const versionsContainer = document.getElementById('version-container')
 
@@ -39,7 +50,7 @@ fetchSupportedVersions().then((data) => {
 })
 
 function fetchSupportedVersions() {
-    return fetch("./supportedVersions.json")
+    return fetch(supportedVersionsPath)
     .then((response) => response.json())
 }
 
@@ -90,7 +101,7 @@ function injectDataViews(id, heading, labels, dataLabels, chartsContainer) {
 function generateReport() {
     const promises = []
     const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-    checkboxes.forEach((checkbox) => promises.push(fetchBenchmarkingData(checkbox.value, `../../Reports/${checkbox.value}.json`)))
+    checkboxes.forEach((checkbox) => promises.push(fetchBenchmarkingData(checkbox.value, `${reportsPath}${checkbox.value}.json`)))
 
     const charts = document.getElementById("charts-container")
 
