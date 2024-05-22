@@ -129,7 +129,7 @@ NOTE:
 ---
 ## Webpage:
 1. The repository has a simple webpage build to compare performance of different react-native versions for rendering N views, texts & images.
-2. Please head to https://dream11.github.io/rn-benchmarking/Webpage/index.html to compare the benchmarking numbers.
+2. Please head to [https://dream11.github.io/rn-benchmarking/Webpage/index.html](https://dream11.github.io/rn-benchmarking/Webpage/index.html) to compare the benchmarking numbers.
 
 ## Contribution:
 See [CONTRIBUTION.md](./CONTRIBUTION.md) to learn how to contribute to the repository and the development workflow.
