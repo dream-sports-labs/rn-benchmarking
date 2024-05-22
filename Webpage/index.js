@@ -4,11 +4,11 @@ const {origin, protocol, host, href} = window.document.location
 
 const isLocalHost = origin.includes("127.0.0.1") || origin.includes('localhost')
 
-const reportsPathSuffix = '/Reports/'
-const reportsPath =  isLocalHost ? `${origin}${reportsPathSuffix}` : `${origin}${reportsPathSuffix}`
+const reportsPathSuffix = 'Reports/'
+const reportsPath =  isLocalHost ? `${origin}/${reportsPathSuffix}` : `${origin}/rn-benchmarking/${reportsPathSuffix}`
 
-const supportedVersionsPathSuffix = '/Webpage/supportedVersions.json'
-const  supportedVersionsPath = isLocalHost ? `${origin}${supportedVersionsPathSuffix}` : `${href}${supportedVersionsPathSuffix}`
+const supportedVersionsPathSuffix = 'Webpage/supportedVersions.json'
+const  supportedVersionsPath = isLocalHost ? `${origin}/${supportedVersionsPathSuffix}` : `${origin}/rn-benchmarking/${supportedVersionsPathSuffix}`
 
 fetchSupportedVersions().then((data) => {
     const versionsContainer = document.getElementById('version-container')
