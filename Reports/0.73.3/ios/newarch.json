@@ -1,0 +1,96 @@
+{
+  "data": {
+    "1500View": [
+      {
+        "PAINT_START_TIME": 1722262779636,
+        "PAINT_END_TIME": 1722262779886.529
+      },
+      {
+        "PAINT_START_TIME": 1722262781052,
+        "PAINT_END_TIME": 1722262781277.891
+      },
+      {
+        "PAINT_START_TIME": 1722262782418,
+        "PAINT_END_TIME": 1722262782642.9749
+      },
+      {
+        "PAINT_START_TIME": 1722262785476,
+        "PAINT_END_TIME": 1722262785705.587
+      },
+      {
+        "PAINT_START_TIME": 1722262787566,
+        "PAINT_END_TIME": 1722262787786.864
+      },
+      {
+        "PAINT_START_TIME": 1722262790156,
+        "PAINT_END_TIME": 1722262790378.423
+      },
+      {
+        "PAINT_START_TIME": 1722262791681,
+        "PAINT_END_TIME": 1722262791896.2998
+      },
+      {
+        "PAINT_START_TIME": 1722262793110,
+        "PAINT_END_TIME": 1722262793338.772
+      },
+      {
+        "PAINT_START_TIME": 1722262794414,
+        "PAINT_END_TIME": 1722262794631.1409
+      }
+    ],
+    "1500Text": [
+      {
+        "PAINT_START_TIME": 1722262803384,
+        "PAINT_END_TIME": 1722262804191.72
+      },
+      {
+        "PAINT_START_TIME": 1722262805253,
+        "PAINT_END_TIME": 1722262806021.074
+      },
+      {
+        "PAINT_START_TIME": 1722262807607,
+        "PAINT_END_TIME": 1722262808371.9138
+      },
+      {
+        "PAINT_START_TIME": 1722262809810,
+        "PAINT_END_TIME": 1722262810565.229
+      },
+      {
+        "PAINT_START_TIME": 1722262812400,
+        "PAINT_END_TIME": 1722262813166.548
+      },
+      {
+        "PAINT_START_TIME": 1722262814610,
+        "PAINT_END_TIME": 1722262815364.9731
+      },
+      {
+        "PAINT_START_TIME": 1722262816895,
+        "PAINT_END_TIME": 1722262817654.621
+      },
+      {
+        "PAINT_START_TIME": 1722262823132,
+        "PAINT_END_TIME": 1722262823869.053
+      },
+      {
+        "PAINT_START_TIME": 1722262829120,
+        "PAINT_END_TIME": 1722262829865.8372
+      },
+      {
+        "PAINT_START_TIME": 1722262837169,
+        "PAINT_END_TIME": 1722262837922.2268
+      }
+    ]
+  },
+  "means": {
+    "1500View": 0.22616463216145835,
+    "1500Text": 0.7613196044921875
+  },
+  "labels": [
+    "1500View",
+    "1500Text"
+  ],
+  "dataForLabels": [
+    0.22616463216145835,
+    0.7613196044921875
+  ]
+}
