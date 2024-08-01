@@ -27,5 +27,7 @@ jobs:
           cd ${{ github.workspace }}/WebpageRevamped
           yarn install
           yarn deploy
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN}}
 
 
