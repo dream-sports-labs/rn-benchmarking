@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <div className={'HeaderContainer'}>
       <img src={favicon} alt={'Dream11 Logo'} width={20} height={20} />
-      <div className={'HeaderTitle'}>React Native Benchmarking</div>
+      <div className={'HeaderTitle'}>React Native Benchmarking 123</div>
     </div>
   )
 }
