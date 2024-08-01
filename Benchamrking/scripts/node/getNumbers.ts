@@ -30,8 +30,8 @@ const stdio = {
   stdio: 'inherit',
 };
 
-const rootDirectoryPath = '../../../benchmark-website/src/Reports';
-const supportedVersionDirectoryPath = '../../../benchmark-website/src';
+const rootDirectoryPath = '../../../WebpageRevamped/src/Reports';
+const supportedVersionDirectoryPath = '../../../WebpageRevamped/src';
 
 const reportsDirectoryPath = `${rootDirectoryPath}/${packageJson.dependencies['react-native']}`;
 const supportedVersionsJsonPath = `${supportedVersionDirectoryPath}/supportedVersions.json`;
