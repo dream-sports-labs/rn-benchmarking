@@ -1,3 +1,4 @@
+
 # https://github.com/marketplace/actions/deploy-to-github-pages
 
 name: Deploy React App
@@ -18,14 +19,17 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20' # Adjust to your Node.js version
+          node-version: '20'
 
-      - name: Deploy react app
+      - name: Navigate to project directory and install dependencies
         run: |
-          system('git config --global user.email "poonam.jain@dream11.com")
-           system('git config --global user.name "poonamjain96")
           cd ${{ github.workspace }}/WebpageRevamped
           yarn install
-          yarn deploy
+          yarn run build
 
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: ${{ github.workspace }}/WebpageRevamped/build
 
