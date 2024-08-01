@@ -22,8 +22,8 @@ jobs:
 
       - name: Deploy react app
         run: |
-          git config --global user.name "poonamjain96"
-          git config --global user.email "poonam.jain@dream11.com"
+          system('git config --global user.email "poonam.jain@dream11.com")
+           system('git config --global user.name "poonamjain96")
           cd ${{ github.workspace }}/WebpageRevamped
           yarn install
           yarn deploy
