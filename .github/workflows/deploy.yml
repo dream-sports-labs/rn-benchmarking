@@ -18,20 +18,17 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '14' # Adjust to your Node.js version
+          node-version: '20' # Adjust to your Node.js version
 
       - name: Navigate to project directory and install dependencies
         run: |
-          cd WebpageRevamped
-          npm install
-          npm run build
-          # or with Yarn
-          # yarn install
-          # yarn build
+          cd ${{ github.workspace }}/WebpageRevamped
+          yarn install
+          yarn run build
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: WebpageRevamped/build
+          folder: ${{ github.workspace }}/WebpageRevamped/build
 
