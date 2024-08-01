@@ -20,15 +20,10 @@ jobs:
         with:
           node-version: '20' # Adjust to your Node.js version
 
-      - name: Navigate to project directory and install dependencies
+      - name: Deploy react app
         run: |
           cd ${{ github.workspace }}/WebpageRevamped
           yarn install
-          yarn run build
+          yarn deploy
 
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          branch: gh-pages
-          folder: ${{ github.workspace }}/WebpageRevamped/build
 
