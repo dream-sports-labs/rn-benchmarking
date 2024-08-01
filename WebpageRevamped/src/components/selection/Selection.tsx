@@ -47,7 +47,7 @@ const Selection = (props: SelectionProps) => {
   const handleGenerateReport = async () => {
     const response = selectedOptions.map((value) => Reports[value])
     const labels: string[] = []
-    selectedOptions.map((label) => {
+    selectedOptions.forEach((label) => {
       labels.push(label)
     })
     const fifteenHundredViewDataLabels: number[] = []
