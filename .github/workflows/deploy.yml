@@ -15,9 +15,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Build
         run: |
-          echo ${{ github.workspace }}
-          ls
-          cd ../../WebpageRevamped
+          cd ${{ github.workspace }}/WebpageRevamped
           yarn install
           yarn run build
       - name: Deploy
