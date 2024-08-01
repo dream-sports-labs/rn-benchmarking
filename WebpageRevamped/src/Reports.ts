@@ -32,6 +32,7 @@ export const Reports: ReportsType = {
   "0.73.6/ios/oldarch": require('./Reports/0.73.6/ios/oldarch.json'),
   "0.73.7/android/newarch": require('./Reports/0.73.7/android/newarch.json'),
   "0.73.7/android/oldarch": require('./Reports/0.73.7/android/oldarch.json'),
+  "0.73.7/ios/newarch": require('./Reports/0.73.7/ios/newarch.json'),
   "0.73.7/ios/oldarch": require('./Reports/0.73.7/ios/oldarch.json'),
   "0.73.8/android/newarch": require('./Reports/0.73.8/android/newarch.json'),
   "0.73.8/android/oldarch": require('./Reports/0.73.8/android/oldarch.json'),
