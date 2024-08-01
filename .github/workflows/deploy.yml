@@ -4,8 +4,8 @@ name: Deploy React Native Benchmarking Versions
 on:
   push:
     branches:
-      - main
-permissions: 
+      - feat/generate-report-0.73
+permissions:
   contents: write
 jobs:
   deploy-react-native-page:
@@ -13,6 +13,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Build
+        run: |
+          cd ../../WebpageRevamped
+          yarn install
+          yarn run build
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
