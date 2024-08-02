@@ -23,6 +23,8 @@ jobs:
 
       - name: Navigate to project directory and install dependencies
         run: |
+          git config user.email "poonam.jain@dream11.com"
+          git config user.name "poonamjain96"
           cd ${{ github.workspace }}/WebpageRevamped
           yarn install
           yarn run build
