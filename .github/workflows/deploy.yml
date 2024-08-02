@@ -13,6 +13,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Deploy react app
+        run: |
+          git config --global user.email "swapnil.mistry@dream11.com"
+          git config --global user.name "mistryswapnil-dream11"
+          
       - name: Checkout code
         uses: actions/checkout@v3
 
@@ -23,8 +28,6 @@ jobs:
 
       - name: Deploy react app
         run: |
-          git config user.email "poonam.jain@dream11.com"
-          git config user.name "poonamjain96"
           cd ${{ github.workspace }}/WebpageRevamped
           yarn install
           yarn deploy
