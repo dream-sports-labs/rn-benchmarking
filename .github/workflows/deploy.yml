@@ -17,7 +17,7 @@ jobs:
         run: |
           git config --global user.email "swapnil.mistry@dream11.com"
           git config --global user.name "mistryswapnil-dream11"
-          
+
       - name: Checkout code
         uses: actions/checkout@v3
 
@@ -31,4 +31,7 @@ jobs:
           cd ${{ github.workspace }}/WebpageRevamped
           yarn install
           yarn build
-          npx gh-pages -d build -u "mistryswapnil-dream11 <swapnil.mistry@dream11.com>"
+          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/https://github.com/dream-sports-labs/rn-benchmarking.git
+          npx gh-pages -d build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
