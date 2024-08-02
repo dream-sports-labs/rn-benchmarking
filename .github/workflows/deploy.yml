@@ -1,19 +1,19 @@
-
 # https://github.com/marketplace/actions/deploy-to-github-pages
 
-name: Deploy React App
-
+name: Deploy React Native Benchmarking Versions
 on:
   push:
     branches:
       - feat/generate-report-0.73
 
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
+permissions:
+  contents: write
 
+jobs:
+  deploy-react-native-page:
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v3
 
       - name: Set up Node.js
@@ -21,13 +21,14 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Deploy react app
+      - name: Build
+        working-directory: WebpageRevamped
         run: |
-          cd ${{ github.workspace }}/WebpageRevamped
           yarn install
-          yarn run build
-      - name: Deploy to GitHub Pages
+          yarn build
+
+      - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
+          folder: ./WebpageRevamped/build
           branch: gh-pages
-          folder: ${{ github.workspace }}/WebpageRevamped/build
