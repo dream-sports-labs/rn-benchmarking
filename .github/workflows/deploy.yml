@@ -1,24 +1,20 @@
-
 # https://github.com/marketplace/actions/deploy-to-github-pages
 
-name: Deploy React App
-
+name: Deploy React Native Benchmarking Versions
 on:
   push:
     branches:
       - feat/generate-report-0.73
 
+permissions:
+  contents: write
+
 jobs:
-  build-and-deploy:
+  deploy-react-native-page:
     runs-on: ubuntu-latest
-
+    working-directory: WebpageRevamped
     steps:
-      - name: Deploy react app
-        run: |
-          git config --global user.email "swapnil.mistry@dream11.com"
-          git config --global user.name "mistryswapnil-dream11"
-
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v3
 
       - name: Set up Node.js
@@ -26,12 +22,13 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Deploy react app
+      - name: Build
         run: |
-          cd ${{ github.workspace }}/WebpageRevamped
           yarn install
           yarn build
-          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/https://github.com/dream-sports-labs/rn-benchmarking.git
-          npx gh-pages -d build -u "mistryswapnil-dream11 <swapnil.mistry@dream11.com>"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: build
+          branch: gh-pages
