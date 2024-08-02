@@ -12,7 +12,6 @@ permissions:
 jobs:
   deploy-react-native-page:
     runs-on: ubuntu-latest
-    working-directory: WebpageRevamped
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -23,11 +22,13 @@ jobs:
           node-version: '20'
 
       - name: Build
+        working-directory: WebpageRevamped
         run: |
           yarn install
           yarn build
 
       - name: Deploy
+        working-directory: WebpageRevamped
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: build
