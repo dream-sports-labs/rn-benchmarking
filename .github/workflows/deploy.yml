@@ -30,4 +30,5 @@ jobs:
         run: |
           cd ${{ github.workspace }}/WebpageRevamped
           yarn install
-          yarn deploy
+          yarn build
+          npx gh-pages -d build -u "mistryswapnil-dream11 <swapnil.mistry@dream11.com>"
