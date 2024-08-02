@@ -21,15 +21,10 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Navigate to project directory and install dependencies
+      - name: Deploy react app
         run: |
+          git config user.email "poonam.jain@dream11.com"
+          git config user.name "poonamjain96"
           cd ${{ github.workspace }}/WebpageRevamped
           yarn install
-          yarn run build
-
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          branch: gh-pages
-          folder: ${{ github.workspace }}/WebpageRevamped/build
-
+          yarn deploy
