@@ -28,8 +28,7 @@ jobs:
           yarn build
 
       - name: Deploy
-        working-directory: WebpageRevamped
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: build
+          folder: ./WebpageRevamped/build
           branch: gh-pages
