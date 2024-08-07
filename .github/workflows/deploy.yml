@@ -2,7 +2,7 @@
 
 name: Deploy React Native Benchmarking Versions
 on:
-  push:
+  workflow_dispatch:
     branches:
       - main
 
