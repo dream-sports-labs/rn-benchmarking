@@ -4,7 +4,7 @@ name: Deploy React Native Benchmarking Versions
 on:
   push:
     branches:
-      - feat/generate-report-0.73
+      - main
 
 permissions:
   contents: write
