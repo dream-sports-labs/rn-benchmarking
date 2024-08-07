@@ -1,0 +1,16 @@
+.MainContainer{
+    overflow-x: hidden;
+    width: 100vw;
+    height: 100%;
+    overflow-y: hidden;
+}
+
+.HomeContainer {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: row;
+    overflow-y: hidden;
+    background-color: #EBF5FF;
+}
+
