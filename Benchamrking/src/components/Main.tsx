@@ -2,8 +2,8 @@ import React, {useRef, useState} from 'react';
 import {View, Button, StyleSheet, SafeAreaView} from 'react-native';
 import {RENDERING_CONSTANTS, TEST_ID_CONSTANTS} from '../Constants';
 import RenderingContainer from './RenderingContainer';
-import PerformanceLogger from "benchmarking-package/src/Module"
-import { generateReport } from "../helpers/generateReport";
+import PerformanceLogger from 'benchmarking-package/src/Module';
+import {generateReport} from '../helpers/generateReport';
 
 function Main() {
   const [toRender, setToRender] = useState<RENDERING_CONSTANTS>();
@@ -18,20 +18,20 @@ function Main() {
     ) {
       PerformanceLogger?.logStartTime(toRender.toString(), timeStamp);
     }
-    
+
     renderedItem.current = toRender;
     setToRender(toRender);
   };
 
   const getLogs = async () => {
-      const logs = await PerformanceLogger?.getLogs();
-      // console.log(logs)
-      const response = await generateReport(logs)
-      if (response) {
-        console.log("Report generated successfully.")
-        return
-      }
-  }
+    const logs = await PerformanceLogger?.getLogs();
+    // console.log(logs)
+    const response = await generateReport(logs);
+    if (response) {
+      console.log('Report generated successfully.');
+      return;
+    }
+  };
 
   const resetLogs = () => {
     PerformanceLogger?.resetLogs();
@@ -54,15 +54,15 @@ function Main() {
             onPress(RENDERING_CONSTANTS['1500Text'], timeStamp.toString())
           }
         />
-      <Button
+        <Button
           title={RENDERING_CONSTANTS['1500Image']}
           testID={TEST_ID_CONSTANTS.RENDER_1500_IMAGE_BUTTON}
           onPress={({timeStamp}) =>
             onPress(RENDERING_CONSTANTS['1500Image'], timeStamp.toString())
           }
         />
-        </View>
-        <View style={styles.buttonsContainer}>
+      </View>
+      <View style={styles.buttonsContainer}>
         <Button
           title={RENDERING_CONSTANTS['5000View']}
           testID={TEST_ID_CONSTANTS.RENDER_5000_VIEW_BUTTON}
@@ -77,7 +77,7 @@ function Main() {
             onPress(RENDERING_CONSTANTS['5000Text'], timeStamp.toString())
           }
         />
-              <Button
+        <Button
           title={RENDERING_CONSTANTS['5000Image']}
           testID={TEST_ID_CONSTANTS.RENDER_5000_IMAGE_BUTTON}
           onPress={({timeStamp}) =>
@@ -86,7 +86,7 @@ function Main() {
         />
       </View>
       <View style={styles.buttonsContainer}>
-      <Button
+        <Button
           title={RENDERING_CONSTANTS.RESET_VIEW}
           testID={TEST_ID_CONSTANTS.RESET_VIEW_BUTTON}
           onPress={({timeStamp}) =>
@@ -114,7 +114,7 @@ function Main() {
         />
       </View>
       <View style={styles.buttonsContainer}>
-      <Button
+        <Button
           title={RENDERING_CONSTANTS.GET_REPORT}
           testID={TEST_ID_CONSTANTS.GET_REPORT_BUTTON}
           onPress={getLogs}
