@@ -15,12 +15,15 @@
         "!**/__fixtures__",
         "!**/__mocks__"
     ],
-    "keywords": ["react-native", "ios", "android"],
+    "keywords": [
+        "react-native",
+        "ios",
+        "android"
+    ],
     "repository": "https://github.com/dream11/rn-benchmarking",
     "author": "Swapnil Mistry <swapnil.mistry@dream11.com@> (https://github.com/mistryswapnil-dream11)",
     "license": "MIT",
     "homepage": "https://github.com/dream11/rn-benchmarking#readme",
-    "devDependencies": {},
     "peerDependencies": {
         "react": "*",
         "react-native": "*"
