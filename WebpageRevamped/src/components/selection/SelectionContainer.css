@@ -6,11 +6,11 @@
     flex-direction: column;
     gap: 12px;
     min-width: 300px;
-    max-width: 300px; /* Allow responsiveness */
-    max-height: 100vh; /* Ensures it doesn't exceed viewport height */
-    height: auto; /* Allow the height to adjust */
-    overflow-y: auto; /* Enable scrolling */
-    box-sizing: border-box; /* Include padding in width/height calculations */
+    max-width: 300px;
+    max-height: 100vh;
+    height: auto;
+    overflow-y: auto;
+    box-sizing: border-box;
 }
 
 .SelectionContainerHeader {
@@ -19,7 +19,7 @@
     font-style: normal;
     font-weight: 700;
     line-height: 20px;
-    margin-bottom: 10px; /* Add margin for spacing */
+    margin-bottom: 10px;
 }
 
 /* Responsive adjustments */
