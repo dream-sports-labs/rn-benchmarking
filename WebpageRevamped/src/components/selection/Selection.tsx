@@ -18,17 +18,23 @@ const Selection = (props: SelectionProps) => {
   const [autoGenrateReport,setAutoGenrateReport]= useState(true)
   const [openSnackbar, setOpenSnackbar] = useState(false)
   const [snackbarMessage, setSnackbarMessage] = useState('')
-
+  useEffect(() => {
+    setSelectedCount(selectedOptions.length)
+  }, [selectedOptions])
   useEffect(() => {
     setSelectedCount(selectedOptions.length);
-    if (versionName.length > 0 && selectedOptions.length === 0) {
+    if (selectedVersion.length > 0 && selectedOptions.length === 0) {
       const latestVersion = selectedVersion;
       setSelectedOptions([
         `${latestVersion}/android/oldarch`,
         `${latestVersion}/android/newarch`,
       ]);
     }
-  }, [selectedOptions, setSelectedOptions, selectedVersion]);
+  }, []);
+
+  useEffect(() => {
+
+  }, []);
 
   useEffect(() => {
     if(autoGenrateReport && selectedOptions.length>0){
