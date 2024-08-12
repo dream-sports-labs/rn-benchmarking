@@ -5,10 +5,12 @@
     background: #FFFFFF;
     flex-direction: column;
     gap: 12px;
-    min-width:300px ;
-    max-width: 300px;
-    height: 1000px;
-    overflow-y: auto;
+    min-width: 300px;
+    max-width: 300px; /* Allow responsiveness */
+    max-height: 100vh; /* Ensures it doesn't exceed viewport height */
+    height: auto; /* Allow the height to adjust */
+    overflow-y: auto; /* Enable scrolling */
+    box-sizing: border-box; /* Include padding in width/height calculations */
 }
 
 .SelectionContainerHeader {
@@ -17,4 +19,18 @@
     font-style: normal;
     font-weight: 700;
     line-height: 20px;
+    margin-bottom: 10px; /* Add margin for spacing */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .SelectionContainer {
+        padding: 10px; /* Reduce padding for smaller screens */
+        min-width: 100%; /* Adjust to full width */
+        max-width: 100%;
+    }
+
+    .SelectionContainerHeader {
+        font-size: 12px; /* Adjust font size for smaller screens */
+    }
 }
