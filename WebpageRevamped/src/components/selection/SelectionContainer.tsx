@@ -71,7 +71,15 @@ export const SelectionContainer = ({
           onChange={handleChange}
           label="App Version"
           renderValue={(selected) => selected.join(', ')}
-          multiple>
+          multiple
+          MenuProps={{
+            PaperProps: {
+              style: {
+                maxHeight: 200,
+              },
+            },
+          }}
+        >
           {versionName.map((version: string) => (
             <MenuItem key={version} value={version}>
               <Checkbox checked={selectedVersion.indexOf(version) > -1} />
