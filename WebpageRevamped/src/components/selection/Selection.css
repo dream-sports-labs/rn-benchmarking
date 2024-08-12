@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
-    margin-bottom: 20px; /* Add margin to avoid overlap */
+    margin-bottom: 20px;
 }
 
 .PlatformName {
@@ -27,7 +27,7 @@
 .Button {
     width: 100%;
     margin-top: 20px;
-    align-self: flex-start; /* Ensure button alignment is consistent */
+    align-self: flex-start;
 }
 
 .PlatformNameTypeContainer {
