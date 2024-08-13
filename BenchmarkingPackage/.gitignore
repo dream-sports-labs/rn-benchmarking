@@ -46,5 +46,4 @@ coverage/
 .env.production.local
 
 #yarn
-.yarn/
 .yarn/*
