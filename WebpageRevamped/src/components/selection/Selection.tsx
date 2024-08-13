@@ -33,10 +33,6 @@ const Selection = (props: SelectionProps) => {
   }, []);
 
   useEffect(() => {
-
-  }, []);
-
-  useEffect(() => {
     if(autoGenrateReport && selectedOptions.length>0){
       setAutoGenrateReport(false)
       handleGenerateReport()
