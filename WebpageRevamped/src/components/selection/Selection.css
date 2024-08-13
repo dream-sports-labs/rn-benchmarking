@@ -1,12 +1,12 @@
-.Selection {
+.Selection{
     width: 100%;
+    height: 100px;
     display: flex;
     flex-direction: column;
     gap: 12px;
-    margin-bottom: 20px;
 }
 
-.PlatformName {
+.PlatformName{
     color: #757575;
     font-size: 12px;
     font-style: normal;
@@ -15,34 +15,21 @@
     margin-top: 12px;
 }
 
-.VersionContainer {
+.VersionContainer{
     margin-top: 10px;
 }
 
-.InputLabel {
+.InputLabel{
     font-size: 20px;
     color: black;
 }
 
-.Button {
+.Button{
     width: 100%;
     margin-top: 20px;
-    align-self: flex-start;
 }
 
-.PlatformNameTypeContainer {
+.PlatformNameTypeContainer{
     display: flex;
     flex-direction: row;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .Selection {
-        flex-direction: column; /* Stack elements on smaller screens */
-        gap: 8px;
-    }
-
-    .Button {
-        width: 100%; /* Ensure button stays full-width on smaller screens */
-    }
 }

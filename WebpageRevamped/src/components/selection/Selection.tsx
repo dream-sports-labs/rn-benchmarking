@@ -13,35 +13,14 @@ import {SnackbarAlert} from '../SnackbarAlert/SnackbarAlert'
 import {Reports} from "../../Reports";
 
 const Selection = (props: SelectionProps) => {
-  const {versionName, selectedOptions, setSelectedOptions,selectedVersion} = props
+  const {versionName, selectedOptions, setSelectedOptions} = props
   const [selectedCount, setSelectedCount] = useState(0)
-  const [autoGenrateReport,setAutoGenrateReport]= useState(true)
   const [openSnackbar, setOpenSnackbar] = useState(false)
   const [snackbarMessage, setSnackbarMessage] = useState('')
+
   useEffect(() => {
     setSelectedCount(selectedOptions.length)
   }, [selectedOptions])
-  useEffect(() => {
-    setSelectedCount(selectedOptions.length);
-    if (selectedVersion.length > 0 && selectedOptions.length === 0) {
-      const latestVersion = selectedVersion;
-      setSelectedOptions([
-        `${latestVersion}/android/oldarch`,
-        `${latestVersion}/android/newarch`,
-      ]);
-    }
-  }, []);
-
-  useEffect(() => {
-
-  }, []);
-
-  useEffect(() => {
-    if(autoGenrateReport && selectedOptions.length>0){
-      setAutoGenrateReport(false)
-      handleGenerateReport()
-    }
-  }, [selectedOptions]);
 
   const handleCheckboxChange =
     (version: string, architectureType: string) =>
@@ -65,7 +44,7 @@ const Selection = (props: SelectionProps) => {
   const handleCloseSnackbar = () => {
     setOpenSnackbar(false)
   }
-  const handleGenerateReport = () => {
+  const handleGenerateReport = async () => {
     const response = selectedOptions.map((value) => Reports[value])
     const labels: string[] = []
     selectedOptions.forEach((label) => {
