@@ -63,13 +63,13 @@ export const SelectionContainer = ({
         Select versions to compare
       </div>
       <FormControl variant="outlined">
-        <InputLabel id="app-version-select-label">App Version</InputLabel>
+        <InputLabel id="app-version-select-label">React Native Versions</InputLabel>
         <Select
           labelId="app-version-select-label"
           id="app-version-select"
           value={selectedVersion}
           onChange={handleChange}
-          label="App Version"
+          label="React Native Versions"
           renderValue={(selected) => selected.join(', ')}
           multiple
           MenuProps={{

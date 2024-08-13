@@ -8,7 +8,7 @@ import AnimationPerformance from './AnimationPerformance';
 
 type RenderingContainerProps = {
   toRender: RENDERING_CONSTANTS | undefined;
-}
+};
 function RenderingContainer(props: RenderingContainerProps) {
   const {toRender} = props;
 
@@ -16,23 +16,53 @@ function RenderingContainer(props: RenderingContainerProps) {
 
   switch (toRender) {
     case RENDERING_CONSTANTS['1500View']:
-      content = <NViews itemsToRender={1500} tagName={RENDERING_CONSTANTS['1500View']} />;
+      content = (
+        <NViews
+          itemsToRender={1500}
+          tagName={RENDERING_CONSTANTS['1500View']}
+        />
+      );
       break;
     case RENDERING_CONSTANTS['1500Text']:
-      content = <NTexts itemsToRender={1500} tagName={RENDERING_CONSTANTS['1500Text']}/>;
+      content = (
+        <NTexts
+          itemsToRender={1500}
+          tagName={RENDERING_CONSTANTS['1500Text']}
+        />
+      );
       break;
     case RENDERING_CONSTANTS['1500Image']:
-        content = <NImages itemsToRender={1500} tagName={RENDERING_CONSTANTS['1500Image']}/>;
-        break;
+      content = (
+        <NImages
+          itemsToRender={1500}
+          tagName={RENDERING_CONSTANTS['1500Image']}
+        />
+      );
+      break;
     case RENDERING_CONSTANTS['5000View']:
-      content = <NViews itemsToRender={5000} tagName={RENDERING_CONSTANTS['5000View']} />;
+      content = (
+        <NViews
+          itemsToRender={5000}
+          tagName={RENDERING_CONSTANTS['5000View']}
+        />
+      );
       break;
     case RENDERING_CONSTANTS['5000Text']:
-      content = <NTexts itemsToRender={5000} tagName={RENDERING_CONSTANTS['5000Text']} />;
+      content = (
+        <NTexts
+          itemsToRender={5000}
+          tagName={RENDERING_CONSTANTS['5000Text']}
+        />
+      );
       break;
     case RENDERING_CONSTANTS['5000Image']:
-        content = <NImages itemsToRender={5000} tagName={RENDERING_CONSTANTS['5000Image']}/>;
-        break;
+      content = (
+        <NImages
+          itemsToRender={5000}
+          tagName={RENDERING_CONSTANTS['5000Image']}
+        />
+      );
+      break;
     case RENDERING_CONSTANTS.RENDER_FLATLIST:
       content = <FlatlistPerformance itemsToRender={1500} />;
       break;
@@ -40,10 +70,9 @@ function RenderingContainer(props: RenderingContainerProps) {
       content = <AnimationPerformance itemsToRender={1500} />;
       break;
     case RENDERING_CONSTANTS.RESET_VIEW:
-      content = <View style={styles.emptyView} testID="render_empty_view"></View>;
+      content = <View style={styles.emptyView} testID="render_empty_view" />;
       break;
   }
-  
 
   if (
     toRender === RENDERING_CONSTANTS.RENDER_FLATLIST ||
