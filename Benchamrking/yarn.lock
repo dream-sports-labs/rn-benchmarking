@@ -4046,11 +4046,11 @@ __metadata:
 
 "benchmarking-package@file:../BenchmarkingPackage::locator=Benchamrking%40workspace%3A.":
   version: 0.0.1
-  resolution: "benchmarking-package@file:../BenchmarkingPackage#../BenchmarkingPackage::hash=94f3b7&locator=Benchamrking%40workspace%3A."
+  resolution: "benchmarking-package@file:../BenchmarkingPackage#../BenchmarkingPackage::hash=a9e542&locator=Benchamrking%40workspace%3A."
   peerDependencies:
     react: ^18.2.0
     react-native: ^0.74.5
-  checksum: f1c35fb1b9db92b10108654549818975a843dacd08a8d163ca17c4fa4973c96afb7cd7c0b07a3eff30a36f41b16300f95e2676655655d0b5c41ec72d93959c64
+  checksum: 6f7174b6987397d35f562d9a935e1b60a8e0f2f1d4163951721de05bbfdd246e8bb228de09e180c6547f6869f9683083991f2a1aa49c0b9f2f8dda3e26af55ec
   languageName: node
   linkType: hard
 
