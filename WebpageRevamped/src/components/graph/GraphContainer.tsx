@@ -29,8 +29,18 @@ export const GraphContainer = ({
     <div className={'GraphContainer'}>
       <div className={'DeviceContainer'}>
         <div className={'Title'}>Benchmarking Devices :</div>
-        <Chip label="Pixel 3A API 34 (Android Emulator)" />
-        <Chip label="iPhone 15 Pro (17.2) (iOS Simulator)" />
+        <Chip
+            label={
+              <span>
+              <strong>Android Emulator:</strong> Pixel 3A API 34
+            </span>
+            }
+        />
+        <Chip label={
+          <span>
+              <strong>iOS Simulator:</strong> iPhone 15 Pro (17.2)
+            </span>
+        } />
       </div>
       <div className={'InnerContainer'}>
         <div className={'BarChartContainer'}>
