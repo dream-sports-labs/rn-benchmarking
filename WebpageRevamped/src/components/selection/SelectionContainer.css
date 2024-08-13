@@ -1,0 +1,36 @@
+.SelectionContainer {
+    display: flex;
+    padding: 20px;
+    border: 1px solid #D9D9D9;
+    background: #FFFFFF;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 300px;
+    max-width: 300px;
+    max-height: 100vh;
+    height: auto;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.SelectionContainerHeader {
+    color: #333333;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20px;
+    margin-bottom: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .SelectionContainer {
+        padding: 10px; /* Reduce padding for smaller screens */
+        min-width: 100%; /* Adjust to full width */
+        max-width: 100%;
+    }
+
+    .SelectionContainerHeader {
+        font-size: 12px; /* Adjust font size for smaller screens */
+    }
+}

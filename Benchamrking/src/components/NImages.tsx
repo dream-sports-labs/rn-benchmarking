@@ -15,9 +15,7 @@ function NImages({itemsToRender, tagName}: NImagesProps) {
       testID={`${TEST_ID_CONSTANTS.IMAGE_CONTAINER}_${x}`}
       key={x}
       style={styles.image}
-      source={{
-        uri: 'https://placekitten.com/100/100',
-      }}
+      source={require('../../src/assets/Mumbai.jpeg')}
       resizeMode='cover'
     />
   ));

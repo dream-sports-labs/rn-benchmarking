@@ -2,19 +2,32 @@
 
 name: Deploy React Native Benchmarking Versions
 on:
-  push:
-    branches:
-      - main
-permissions: 
+  workflow_dispatch:  # Allows the workflow to be triggered manually
+
+permissions:
   contents: write
+
 jobs:
   deploy-react-native-page:
+    if: github.ref == 'refs/heads/main'  # Runs only if the current branch is 'main'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Build
+        working-directory: WebpageRevamped
+        run: |
+          yarn install
+          yarn build
+
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: .
+          folder: ./WebpageRevamped/build
           branch: gh-pages

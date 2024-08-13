@@ -21,6 +21,7 @@ This repository can be used for benchmarking react-native versions for old and n
 
 1. [React Native Environment Setup](https://reactnative.dev/docs/next/environment-setup)
 2. [Maestro Setup](https://maestro.mobile.dev/)
+   To check if Maestro is installed on your system, run command `maestro --version`.
 3. [Flashlight Setup](https://docs.flashlight.dev/)
 
 ## Setup
@@ -97,20 +98,21 @@ yarn install
 2. In order to resolve this we have provided some automations scripts that can do this job for you.
 3. This scripts will help getting numbers for time taken to render N views, texts, images component and flashlight score for spin animations of N views.
 5. Run the following to get rendering time of N views, texts, images (tested on Android emulator & iOS Simulator):
+6. The command sometimes might cause an error when processing 5,000 images because Maestro might encounter performance issues due to the high volume of data, leading to timeouts or the app becoming unresponsive while attempting to load and render the images.
    ```
     yarn get:numbers:android <ITERATION_COUNT>
     /* Example: yarn get:numbers:android 10 */
     yarn get:numbers:ios <ITERATION_COUNT>
     /* Example: yarn get:numbers:ios 10 */
    ```
-6. Run the following command to get flashlight score (supported only on Android):
+7. Run the following command to get flashlight score (supported only on Android):
    ```
    yarn get:flashlight:score <ITERATION_COUNT>
    /* Example: yarn get:flashlight:score 10 
       Defaults to 1 iteration 
    */
    ```
- 7. Check flashlight score by running:
+8. Check flashlight score by running:
     ```
     flashlight report <PATH_TO_FLASHLIGHT_REPORT> 
     /* Example: flashlight report ../Reports/0.73.5/android/flashlightscore.json (assuming you are inside Benchamrking/ directory) */
