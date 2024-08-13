@@ -98,7 +98,7 @@ yarn install
 2. In order to resolve this we have provided some automations scripts that can do this job for you.
 3. This scripts will help getting numbers for time taken to render N views, texts, images component and flashlight score for spin animations of N views.
 5. Run the following to get rendering time of N views, texts, images (tested on Android emulator & iOS Simulator):
-6. This command doesn't work on iOS when processing 5000 views, texts, and images due to iOS limitations. However, it functions correctly with up to 1500 views, texts, and images.
+6. The command sometimes might cause an error when processing 5,000 images because Maestro might encounter performance issues due to the high volume of data, leading to timeouts or the app becoming unresponsive while attempting to load and render the images.
    ```
     yarn get:numbers:android <ITERATION_COUNT>
     /* Example: yarn get:numbers:android 10 */
