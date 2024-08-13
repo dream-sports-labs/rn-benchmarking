@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import './SelectionContainer.css'
 import Selection from './Selection'
 import {
@@ -26,6 +26,12 @@ export const SelectionContainer = ({
   const [selectedOptions, setSelectedOptions] = useState<string[]>([])
   const [openSnackbar, setOpenSnackbar] = useState(false)
   const [snackbarMessage, setSnackbarMessage] = useState('')
+  useEffect(() => {
+    if (versionName.length > 0) {
+      const latestVersion = versionName[versionName.length - 1];
+      setSelectedVersion([latestVersion]);
+    }
+  }, [versionName]);
 
   const handleChange = (event: SelectChangeEvent<typeof selectedVersion>) => {
     const value = event.target.value
@@ -65,7 +71,15 @@ export const SelectionContainer = ({
           onChange={handleChange}
           label="App Version"
           renderValue={(selected) => selected.join(', ')}
-          multiple>
+          multiple
+          MenuProps={{
+            PaperProps: {
+              style: {
+                maxHeight: 200,
+              },
+            },
+          }}
+        >
           {versionName.map((version: string) => (
             <MenuItem key={version} value={version}>
               <Checkbox checked={selectedVersion.indexOf(version) > -1} />
