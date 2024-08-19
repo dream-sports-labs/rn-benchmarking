@@ -15,17 +15,17 @@
   "dependencies": {
     "benchmarking-package": "../BenchmarkingPackage",
     "react": "18.2.0",
-    "react-native": "0.74.3",
+    "react-native": "0.74.4",
     "react-native-fs": "^2.20.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@babel/preset-env": "^7.20.0",
     "@babel/runtime": "^7.20.0",
-    "@react-native/babel-preset": "0.74.85",
-    "@react-native/eslint-config": "0.74.85",
-    "@react-native/metro-config": "0.74.85",
-    "@react-native/typescript-config": "0.74.85",
+    "@react-native/babel-preset": "0.74.86",
+    "@react-native/eslint-config": "0.74.86",
+    "@react-native/metro-config": "0.74.86",
+    "@react-native/typescript-config": "0.74.86",
     "@types/node": "^20.11.25",
     "@types/react": "^18.3.3",
     "@types/react-native": "^0.73.0",
