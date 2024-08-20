@@ -3005,7 +3005,7 @@ __metadata:
     jest: ^29.6.3
     prettier: 2.8.8
     react: 18.3.1
-    react-native: ^0.75.1
+    react-native: 0.75.1
     react-native-fs: ^2.20.0
     react-test-renderer: 18.3.1
     ts-node: ^10.9.2
@@ -3510,11 +3510,11 @@ __metadata:
 
 "benchmarking-package@file:../BenchmarkingPackage::locator=Benchamrking%40workspace%3A.":
   version: 0.0.1
-  resolution: "benchmarking-package@file:../BenchmarkingPackage#../BenchmarkingPackage::hash=710e60&locator=Benchamrking%40workspace%3A."
+  resolution: "benchmarking-package@file:../BenchmarkingPackage#../BenchmarkingPackage::hash=0b8da6&locator=Benchamrking%40workspace%3A."
   peerDependencies:
     react: ^18.2.0
     react-native: ^0.74.5
-  checksum: 2de37c93dcec6ae013c649eeeaf9cd16798d4a58e5dcd0b0313d445cb4dd8a8157a599ddb329e07cea214b24169799484f6b50de333edd31e0d5b7b959a4f9f2
+  checksum: 794acdc5f1b76b0407244077e69e03dee002f981ad1b0ce4639333ec99c60edfa8315ac428ba4c9a8192c24cec176779867ab718c11c324d85c1712b74ef07b8
   languageName: node
   linkType: hard
 
@@ -8003,7 +8003,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native@npm:*, react-native@npm:^0.75.1":
+"react-native@npm:*, react-native@npm:0.75.1":
   version: 0.75.1
   resolution: "react-native@npm:0.75.1"
   dependencies:
