@@ -49,5 +49,21 @@ export const Reports: ReportsType = {
   "0.74.1/android/newarch": require('./Reports/0.74.1/android/newarch.json'),
   "0.74.1/android/oldarch": require('./Reports/0.74.1/android/oldarch.json'),
   "0.74.1/ios/newarch": require('./Reports/0.74.1/ios/newarch.json'),
-  "0.74.1/ios/oldarch": require('./Reports/0.74.1/ios/oldarch.json')
+  "0.74.1/ios/oldarch": require('./Reports/0.74.1/ios/oldarch.json'),
+  "0.74.2/android/newarch": require('./Reports/0.74.2/android/newarch.json'),
+  "0.74.2/android/oldarch": require('./Reports/0.74.2/android/oldarch.json'),
+  "0.74.2/ios/newarch": require('./Reports/0.74.2/ios/newarch.json'),
+  "0.74.2/ios/oldarch": require('./Reports/0.74.2/ios/oldarch.json'),
+  "0.74.3/android/newarch": require('./Reports/0.74.3/android/newarch.json'),
+  "0.74.3/android/oldarch": require('./Reports/0.74.3/android/oldarch.json'),
+  "0.74.3/ios/newarch": require('./Reports/0.74.3/ios/newarch.json'),
+  "0.74.3/ios/oldarch": require('./Reports/0.74.3/ios/oldarch.json'),
+  "0.74.4/android/newarch": require('./Reports/0.74.4/android/newarch.json'),
+  "0.74.4/android/oldarch": require('./Reports/0.74.4/android/oldarch.json'),
+  "0.74.4/ios/newarch": require('./Reports/0.74.4/ios/newarch.json'),
+  "0.74.4/ios/oldarch": require('./Reports/0.74.4/ios/oldarch.json'),
+  "0.74.5/android/newarch": require('./Reports/0.74.5/android/newarch.json'),
+  "0.74.5/android/oldarch": require('./Reports/0.74.5/android/oldarch.json'),
+  "0.74.5/ios/newarch": require('./Reports/0.74.5/ios/newarch.json'),
+  "0.74.5/ios/oldarch": require('./Reports/0.74.5/ios/oldarch.json')
 };
