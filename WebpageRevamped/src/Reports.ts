@@ -1,6 +1,6 @@
 type ReportsType = {
   [key: string]: any
-} 
+}
 export const Reports: ReportsType = {
   "0.73.0/android/newarch": require('./Reports/0.73.0/android/newarch.json'),
   "0.73.0/android/oldarch": require('./Reports/0.73.0/android/oldarch.json'),
@@ -45,6 +45,11 @@ export const Reports: ReportsType = {
   "0.74.0/android/newarch": require('./Reports/0.74.0/android/newarch.json'),
   "0.74.0/android/oldarch": require('./Reports/0.74.0/android/oldarch.json'),
   "0.74.0/ios/newarch": require('./Reports/0.74.0/ios/newarch.json'),
+  "0.74.0/ios/oldarch": require('./Reports/0.74.0/ios/oldarch.json'),
+  "0.74.1/android/newarch": require('./Reports/0.74.1/android/newarch.json'),
+  "0.74.1/android/oldarch": require('./Reports/0.74.1/android/oldarch.json'),
+  "0.74.1/ios/newarch": require('./Reports/0.74.1/ios/newarch.json'),
+  "0.74.1/ios/oldarch": require('./Reports/0.74.1/ios/oldarch.json')
   "0.74.0/ios/oldarch": require('./Reports/0.74.0/ios/oldarch.json'),
   "0.74.3/android/newarch": require('./Reports/0.74.3/android/newarch.json'),
   "0.74.3/android/oldarch": require('./Reports/0.74.3/android/oldarch.json'),
