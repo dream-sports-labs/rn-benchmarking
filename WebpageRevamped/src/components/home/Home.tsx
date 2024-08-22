@@ -1,12 +1,16 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import './Home.css'
 import Header from '../header/Header'
 import SelectionContainer from '../selection/SelectionContainer'
 import GraphContainer from '../graph/GraphContainer'
 import {GenerateReportProps} from '../../RnBenchmarkingWebPage.interface'
+import {IconButton} from "@mui/material";
+// @ts-ignore
+import sideNav from '../../assets/icons/sideNave.png'
 
 const Home = () => {
   const [showGraph, setShowGraph] = useState<boolean>(false)
+  const [showSelection, setShowSelection] = useState<boolean>(false);
   const [graphData, setGraphData] = useState<GenerateReportProps>({
     labels: [],
     fifteenHundredViewDataLabels: [],
@@ -38,14 +42,51 @@ const Home = () => {
     setShowGraph(true)
   }
 
+  const [width, setWidth] = useState<number>(window.innerWidth);
+
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+  }
+  useEffect(() => {
+    window.addEventListener('resize', handleWindowSizeChange);
+    return () => {
+      window.removeEventListener('resize', handleWindowSizeChange);
+    }
+  }, []);
+
+  const isMobile = width <= 768;
+
+  const toggleSelection = () => {
+    setShowSelection(!showSelection); // Toggle the visibility of the selection container
+  };
+
+  const handleClose = () => {
+    setShowSelection(false); // Close the selection container
+  };
   return (
-    <div className={'MainContainer'}>
-      <Header />
-      <div className={'HomeContainer'}>
-        <SelectionContainer onGenerateReport={handleGenerateReport} />
-        {showGraph ? <GraphContainer {...graphData} /> : null}
+      <div className={'MainContainer'}>
+        <Header/>
+        <div className={'HomeContainer'}>
+          {/* Icon for mobile view */}
+            {isMobile &&
+          <div className="SelectionToggleContainer">
+            <IconButton onClick={toggleSelection}>
+              <img src={sideNav} alt={'Dream11 Logo'} width={20} height={20}/>
+            </IconButton>
+          </div>}
+
+          {/* Selection Container */}
+          {isMobile ? <div
+                  className={`selectionContainerOverlay ${showSelection ? 'show' : ''}`} // Optionally handle click to close
+                onClick={handleClose}>
+         <div className="selectionContainerContent" onClick={(e) => e.stopPropagation()} ><SelectionContainer onGenerateReport={handleGenerateReport}/></div>
+              </div>:
+              <SelectionContainer onGenerateReport={handleGenerateReport}/>}
+
+          {/* Graph Container */}
+          {showGraph ? <GraphContainer {...graphData} /> : null}
+        </div>
       </div>
-    </div>
   )
 }
 
