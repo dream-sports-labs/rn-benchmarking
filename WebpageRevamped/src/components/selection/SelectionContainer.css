@@ -5,8 +5,8 @@
     background: #FFFFFF;
     flex-direction: column;
     gap: 12px;
-    min-width: 300px;
-    max-width: 300px;
+    min-width: 320px;
+    max-width: 320px;
     max-height: 100vh;
     height: auto;
     overflow-y: auto;
