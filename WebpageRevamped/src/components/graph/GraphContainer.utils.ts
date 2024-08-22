@@ -3,6 +3,7 @@ import {
   xAxisLabels,
   yAxisLabels,
 } from '../../RnBenchmarkingWebPage.constant'
+import { ChartOptions } from 'chart.js';
 
 export const chartData = (labels: string[], data: number[]) => ({
   labels: labels.map((value: string) => {
@@ -23,10 +24,10 @@ export const chartData = (labels: string[], data: number[]) => ({
   ],
 })
 
-export const options = (title: string, max: number) => ({
+export const options = (title: string, max: number): ChartOptions<'bar'> => ({
   maintainAspectRatio: false,
+  responsive: true,
   plugins: {
-    responsive: true,
     legend: {
       display: false,
     },
@@ -35,9 +36,33 @@ export const options = (title: string, max: number) => ({
       text: title,
       color: '#333333',
     },
+    tooltip: {
+      callbacks: {
+        label: function (context) {
+          return context.label || '';
+        },
+      },
+    },
   },
   scales: {
     x: {
+      ticks: {
+        maxRotation: window.innerWidth <= 768?90:45,
+        autoSkip: false,
+        font:{
+          size: window.innerWidth <= 768 ? 10 : 12
+        },
+        callback: function (value, index, values) {
+          const label = this.getLabelForValue(value as number); // Get the full label
+          if (window.innerWidth <= 768) { // Mobile screen
+            return label.split('/'); // Join parts with a newline
+          }
+          else {
+            return label;
+          }
+        },
+        color: '#333333',
+      },
       border: {
         dash: [0, 1],
         color: 'black',
@@ -64,3 +89,4 @@ export const options = (title: string, max: number) => ({
     },
   },
 })
+
