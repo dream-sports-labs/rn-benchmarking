@@ -12,6 +12,7 @@ import {
 } from '@mui/material'
 import {GenerateReportProps} from '../../RnBenchmarkingWebPage.interface'
 import {SnackbarAlert} from '../SnackbarAlert/SnackbarAlert'
+import {maxCheckboxSelection} from "../../RnBenchmarkingWebPage.constant";
 
 type SelectionContainerProps = {
     onGenerateReport: (params: GenerateReportProps) => void;
@@ -36,7 +37,7 @@ export const SelectionContainer = ({
 
     const handleChange = (event: SelectChangeEvent<typeof selectedVersion>) => {
         const value = event.target.value;
-        if (Array.isArray(value) && value.length <= 4) {
+        if (Array.isArray(value) && value.length <= maxCheckboxSelection) {
             setSelectedVersion(value as string[]);
             const deselectedVersions = selectedVersion.filter(
                 (v) => !value.includes(v),
@@ -49,7 +50,7 @@ export const SelectionContainer = ({
                 ),
             );
         }
-        if (value.length > 4) {
+        if (value.length > maxCheckboxSelection) {
             setSnackbarMessage('You can select a maximum of 4 options.');
             setOpenSnackbar(true);
         }

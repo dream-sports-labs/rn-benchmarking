@@ -7,6 +7,7 @@ import {GenerateReportProps} from '../../RnBenchmarkingWebPage.interface'
 import {IconButton} from "@mui/material";
 // @ts-ignore
 import sideNav from '../../assets/icons/sideNave.png'
+import {mobileWidth} from "../../RnBenchmarkingWebPage.constant";
 
 const Home = () => {
   const [showGraph, setShowGraph] = useState<boolean>(false);
@@ -56,7 +57,7 @@ const Home = () => {
     };
   }, []);
 
-  const isMobile = width <= 768;
+  const isMobile = width <= mobileWidth;
 
   const toggleSelection = () => {
     setShowSelection(!showSelection); // Toggle the visibility of the selection container

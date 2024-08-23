@@ -11,6 +11,7 @@ import {
 import { SelectionProps } from '../../RnBenchmarkingWebPage.interface';
 import { SnackbarAlert } from '../SnackbarAlert/SnackbarAlert';
 import { Reports } from "../../Reports";
+import {maxCheckboxSelection} from "../../RnBenchmarkingWebPage.constant";
 
 const Selection = (props: SelectionProps) => {
   const { versionName, selectedOptions, setSelectedOptions, selectedVersion, onGenerateReport, hideSelection } = props;
@@ -46,7 +47,7 @@ const Selection = (props: SelectionProps) => {
     const option = `${version}/${architectureType}`;
     const currentCount = selectedCount + (isChecked ? 1 : -1);
 
-    if (currentCount <= 4) {
+    if (currentCount <= maxCheckboxSelection) {
       setSelectedCount(currentCount);
       if (isChecked) {
         setSelectedOptions((prev) => [...prev, option]);
