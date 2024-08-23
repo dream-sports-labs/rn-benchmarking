@@ -22,6 +22,22 @@
     margin-bottom: 10px;
 }
 
+.DeviceContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 80%;
+    padding-bottom: 10px; /* Add some padding at the bottom */
+}
+
+.Title {
+    color: #333333;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+    margin-right: 10px; /* Add some margin between title and chips */
+}
+
 /* Mobile adjustments */
 @media (max-width: 768px) {
     .SelectionContainer {

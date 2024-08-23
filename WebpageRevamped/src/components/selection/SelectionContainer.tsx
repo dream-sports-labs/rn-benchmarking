@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
 import './SelectionContainer.css'
-import '../deviceDetail/DeviceDetail.css';
 import Selection from './Selection'
 import {
   Checkbox, Chip,
