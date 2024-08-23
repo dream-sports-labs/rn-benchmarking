@@ -1,5 +1,4 @@
 import React from 'react'
-// @ts-ignore
 import favicon from '../../assets/icons/dream11-logo.svg'
 import './Header.css'
 

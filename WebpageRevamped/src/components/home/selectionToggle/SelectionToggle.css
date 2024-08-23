@@ -1,0 +1,16 @@
+/* Toggle button container */
+.SelectionToggleContainer {
+    display: none; /* Hide on desktop */
+    position: fixed;
+    top: 10px;
+    right: 10px; /* Positions the icon to the right side */
+    z-index: 10;
+}
+
+/* Show toggle icon on mobile */
+@media (max-width: 768px) {
+    .SelectionToggleContainer {
+        display: block;
+    }
+
+}

@@ -6,7 +6,7 @@
     flex-direction: column;
     gap: 24px;
     margin-bottom: 20px;
-    overflow-y: scroll ;
+    overflow-y: scroll;
 }
 
 .InnerContainer {
@@ -20,14 +20,6 @@
     font-style: normal;
     font-weight: 700;
     line-height: 20px;
-}
-
-.DeviceContainer {
-    display: flex;
-    flex-direction: row;
-    gap: 12px;
-    width: 100%;
-    align-items: center;
 }
 
 .BarChartContainer {
@@ -68,4 +60,33 @@
     border-radius: 8px;
     border: 1px solid #E4E4E4;
     margin-bottom: 24px;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .InnerContainer {
+        flex-direction: column; /* Stack charts vertically on small screens */
+        align-items: center;
+    }
+    .GraphContainer{
+        margin-top: 20px;
+        padding: 0;
+        width: 100vw;
+        overflow-y: auto;
+        padding-right: 10px;
+        padding-left: 10px;
+        padding-bottom: 20px;
+        overflow-x: hidden;
+    }
+    .BarChartContainer,
+    .BarChartContainerEnd,
+    .BarChartContainerBottom,
+    .BarChartContainerBottomEnd {
+        width: 80vw; /* Adjust width to fit screen */
+        height: 400px; /* Adjust height to fit content */
+        margin-right: 0; /* Remove right margin for stacked elements */
+        margin-bottom: 24px; /* Add bottom margin for spacing */
+        padding:20px;
+
+    }
 }

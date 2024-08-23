@@ -5,8 +5,8 @@
     background: #FFFFFF;
     flex-direction: column;
     gap: 12px;
-    min-width: 300px;
-    max-width: 300px;
+    min-width: 320px;
+    max-width: 320px;
     max-height: 100vh;
     height: auto;
     overflow-y: auto;
@@ -22,13 +22,41 @@
     margin-bottom: 10px;
 }
 
-/* Responsive adjustments */
+.DeviceContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 80%;
+    padding-bottom: 10px; /* Add some padding at the bottom */
+}
+
+.Title {
+    color: #333333;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+    margin-right: 10px; /* Add some margin between title and chips */
+}
+
+/* Mobile adjustments */
 @media (max-width: 768px) {
     .SelectionContainer {
-        padding: 10px; /* Reduce padding for smaller screens */
-        min-width: 100%; /* Adjust to full width */
-        max-width: 100%;
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        background-color: rgba(255, 255, 255, 0.9);
+        z-index: 999;
+        overflow-y: auto;
     }
+    /*.SelectionContainer {*/
+    /*    padding: 10px;*/
+    /*    min-width: 100%;*/
+    /*    max-width: 100%;*/
+    /*    max-height: none;*/
+    /*    height: auto; !* Ensure container height adjusts with content *!*/
+    /*}*/
 
     .SelectionContainerHeader {
         font-size: 12px; /* Adjust font size for smaller screens */

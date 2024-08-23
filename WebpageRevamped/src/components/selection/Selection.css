@@ -35,14 +35,18 @@
     flex-direction: row;
 }
 
-/* Responsive adjustments */
+/* Mobile adjustments */
 @media (max-width: 768px) {
     .Selection {
-        flex-direction: column; /* Stack elements on smaller screens */
+        flex-direction: column;
         gap: 8px;
     }
 
+    /*.PlatformNameTypeContainer {*/
+    /*    flex-direction: column; !* Stack checkboxes vertically *!*/
+    /*}*/
+
     .Button {
-        width: 100%; /* Ensure button stays full-width on smaller screens */
+        width: 100%;
     }
 }
