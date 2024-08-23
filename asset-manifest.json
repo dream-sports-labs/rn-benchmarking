@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/rn-benchmarking/static/css/main.05eb2b7c.css",
-    "main.js": "/rn-benchmarking/static/js/main.bc19382c.js",
+    "main.css": "/rn-benchmarking/static/css/main.284bcc85.css",
+    "main.js": "/rn-benchmarking/static/js/main.4d9f341b.js",
     "static/js/453.2e5ebe46.chunk.js": "/rn-benchmarking/static/js/453.2e5ebe46.chunk.js",
     "static/media/dream11-logo.svg": "/rn-benchmarking/static/media/dream11-logo.d4f3291e9e34c8ba76543efcdbd4347b.svg",
     "index.html": "/rn-benchmarking/index.html",
-    "main.05eb2b7c.css.map": "/rn-benchmarking/static/css/main.05eb2b7c.css.map",
-    "main.bc19382c.js.map": "/rn-benchmarking/static/js/main.bc19382c.js.map",
+    "main.284bcc85.css.map": "/rn-benchmarking/static/css/main.284bcc85.css.map",
+    "main.4d9f341b.js.map": "/rn-benchmarking/static/js/main.4d9f341b.js.map",
     "453.2e5ebe46.chunk.js.map": "/rn-benchmarking/static/js/453.2e5ebe46.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.05eb2b7c.css",
-    "static/js/main.bc19382c.js"
+    "static/css/main.284bcc85.css",
+    "static/js/main.4d9f341b.js"
   ]
 }
