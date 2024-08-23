@@ -15,7 +15,7 @@ import {Reports} from "../../Reports";
 const Selection = (props: SelectionProps) => {
   const {versionName, selectedOptions, setSelectedOptions,selectedVersion} = props
   const [selectedCount, setSelectedCount] = useState(0)
-  const [autoGenrateReport,setAutoGenrateReport]= useState(true)
+  const [autoGenerateReport,setAutoGenerateReport]= useState(true)
   const [openSnackbar, setOpenSnackbar] = useState(false)
   const [snackbarMessage, setSnackbarMessage] = useState('')
   useEffect(() => {
@@ -33,8 +33,8 @@ const Selection = (props: SelectionProps) => {
   }, []);
 
   useEffect(() => {
-    if(autoGenrateReport && selectedOptions.length>0){
-      setAutoGenrateReport(false)
+    if(autoGenerateReport && selectedOptions.length>0){
+      setAutoGenerateReport(false)
       handleGenerateReport()
     }
   }, [selectedOptions]);
