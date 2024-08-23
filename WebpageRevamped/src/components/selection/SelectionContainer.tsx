@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import './SelectionContainer.css'
+import '../deviceDetail/DeviceDetail.css';
 import Selection from './Selection'
 import {
-  Checkbox,
+  Checkbox, Chip,
   FormControl,
   InputLabel,
   ListItemText,
@@ -58,52 +59,69 @@ export const SelectionContainer = ({
     setOpenSnackbar(false)
   }
   return (
-    <div className={'SelectionContainer'}>
-      <div className={'SelectionContainerHeader'}>
-        Select versions to compare
-      </div>
-      <FormControl variant="outlined">
-        <InputLabel id="app-version-select-label">React Native Versions</InputLabel>
-        <Select
-          labelId="app-version-select-label"
-          id="app-version-select"
-          value={selectedVersion}
-          onChange={handleChange}
-          label="React Native Versions"
-          renderValue={(selected) => selected.join(', ')}
-          multiple
-          MenuProps={{
-            PaperProps: {
-              style: {
-                maxHeight: 200,
-              },
-            },
-          }}
-        >
-          {versionName.map((version: string) => (
-            <MenuItem key={version} value={version}>
-              <Checkbox checked={selectedVersion.indexOf(version) > -1} />
-              <ListItemText primary={version} />
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-      {selectedVersion.length > 0 ? (
-        <Selection
-          versionName={selectedVersion}
-          onGenerateReport={onGenerateReport}
-          selectedVersion={selectedVersion}
-          selectedOptions={selectedOptions}
-          setSelectedOptions={setSelectedOptions}
+      <div className={'SelectionContainer'}>
+        <div className={'DeviceContainer'}>
+          <div className={'Title'}>Benchmarking Devices :</div>
+          <Chip
+              label={
+                <span>
+              <strong>Android Emulator:</strong> Pixel 3A API 34
+            </span>
+              }
+              sx={{fontSize: '12px'}}
+          />
+          <Chip label={
+            <span>
+              <strong>iOS Simulator:</strong> iPhone 15 Pro (17.2)
+            </span>
+          }
+                sx={{fontSize: '12px'}}/>
+        </div>
+        <div className={'SelectionContainerHeader'}>
+          Select versions to compare
+        </div>
+        <FormControl variant="outlined">
+          <InputLabel id="app-version-select-label">React Native Versions</InputLabel>
+          <Select
+              labelId="app-version-select-label"
+              id="app-version-select"
+              value={selectedVersion}
+              onChange={handleChange}
+              label="React Native Versions"
+              renderValue={(selected) => selected.join(', ')}
+              multiple
+              MenuProps={{
+                PaperProps: {
+                  style: {
+                    maxHeight: 200,
+                  },
+                },
+              }}
+          >
+            {versionName.map((version: string) => (
+                <MenuItem key={version} value={version}>
+                  <Checkbox checked={selectedVersion.indexOf(version) > -1}/>
+                  <ListItemText primary={version}/>
+                </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        {selectedVersion.length > 0 ? (
+            <Selection
+                versionName={selectedVersion}
+                onGenerateReport={onGenerateReport}
+                selectedVersion={selectedVersion}
+                selectedOptions={selectedOptions}
+                setSelectedOptions={setSelectedOptions}
+            />
+        ) : null}
+        <SnackbarAlert
+            snackbarMessage={snackbarMessage}
+            severity={'error'}
+            open={openSnackbar}
+            handleClose={handleCloseSnackbar}
         />
-      ) : null}
-      <SnackbarAlert
-        snackbarMessage={snackbarMessage}
-        severity={'error'}
-        open={openSnackbar}
-        handleClose={handleCloseSnackbar}
-      />
-    </div>
+      </div>
   )
 }
 export default SelectionContainer
