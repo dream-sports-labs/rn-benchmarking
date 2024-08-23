@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   deploy-react-native-page:
-    if: github.ref == 'refs/heads/main'  # Runs only if the current branch is 'main'
+    if: github.ref == 'refs/heads/feat/add-google-analytic'  # Runs only if the current branch is 'main'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
