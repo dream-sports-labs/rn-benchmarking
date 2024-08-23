@@ -68,12 +68,12 @@ const Home = () => {
         <Header/>
         <div className={'HomeContainer'}>
           {/* Icon for mobile view */}
-            {isMobile &&
-          <div className="SelectionToggleContainer">
-            <IconButton onClick={toggleSelection}>
-              <img src={sideNav} alt={'Dream11 Logo'} width={20} height={20}/>
-            </IconButton>
-          </div>}
+          {isMobile &&
+              <div className="SelectionToggleContainer">
+                <IconButton onClick={toggleSelection}>
+                  <img src={sideNav} alt={'Dream11 Logo'} width={20} height={20}/>
+                </IconButton>
+              </div>}
 
           {/* Selection Container */}
           {isMobile ? <div

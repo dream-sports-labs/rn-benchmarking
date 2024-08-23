@@ -40,6 +40,7 @@
     height: 100%;
     transform: translateX(-100%);
     transition: transform 0.3s ease;
+    background-color: #FFFFFF;
 }
 
 .selectionContainerOverlay.show .selectionContainerContent {
