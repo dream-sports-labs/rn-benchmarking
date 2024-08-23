@@ -4,10 +4,9 @@ import Header from '../header/Header'
 import SelectionContainer from '../selection/SelectionContainer'
 import GraphContainer from '../graph/GraphContainer'
 import {GenerateReportProps} from '../../RnBenchmarkingWebPage.interface'
-import {IconButton} from "@mui/material";
-// @ts-ignore
-import sideNav from '../../assets/icons/sideNave.png'
 import {mobileWidth} from "../../RnBenchmarkingWebPage.constant";
+import SelectionToggle from "./selectionToggle/SelectionToggle";
+import SelectionContainerWrapper from "../home/selectionContainerWrapper/SelectionContainerWrapper";
 
 const Home = () => {
   const [showGraph, setShowGraph] = useState<boolean>(false);
@@ -73,26 +72,16 @@ const Home = () => {
         <div className={'HomeContainer'}>
           {/* Icon for mobile view */}
           {isMobile &&
-              <div className="SelectionToggleContainer">
-                <IconButton onClick={toggleSelection}>
-                  <img src={sideNav} alt={'Dream11 Logo'} width={20} height={20}/>
-                </IconButton>
-              </div>
+              <SelectionToggle toggleSelection={toggleSelection}/>
           }
 
           {/* Selection Container */}
-          {isMobile ? (
-              <div
-                  className={`selectionContainerOverlay ${showSelection ? 'show' : ''}`}
-                  onClick={handleClose}
-              >
-                <div className="selectionContainerContent" onClick={(e) => e.stopPropagation()}>
-                  <SelectionContainer onGenerateReport={handleGenerateReport} hideSelection={() => setShowSelection(false)}/>
-                </div>
-              </div>
-          ) : (
-              <SelectionContainer onGenerateReport={handleGenerateReport} />
-          )}
+          <SelectionContainerWrapper
+              isMobile={isMobile}
+              showSelection={showSelection}
+              onGenerateReport={handleGenerateReport}
+              handleClose={handleClose}
+          />
 
           {/* Graph Container */}
           {showGraph ? <GraphContainer {...graphData} /> : null}
