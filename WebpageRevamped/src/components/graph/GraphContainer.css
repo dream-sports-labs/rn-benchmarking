@@ -22,14 +22,6 @@
     line-height: 20px;
 }
 
-.DeviceContainer {
-    display: flex;
-    flex-direction: row;
-    gap: 12px;
-    width: 100%;
-    align-items: center;
-}
-
 .BarChartContainer {
     width: 400px;
     height: 600px;
@@ -86,21 +78,12 @@
         padding-bottom: 20px;
         overflow-x: hidden;
     }
-    .DeviceContainer {
-        display: flex;
-        flex-direction: column;
-        margin-left: 20px;
-        gap: 12px;
-        width: 100%;
-        align-items: flex-start;
-    }
-
     .BarChartContainer,
     .BarChartContainerEnd,
     .BarChartContainerBottom,
     .BarChartContainerBottomEnd {
         width: 80vw; /* Adjust width to fit screen */
-        height: 300px; /* Adjust height to fit content */
+        height: 400px; /* Adjust height to fit content */
         margin-right: 0; /* Remove right margin for stacked elements */
         margin-bottom: 24px; /* Add bottom margin for spacing */
         padding:20px;
