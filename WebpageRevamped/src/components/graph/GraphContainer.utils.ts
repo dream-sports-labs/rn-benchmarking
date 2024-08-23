@@ -36,13 +36,6 @@ export const options = (title: string, max: number): ChartOptions<'bar'> => ({
       text: title,
       color: '#333333',
     },
-    tooltip: {
-      callbacks: {
-        label: function (context) {
-          return context.label || '';
-        },
-      },
-    },
   },
   scales: {
     x: {
