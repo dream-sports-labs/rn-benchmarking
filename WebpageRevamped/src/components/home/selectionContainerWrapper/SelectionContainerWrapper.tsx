@@ -1,4 +1,5 @@
 import React from 'react';
+import './SelectionContainerWrapper.css';
 import SelectionContainer from '../../selection/SelectionContainer';
 import {GenerateReportProps} from '../../../RnBenchmarkingWebPage.interface';
 
