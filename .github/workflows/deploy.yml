@@ -5,7 +5,8 @@ on:
   workflow_dispatch:  # Allows the workflow to be triggered manually
 
 permissions:
-  contents: write
+  contents: write  # Allows writing to the repository's contents
+  id-token: write  # Allows generating an ID token (required for deploy-pages)
 
 jobs:
   deploy-react-native-page:
