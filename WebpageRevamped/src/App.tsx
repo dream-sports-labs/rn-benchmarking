@@ -4,13 +4,20 @@ import {useEffect} from "react";
 import ReactGA from 'react-ga4';
 
 function App() {
-  useEffect(() => {
-    // Initialize Google Analytics
-    ReactGA.initialize('G-JCMS7CG87C'); // Replace 'G-XXXXXXXXXX' with your actual Measurement ID
+  const trackingId = process.env.REACT_APP_GOOGLE_ANALYTICS_TOKEN;
 
-    // Track the initial page load
-    ReactGA.send('pageview');
-  }, []);  // The empty dependency array ensures this runs once on mount
+  useEffect(() => {
+    if (trackingId) {
+      // Initialize Google Analytics using the tracking ID from environment variables
+      ReactGA.initialize(trackingId);
+
+      // Track the initial page load
+      ReactGA.send('pageview');
+    } else {
+      console.warn('Google Analytics tracking ID is not set.');
+    }
+  }, []);// The empty dependency array ensures this runs once on mount
+
   return (
     <Home/>
   );
