@@ -22,6 +22,8 @@ jobs:
 
       - name: Build
         working-directory: WebpageRevamped
+        env:
+          REACT_APP_GOOGLE_ANALYTICS_TOKEN: ${{ secrets.REACT_APP_GOOGLE_ANALYTICS_TOKEN }} # Using secret to set environment variable
         run: |
           yarn install
           yarn build
