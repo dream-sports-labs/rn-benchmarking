@@ -1,6 +1,7 @@
 import './App.css';
 import Home from "./components/home/Home";
-import {useEffect} from "react";
+import { BrowserRouter as Router } from 'react-router-dom'; // Import Router
+import { useEffect } from "react";
 import ReactGA from 'react-ga4';
 
 function App() {
@@ -16,10 +17,12 @@ function App() {
     } else {
       console.warn('Google Analytics tracking ID is not set.');
     }
-  }, []);// The empty dependency array ensures this runs once on mount
+  }, []); // The empty dependency array ensures this runs once on mount
 
   return (
-    <Home/>
+      <Router>
+        <Home />
+      </Router>
   );
 }
 
