@@ -15,7 +15,7 @@ export type SelectionProps = {
   onGenerateReport: (params: GenerateReportProps) => void;
   selectedVersion: string[];
   selectedOptions: string[];
-  setSelectedOptions: (options: string[]) => void;
+  setSelectedOptions: React.Dispatch<React.SetStateAction<string[]>>;
   hideSelection?: () => void;  // New prop to handle hiding the selection container on mobile
 };
 
