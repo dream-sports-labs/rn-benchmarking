@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from 'react'
-import './Home.css'
-import Header from '../header/Header'
-import SelectionContainer from '../selection/SelectionContainer'
-import GraphContainer from '../graph/GraphContainer'
-import {GenerateReportProps} from '../../RnBenchmarkingWebPage.interface'
-import {mobileWidth} from "../../RnBenchmarkingWebPage.constant";
+import React, { useEffect, useState } from 'react';
+import './Home.css';
+import Header from '../header/Header';
+import SelectionContainerWrapper from '../home/selectionContainerWrapper/SelectionContainerWrapper';
+import GraphContainer from '../graph/GraphContainer';
+import { GenerateReportProps } from '../../RnBenchmarkingWebPage.interface';
+import { mobileWidth } from "../../RnBenchmarkingWebPage.constant";
 import SelectionToggle from "./selectionToggle/SelectionToggle";
-import SelectionContainerWrapper from "../home/selectionContainerWrapper/SelectionContainerWrapper";
+import { useSearchParams } from 'react-router-dom';
 
 const Home = () => {
   const [showGraph, setShowGraph] = useState<boolean>(false);
@@ -20,34 +20,9 @@ const Home = () => {
     fiveThousandTextDataLabels: [],
     fiveThousandImageDataLabels: [],
   });
-
-  const handleGenerateReport = ({
-    labels,
-    fifteenHundredViewDataLabels,
-    fifteenHundredTextDataLabels,
-    fifteenHundredImageDataLabels,
-    fiveThousandViewDataLabels,
-    fiveThousandTextDataLabels,
-    fiveThousandImageDataLabels,
-  }: GenerateReportProps) => {
-    setGraphData({
-      labels,
-      fifteenHundredViewDataLabels,
-      fifteenHundredTextDataLabels,
-      fifteenHundredImageDataLabels,
-      fiveThousandViewDataLabels,
-      fiveThousandTextDataLabels,
-      fiveThousandImageDataLabels,
-    });
-    setShowGraph(true);
-    setShowSelection(false); // Hide the selection container after generating the report
-  };
-
+  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [width, setWidth] = useState<number>(window.innerWidth);
-
-  function handleWindowSizeChange() {
-    setWidth(window.innerWidth);
-  }
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     window.addEventListener('resize', handleWindowSizeChange);
@@ -55,6 +30,33 @@ const Home = () => {
       window.removeEventListener('resize', handleWindowSizeChange);
     };
   }, []);
+
+  useEffect(() => {
+    // Set the selected options from URL params if available
+    const filters = searchParams.get('filters');
+    if (filters) {
+      setSelectedOptions(decodeURIComponent(filters).split(','));
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
+    // Update URL whenever selectedOptions change
+    if (selectedOptions.length > 0) {
+      setSearchParams({ filters: encodeURIComponent(selectedOptions.join(',')) });
+    } else {
+      setSearchParams({});
+    }
+  }, [selectedOptions, setSearchParams]);
+
+  const handleWindowSizeChange = () => {
+    setWidth(window.innerWidth);
+  };
+
+  const handleGenerateReport = (data: GenerateReportProps) => {
+    setGraphData(data);
+    setShowGraph(true);
+    setShowSelection(false); // Hide the selection container after generating the report
+  };
 
   const isMobile = width <= mobileWidth;
 
@@ -81,6 +83,8 @@ const Home = () => {
               showSelection={showSelection}
               onGenerateReport={handleGenerateReport}
               handleClose={handleClose}
+              selectedOptions={selectedOptions}
+              setSelectedOptions={setSelectedOptions}
           />
 
           {/* Graph Container */}
