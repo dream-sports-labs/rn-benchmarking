@@ -27,7 +27,7 @@ This repository can be used for benchmarking react-native versions for old and n
 ## Setup
 
 ```
-git clone https://github.com/dream11/rn-benchmarking.git
+git clone https://github.com/dream-sports-labs/rn-benchmarking.git
 cd Benchamrking
 yarn install
 ```
