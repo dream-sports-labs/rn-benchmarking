@@ -13,6 +13,7 @@ import {
 import {GenerateReportProps} from '../../RnBenchmarkingWebPage.interface'
 import {SnackbarAlert} from '../SnackbarAlert/SnackbarAlert'
 import {maxCheckboxSelection} from "../../RnBenchmarkingWebPage.constant";
+import GithubLogo from '../../assets/icons/GitHubMark.png'
 
 type SelectionContainerProps = {
     onGenerateReport: (params: GenerateReportProps) => void;
@@ -120,6 +121,16 @@ export const SelectionContainer = ({
                     hideSelection={hideSelection} // Pass the hideSelection prop to Selection
                 />
             ) : null}
+
+            <div className="NoteContainer">
+                <a className={"Link"} href="https://github.com/dream-sports-labs/rn-benchmarking" target="_blank"
+                   rel="noopener noreferrer">
+                    <img src={GithubLogo}
+                         alt="GitHub Logo"
+                         style={{width: '20px'}}/>Access To GitHub Repo</a>
+                <div className="Note">*Benchmarking numbers are generated from debug builds.</div>
+            </div>
+
             <SnackbarAlert
                 snackbarMessage={snackbarMessage}
                 severity={'error'}
