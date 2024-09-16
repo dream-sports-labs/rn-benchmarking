@@ -276,5 +276,43 @@
     1.0938999999999999,
     1.5113999999999999,
     0.5498000000000001
-  ]
+  ],
+  "statisticalAnalysis": {
+    "5000Image": {
+      "mean_duration": 3454.9,
+      "std_deviation": 430.08486242704345,
+      "std_error": 136.004775242963,
+      "error_rate": 3.9365763189372487
+    },
+    "1500Text": {
+      "mean_duration": 1682.3,
+      "std_deviation": 1625.5396403109407,
+      "std_error": 514.040769027343,
+      "error_rate": 30.555832433415148
+    },
+    "5000Text": {
+      "mean_duration": 4244.1,
+      "std_deviation": 755.6848917078835,
+      "std_error": 238.96854511746008,
+      "error_rate": 5.63060590272284
+    },
+    "1500Image": {
+      "mean_duration": 1093.9,
+      "std_deviation": 256.2648152898785,
+      "std_error": 81.0380500478359,
+      "error_rate": 7.4081771686475815
+    },
+    "5000View": {
+      "mean_duration": 1511.4,
+      "std_deviation": 306.6116617337167,
+      "std_error": 96.95912082476362,
+      "error_rate": 6.415185974908272
+    },
+    "1500View": {
+      "mean_duration": 549.8,
+      "std_deviation": 448.778539791931,
+      "std_error": 141.91623507470095,
+      "error_rate": 25.812338136540735
+    }
+  }
 }
