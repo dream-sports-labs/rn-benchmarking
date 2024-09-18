@@ -9,10 +9,10 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js'
-import React from 'react'
-import {Chip} from '@mui/material'
+import React, {useEffect, useState} from 'react'
 import {GenerateReportProps} from '../../RnBenchmarkingWebPage.interface'
 import {chartData, options} from './GraphContainer.utils'
+import {mobileWidth} from "../../RnBenchmarkingWebPage.constant"
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
@@ -25,49 +25,64 @@ export const GraphContainer = ({
   fiveThousandTextDataLabels,
   fiveThousandImageDataLabels,
 }: GenerateReportProps) => {
+  const [width, setWidth] = useState<number>(window.innerWidth);
+
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+  }
+  useEffect(() => {
+    window.addEventListener('resize', handleWindowSizeChange);
+    return () => {
+      window.removeEventListener('resize', handleWindowSizeChange);
+    };
+  }, []);
+
+  const isMobile = width <= mobileWidth;
+  const performanceTitle = `Performance comparison of ${labels.join(', ')}`
   return (
-    <div className={'GraphContainer'}>
-      <div className={'InnerContainer'}>
+      <div className={'GraphContainer'}>
+        {isMobile && <div className={'Info'}>{performanceTitle}</div>}
+        <div className={'InnerContainer'}>
         <div className={'BarChartContainer'}>
-          <Bar
-            data={chartData(labels, fifteenHundredViewDataLabels)}
-            options={options('1500 View', 4)}
-          />
+            <Bar
+                data={chartData(labels, fifteenHundredViewDataLabels)}
+                options={options('1500 View', 4)}
+            />
+          </div>
+          <div className={'BarChartContainer'}>
+            <Bar
+                data={chartData(labels, fifteenHundredTextDataLabels)}
+                options={options('1500 Text', 4)}
+            />
+          </div>
+          <div className={'BarChartContainerEnd'}>
+            <Bar
+                data={chartData(labels, fifteenHundredImageDataLabels)}
+                options={options('1500 Image', 4)}
+            />
+          </div>
         </div>
-        <div className={'BarChartContainer'}>
-          <Bar
-            data={chartData(labels, fifteenHundredTextDataLabels)}
-            options={options('1500 Text', 4)}
-          />
-        </div>
-        <div className={'BarChartContainerEnd'}>
-          <Bar
-            data={chartData(labels, fifteenHundredImageDataLabels)}
-            options={options('1500 Image', 4)}
-          />
+        <div className={'InnerContainer'}>
+          <div className={'BarChartContainerBottom'}>
+            <Bar
+                data={chartData(labels, fiveThousandViewDataLabels)}
+                options={options('5000 View', 8)}
+            />
+          </div>
+          <div className={'BarChartContainerBottom'}>
+            <Bar
+                data={chartData(labels, fiveThousandTextDataLabels)}
+                options={options('5000 Text', 8)}
+            />
+          </div>
+          <div className={'BarChartContainerBottomEnd'}>
+            <Bar
+                data={chartData(labels, fiveThousandImageDataLabels)}
+                options={options('5000 Image', 8)}
+            />
+          </div>
         </div>
       </div>
-      <div className={'InnerContainer'}>
-        <div className={'BarChartContainerBottom'}>
-          <Bar
-            data={chartData(labels, fiveThousandViewDataLabels)}
-            options={options('5000 View', 8)}
-          />
-        </div>
-        <div className={'BarChartContainerBottom'}>
-          <Bar
-            data={chartData(labels, fiveThousandTextDataLabels)}
-            options={options('5000 Text', 8)}
-          />
-        </div>
-        <div className={'BarChartContainerBottomEnd'}>
-          <Bar
-            data={chartData(labels, fiveThousandImageDataLabels)}
-            options={options('5000 Image', 8)}
-          />
-        </div>
-      </div>
-    </div>
   )
 }
 
