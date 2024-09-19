@@ -25,13 +25,6 @@ const Home = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    window.addEventListener('resize', handleWindowSizeChange);
-    return () => {
-      window.removeEventListener('resize', handleWindowSizeChange);
-    };
-  }, []);
-
-  useEffect(() => {
     // Set the selected options from URL params if available
     const filters = searchParams.get('filters');
     if (filters) {
@@ -48,9 +41,6 @@ const Home = () => {
     }
   }, [selectedOptions, setSearchParams]);
 
-  const handleWindowSizeChange = () => {
-    setWidth(window.innerWidth);
-  };
 
   const handleGenerateReport = (data: GenerateReportProps) => {
     setGraphData(data);
@@ -58,7 +48,7 @@ const Home = () => {
     setShowSelection(false); // Hide the selection container after generating the report
   };
 
-  const isMobile = width <= mobileWidth;
+  const isMobile = useIsMobile();
 
   const toggleSelection = () => {
     setShowSelection(!showSelection); // Toggle the visibility of the selection container
