@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react'
 import './Home.css'
 import Header from '../header/Header'
-import SelectionContainer from '../selection/SelectionContainer'
 import GraphContainer from '../graph/GraphContainer'
 import {GenerateReportProps} from '../../RnBenchmarkingWebPage.interface'
-import {mobileWidth} from "../../RnBenchmarkingWebPage.constant";
 import SelectionToggle from "./selectionToggle/SelectionToggle";
 import SelectionContainerWrapper from "../home/selectionContainerWrapper/SelectionContainerWrapper";
+import {useIsMobile} from "../../hooks/useIsMobile";
 
 const Home = () => {
   const [showGraph, setShowGraph] = useState<boolean>(false);
@@ -43,20 +42,7 @@ const Home = () => {
     setShowSelection(false); // Hide the selection container after generating the report
   };
 
-  const [width, setWidth] = useState<number>(window.innerWidth);
-
-  function handleWindowSizeChange() {
-    setWidth(window.innerWidth);
-  }
-
-  useEffect(() => {
-    window.addEventListener('resize', handleWindowSizeChange);
-    return () => {
-      window.removeEventListener('resize', handleWindowSizeChange);
-    };
-  }, []);
-
-  const isMobile = width <= mobileWidth;
+  const isMobile = useIsMobile()
 
   const toggleSelection = () => {
     setShowSelection(!showSelection); // Toggle the visibility of the selection container

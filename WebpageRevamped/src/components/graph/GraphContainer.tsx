@@ -9,10 +9,10 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js'
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import {GenerateReportProps} from '../../RnBenchmarkingWebPage.interface'
 import {chartData, options} from './GraphContainer.utils'
-import {mobileWidth} from "../../RnBenchmarkingWebPage.constant"
+import {useIsMobile} from "../../hooks/useIsMobile";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
@@ -25,19 +25,7 @@ export const GraphContainer = ({
   fiveThousandTextDataLabels,
   fiveThousandImageDataLabels,
 }: GenerateReportProps) => {
-  const [width, setWidth] = useState<number>(window.innerWidth);
-
-  function handleWindowSizeChange() {
-    setWidth(window.innerWidth);
-  }
-  useEffect(() => {
-    window.addEventListener('resize', handleWindowSizeChange);
-    return () => {
-      window.removeEventListener('resize', handleWindowSizeChange);
-    };
-  }, []);
-
-  const isMobile = width <= mobileWidth;
+  const isMobile = useIsMobile()
   const performanceTitle = `Performance comparison of ${labels.join(', ')}`
   return (
       <div className={'GraphContainer'}>
