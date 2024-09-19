@@ -14,12 +14,14 @@
     flex-direction: row;
 }
 
-.Title {
+.Info {
     color: #333333;
-    font-size: 14px;
+    font-size: 12px;
     font-style: normal;
     font-weight: 700;
-    line-height: 20px;
+    line-height: 16px;
+    padding-left: 10px;
+    flex-wrap: wrap;
 }
 
 .BarChartContainer {
