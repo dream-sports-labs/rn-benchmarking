@@ -38,6 +38,26 @@
     margin-right: 10px; /* Add some margin between title and chips */
 }
 
+.Note {
+    display: flex;
+    color: gray;
+    font-size: 12px;
+    line-height: 16px;
+    margin-bottom: 16px;
+}
+
+.NoteContainer {
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+    justify-content: center;
+}
+.Link {
+    font-size: 12px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 /* Mobile adjustments */
 @media (max-width: 768px) {
     .SelectionContainer {

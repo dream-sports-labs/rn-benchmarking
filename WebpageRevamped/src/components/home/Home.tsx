@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import './Home.css';
-import Header from '../header/Header';
-import SelectionContainerWrapper from '../home/selectionContainerWrapper/SelectionContainerWrapper';
-import GraphContainer from '../graph/GraphContainer';
-import { GenerateReportProps } from '../../RnBenchmarkingWebPage.interface';
-import { mobileWidth } from "../../RnBenchmarkingWebPage.constant";
+import React, {useEffect, useState} from 'react'
+import './Home.css'
+import Header from '../header/Header'
+import GraphContainer from '../graph/GraphContainer'
+import {GenerateReportProps} from '../../RnBenchmarkingWebPage.interface'
 import SelectionToggle from "./selectionToggle/SelectionToggle";
+import SelectionContainerWrapper from "../home/selectionContainerWrapper/SelectionContainerWrapper";
+import {useIsMobile} from "../../hooks/useIsMobile";
 import { useSearchParams } from 'react-router-dom';
 
 const Home = () => {
