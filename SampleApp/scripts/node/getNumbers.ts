@@ -67,6 +67,7 @@ function validateInput() {
 }
 
 function runMaestroScript() {
+  console.log('------------deviceId',deviceId, platform)
   if (!deviceId) {
     execSync(
       `maestro test -e APP_ID=${packageName} -e ITERATIONS=${iterationCount} ../automation/renderFlow.yaml`,
