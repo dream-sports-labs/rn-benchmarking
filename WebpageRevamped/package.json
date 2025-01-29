@@ -23,7 +23,8 @@
     "build": "CI=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "generate-reports": "ts-node generateReports.ts"
+    "generate-reports": "ts-node generateReports.ts",
+    "generate-statistical-data": "node generateStatisticalData.js"
   },
   "browserslist": {
     "production": [
