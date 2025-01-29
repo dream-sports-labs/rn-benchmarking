@@ -6,6 +6,7 @@ import {GenerateReportProps} from '../../RnBenchmarkingWebPage.interface'
 import SelectionToggle from "./selectionToggle/SelectionToggle";
 import SelectionContainerWrapper from "../home/selectionContainerWrapper/SelectionContainerWrapper";
 import {useIsMobile} from "../../hooks/useIsMobile";
+import { useSearchParams } from 'react-router-dom';
 
 const Home = () => {
   const [showGraph, setShowGraph] = useState<boolean>(false);
@@ -19,30 +20,35 @@ const Home = () => {
     fiveThousandTextDataLabels: [],
     fiveThousandImageDataLabels: [],
   });
+  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+  const [width, setWidth] = useState<number>(window.innerWidth);
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const handleGenerateReport = ({
-    labels,
-    fifteenHundredViewDataLabels,
-    fifteenHundredTextDataLabels,
-    fifteenHundredImageDataLabels,
-    fiveThousandViewDataLabels,
-    fiveThousandTextDataLabels,
-    fiveThousandImageDataLabels,
-  }: GenerateReportProps) => {
-    setGraphData({
-      labels,
-      fifteenHundredViewDataLabels,
-      fifteenHundredTextDataLabels,
-      fifteenHundredImageDataLabels,
-      fiveThousandViewDataLabels,
-      fiveThousandTextDataLabels,
-      fiveThousandImageDataLabels,
-    });
+  useEffect(() => {
+    // Set the selected options from URL params if available
+    const filters = searchParams.get('filters');
+    if (filters) {
+      setSelectedOptions(decodeURIComponent(filters).split(','));
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
+    // Update URL whenever selectedOptions change
+    if (selectedOptions.length > 0) {
+      setSearchParams({ filters: encodeURIComponent(selectedOptions.join(',')) });
+    } else {
+      setSearchParams({});
+    }
+  }, [selectedOptions, setSearchParams]);
+
+
+  const handleGenerateReport = (data: GenerateReportProps) => {
+    setGraphData(data);
     setShowGraph(true);
     setShowSelection(false); // Hide the selection container after generating the report
   };
 
-  const isMobile = useIsMobile()
+  const isMobile = useIsMobile();
 
   const toggleSelection = () => {
     setShowSelection(!showSelection); // Toggle the visibility of the selection container
@@ -67,6 +73,8 @@ const Home = () => {
               showSelection={showSelection}
               onGenerateReport={handleGenerateReport}
               handleClose={handleClose}
+              selectedOptions={selectedOptions}
+              setSelectedOptions={setSelectedOptions}
           />
 
           {/* Graph Container */}

@@ -25,22 +25,11 @@ const Selection = (props: SelectionProps) => {
   }, [selectedOptions]);
 
   useEffect(() => {
-    setSelectedCount(selectedOptions.length);
-    if (selectedVersion.length > 0 && selectedOptions.length === 0) {
-      const latestVersion = selectedVersion;
-      setSelectedOptions([
-        `${latestVersion}/android/oldarch`,
-        `${latestVersion}/android/newarch`,
-      ]);
-    }
-  }, []);
-
-  useEffect(() => {
     if (autoGenerateReport && selectedOptions.length > 0) {
       setAutoGenerateReport(false);
       handleGenerateReport();
     }
-  }, [selectedOptions]);
+  }, []);
 
   const handleCheckboxChange = (version: string, architectureType: string) => (event: { target: { checked: boolean } }) => {
     const isChecked = event.target.checked;

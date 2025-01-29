@@ -18,24 +18,45 @@ import ReportIcon from '../../assets/icons/Reports2.png'
 
 type SelectionContainerProps = {
     onGenerateReport: (params: GenerateReportProps) => void;
-    hideSelection?: () => void; // Add this line to define the prop type
+    hideSelection?: () => void;
+    selectedOptions: string[];
+    setSelectedOptions: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 export const SelectionContainer = ({
-  onGenerateReport, hideSelection,
-}: SelectionContainerProps) => {
-  const {versions} = require('../../supportedVersions.json')
-  const versionName = versions
-  const [selectedVersion, setSelectedVersion] = useState<string[]>([])
-  const [selectedOptions, setSelectedOptions] = useState<string[]>([])
-  const [openSnackbar, setOpenSnackbar] = useState(false)
-  const [snackbarMessage, setSnackbarMessage] = useState('')
-  useEffect(() => {
-    if (versionName.length > 0) {
-      const latestVersion = versionName[versionName.length - 1];
-      setSelectedVersion([latestVersion]);
-    }
-  }, [versionName]);
+                                       onGenerateReport,
+                                       hideSelection,
+                                       selectedOptions,
+                                       setSelectedOptions
+                                   }: SelectionContainerProps) => {
+    const {versions} = require('../../supportedVersions.json')
+    const versionName = versions
+    const [selectedVersion, setSelectedVersion] = useState<string[]>([])
+    const [openSnackbar, setOpenSnackbar] = useState(false)
+    const [snackbarMessage, setSnackbarMessage] = useState('')
+    const [update, setUpdate] = useState(true)
+
+    useEffect(() => {
+        if (selectedOptions.length > 0 && update) {
+            // Filter versions that match the start of any selected option
+            const newSelectedVersion = versionName.filter((version: string) =>
+                selectedOptions.some(option => option.startsWith(version))
+            );
+            if (newSelectedVersion.length > 0) {
+                setSelectedVersion(newSelectedVersion);
+            }
+            setUpdate(false);
+        } else if (selectedOptions.length === 0 && update) {
+            // If no options are selected, default to the latest version
+            const latestVersion = versionName[versionName.length - 1];
+            setSelectedVersion([latestVersion]);
+            setSelectedOptions([
+                `${latestVersion}/android/oldarch`,
+                `${latestVersion}/android/newarch`,
+            ]);
+        }
+
+    }, [selectedOptions, versionName, update, setSelectedOptions]);
 
     const handleChange = (event: SelectChangeEvent<typeof selectedVersion>) => {
         const value = event.target.value;
@@ -69,16 +90,16 @@ export const SelectionContainer = ({
                 <Chip
                     label={
                         <span>
-              <strong>Android Emulator:</strong> Pixel 3A API 34
-            </span>
+                            <strong>Android Emulator:</strong> Pixel 3A API 34
+                        </span>
                     }
                     sx={{fontSize: '12px'}}
                 />
                 <Chip
                     label={
                         <span>
-              <strong>iOS Simulator:</strong> iPhone 15 Pro (17.2)
-            </span>
+                            <strong>iOS Simulator:</strong> iPhone 15 Pro (17.2)
+                        </span>
                     }
                     sx={{fontSize: '12px'}}
                 />
@@ -106,7 +127,7 @@ export const SelectionContainer = ({
                 >
                     {versionName.map((version: string) => (
                         <MenuItem key={version} value={version}>
-                            <Checkbox checked={selectedVersion.indexOf(version) > -1}/>
+                            <Checkbox checked={selectedVersion.includes(version)}/>
                             <ListItemText primary={version}/>
                         </MenuItem>
                     ))}
