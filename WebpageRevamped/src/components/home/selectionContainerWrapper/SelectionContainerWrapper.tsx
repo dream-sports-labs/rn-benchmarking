@@ -1,13 +1,15 @@
 import React from 'react';
 import './SelectionContainerWrapper.css';
 import SelectionContainer from '../../selection/SelectionContainer';
-import {GenerateReportProps} from '../../../RnBenchmarkingWebPage.interface';
+import { GenerateReportProps } from '../../../RnBenchmarkingWebPage.interface';
 
-const SelectionContainerWrapper = ({isMobile, showSelection, onGenerateReport, handleClose}: {
+const SelectionContainerWrapper = ({isMobile, showSelection, onGenerateReport, handleClose, selectedOptions,  setSelectedOptions}: {
     isMobile: boolean;
     showSelection: boolean;
     onGenerateReport: (data: GenerateReportProps) => void;
     handleClose: () => void;
+    selectedOptions: string[];
+    setSelectedOptions:React.Dispatch<React.SetStateAction<string[]>>;
 }) => (
     <>
         {isMobile ? (
@@ -19,11 +21,17 @@ const SelectionContainerWrapper = ({isMobile, showSelection, onGenerateReport, h
                     <SelectionContainer
                         onGenerateReport={onGenerateReport}
                         hideSelection={handleClose}
+                        selectedOptions={selectedOptions}
+                        setSelectedOptions={setSelectedOptions}
                     />
                 </div>
             </div>
         ) : (
-            <SelectionContainer onGenerateReport={onGenerateReport} />
+            <SelectionContainer
+                onGenerateReport={onGenerateReport}
+                selectedOptions={selectedOptions}
+                setSelectedOptions={setSelectedOptions}
+            />
         )}
     </>
 );
