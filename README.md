@@ -23,7 +23,7 @@ Supports both Old and New Architecture, with manual and automated testing.
 1. **[React Native Environment Setup](https://reactnative.dev/docs/next/environment-setup)**  
    Make sure your local dev environment is configured for React Native.
 
-2. **[Maestro Setup](https://maestro.mobile.dev/)**  
+2. **[Maestro Setup](https://docs.maestro.dev/getting-started/installing-maestro)**  
    To verify if Maestro is installed, run:
    ```bash
    maestro --version
@@ -56,7 +56,7 @@ yarn install
 2. Run the following command to enable old architecture:
    ```
    cd ios
-   export NO_FLIPPER=1 && bundle install && bundle exec pod install
+   export NO_FLIPPER=1 && bundle install && RCT_NEW_ARCH_ENABLED=0 bundle exec pod install
    rm -rf build
    ```
 3. Start the app using: `yarn ios`.
