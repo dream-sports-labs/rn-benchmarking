@@ -1,0 +1,23 @@
+=== Log Started at 2025-06-03T01:19:33.991Z ===
+
+[2025-06-03T01:59:30.647Z] [ERROR] Command failed: node /Users/devanshsaini/d11-projects/rn-benchmarking/Automation/platform/ios/run-ios-tests.js /Users/devanshsaini/d11-projects/rn-benchmarking/Automation/built_apps_ios/rn_0.79.0_old_arch_metadata.json F92F840E-D515-435A-B77D-0E233794E4B5
+Error: Command failed: node /Users/devanshsaini/d11-projects/rn-benchmarking/Automation/platform/ios/run-ios-tests.js /Users/devanshsaini/d11-projects/rn-benchmarking/Automation/built_apps_ios/rn_0.79.0_old_arch_metadata.json F92F840E-D515-435A-B77D-0E233794E4B5
+Stack: Error: Command failed: node /Users/devanshsaini/d11-projects/rn-benchmarking/Automation/platform/ios/run-ios-tests.js /Users/devanshsaini/d11-projects/rn-benchmarking/Automation/built_apps_ios/rn_0.79.0_old_arch_metadata.json F92F840E-D515-435A-B77D-0E233794E4B5
+    at genericNodeError (node:internal/errors:984:15)
+    at wrappedFn (node:internal/errors:538:14)
+    at checkExecSyncError (node:child_process:891:11)
+    at execSync (node:child_process:963:15)
+    at runCommand (file:///Users/devanshsaini/d11-projects/rn-benchmarking/Automation/utils/helper.js:10:5)
+    at runInstallAndTestsIOS (file:///Users/devanshsaini/d11-projects/rn-benchmarking/Automation/platform/ios/helper.js:142:13)
+    at main (file:///Users/devanshsaini/d11-projects/rn-benchmarking/Automation/platform/ios/ios-benchmark.js:33:5)
+    at file:///Users/devanshsaini/d11-projects/rn-benchmarking/Automation/platform/ios/ios-benchmark.js:45:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:263:25)
+    at async ModuleLoader.import (node:internal/modules/esm/loader:540:24)
+status: 1
+signal: null
+output: [null,null,null]
+pid: 20718
+stdout: null
+stderr: null
+
+
