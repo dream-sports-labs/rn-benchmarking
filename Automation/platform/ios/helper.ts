@@ -1,7 +1,7 @@
 import { runCommand, loadState, updateState } from "../../utils/helper";
 import { logMessage } from "../../utils/logger";
 import { execSync } from "child_process";
-import fs from "fs";
+import * as fs from 'fs-extra';
 import path from "path";
 import { BuildResults, IOSBuildMetadata, SuccessfulIOSInstall, StateFile } from "../../utils/types";
 
@@ -308,7 +308,7 @@ export function buildAppIOS(
             return false;
         }
 
-        fs.copyFileSync(buildPath, APP_PATH);
+        fs.copySync(buildPath, APP_PATH, { overwrite: true });
         logMessage('INFO', `App copied to ${APP_PATH}`);
 
         return true;
