@@ -23,7 +23,7 @@ async function main(): Promise<void> {
     const APP_OUTPUT_DIR = path.join(BENCHMARK_DIR, '..', '..', 'built_apps_ios');
     const isNewArch = ARCH_TYPE === 'new';
     const PROJECT_NAME = `RN_${RN_VERSION.replace(/\./g, '_')}_Benchmark`;
-    const BUNDLE_ID = `org.reactjs.native.example.RN_${RN_VERSION.replace(/\./g, '-')}_Benchmark`;
+    const BUNDLE_ID = `org.reactjs.native.example.RN_${RN_VERSION.replace(/\./g, '-')}-Benchmark`;
     const APP_PATH = path.join(APP_OUTPUT_DIR, `rn_${RN_VERSION}_${ARCH_TYPE}_arch.app`);
     const ERROR_LOG_FILE = getErrorLogFile();
 
