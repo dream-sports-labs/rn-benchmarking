@@ -291,7 +291,6 @@ export function installPods(IOS_DIR: string, ERROR_LOG_FILE: string): void {
 
 export function buildAppIOS(
     isNewArch: boolean,
-    BENCHMARK_DIR: string,
     ERROR_LOG_FILE: string,
     APP_PATH: string,
     IOS_DIR: string,
@@ -303,7 +302,7 @@ export function buildAppIOS(
         const command = `xcodebuild -workspace ${PROJECT_NAME}.xcworkspace -scheme ${PROJECT_NAME} -configuration Release -sdk iphonesimulator -derivedDataPath "build" CODE_SIGNING_ALLOWED=NO build`;
         runCommand(command, ERROR_LOG_FILE, { cwd: IOS_DIR });
 
-        const buildPath = path.join(BENCHMARK_DIR, 'build/Build/Products/Release-iphonesimulator', `${PROJECT_NAME}.app`);
+        const buildPath = path.join(IOS_DIR, 'build/Build/Products/Release-iphonesimulator', `${PROJECT_NAME}.app`);
         if (!fs.existsSync(buildPath)) {
             logMessage('ERROR', 'Release app not found after build');
             return false;

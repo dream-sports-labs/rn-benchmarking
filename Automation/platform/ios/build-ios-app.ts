@@ -29,7 +29,7 @@ async function main(): Promise<void> {
     cleanBuild(IOS_DIR, PROJECT_NAME, ERROR_LOG_FILE);
     modifyPodfile(isNewArch, PODFILE_PATH);
     installPods(IOS_DIR, ERROR_LOG_FILE);
-    const buildSuccess = buildAppIOS(isNewArch, BENCHMARK_DIR, ERROR_LOG_FILE, APP_PATH, IOS_DIR, PROJECT_NAME);
+    const buildSuccess = buildAppIOS(isNewArch, ERROR_LOG_FILE, APP_PATH, IOS_DIR, PROJECT_NAME);
 
     if (buildSuccess) {
       const metadata: IOSBuildMetadata = {
