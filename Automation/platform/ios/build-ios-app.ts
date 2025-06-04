@@ -23,6 +23,7 @@ async function main(): Promise<void> {
     const APP_OUTPUT_DIR = path.join(BENCHMARK_DIR, '..', '..', 'built_apps_ios');
     const isNewArch = ARCH_TYPE === 'new';
     const PROJECT_NAME = `RN_${RN_VERSION.replace(/\./g, '_')}_Benchmark`;
+    const BUNDLE_ID = `org.reactjs.native.example.RN_${RN_VERSION.replace(/\./g, '-')}_Benchmark`;
     const APP_PATH = path.join(APP_OUTPUT_DIR, `rn_${RN_VERSION}_${ARCH_TYPE}_arch.app`);
     const ERROR_LOG_FILE = getErrorLogFile();
 
@@ -33,7 +34,7 @@ async function main(): Promise<void> {
 
     if (buildSuccess) {
       const metadata: IOSBuildMetadata = {
-        bundleId: `org.reactjs.native.example.${PROJECT_NAME}`,
+        bundleId: BUNDLE_ID,
         version: RN_VERSION,
         appPath: APP_PATH,
         architecture: ARCH_TYPE as 'old' | 'new',
