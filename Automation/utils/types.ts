@@ -1,17 +1,27 @@
-export interface Args {
+export type IterationInfoArgs = {
   RN_VERSION: string;
   ITERATIONS: number;
+};
+
+export type BuildArgs = {
+  RN_VERSION: string;
+  BENCHMARK_DIR: string;
+  ARCH_TYPE: Architecture;
+};
+
+export enum LogLevel {
+  ERROR = 'ERROR',
+  INFO = 'INFO',
+  DEBUG = 'DEBUG',
+  WARN = 'WARN'
 }
 
-export interface Config {
-  BASE_DIR: string;
-  TEMPLATE_DIR: string;
-  ERROR_LOG_FILE: string;
+export enum Architecture {
+  OLD = 'old',
+  NEW = 'new'
 }
 
-export type LogLevel = 'ERROR' | 'INFO';
-
-export interface BaseState {
+export type BenchmarkState = {
   version: string;
   projectCreated: boolean;
   templatesApplied: boolean;
@@ -20,70 +30,56 @@ export interface BaseState {
   packageName?: string;
 }
 
-export interface AndroidState {
-  androidOldArchTested: boolean;
-  androidNewArchTested: boolean;
-  androidOldArchApkPath?: string;
-  androidNewArchApkPath?: string;
-  androidOldArchMetadataPath?: string;
-  androidNewArchMetadataPath?: string;
+export type BuildState = {
+  tested?: boolean;
+  metadataPath?: string;
+  appPath?: string;
 }
 
-export interface IOSState {
-  iosOldArchTested: boolean;
-  iosNewArchTested: boolean;
+export type BuildVariants<T> = {
+  [key in Architecture]: T;
+}
+
+export type AndroidState = {
+  android: BuildVariants<BuildState>;
+}
+
+export type IOSState = {
+  ios: BuildVariants<BuildState>;
   iosPackageName?: string;
-  iosOldArchAppPath?: string;
-  iosNewArchAppPath?: string;
-  iosOldArchMetadataPath?: string;
-  iosNewArchMetadataPath?: string;
 }
 
-export interface StateFile extends BaseState, AndroidState, IOSState {}
+export type BenchmarkStateFile = BenchmarkState & AndroidState & IOSState;
 
-export interface ExecOptions {
-  stdio?: 'inherit' | 'pipe';
-  cwd?: string;
-  env?: NodeJS.ProcessEnv;
-  shell?: boolean;
-}
-
-export interface InitializeResult {
-  RN_VERSION: string;
-  ITERATIONS: number;
+export type InitializeResult = IterationInfoArgs & {
   BENCHMARK_DIR: string;
   TEMPLATE_DIR: string;
   BASE_DIR: string;
 }
 
-export interface BuildResults {
-  oldArchBuildSuccessful: boolean;
-  newArchBuildSuccessful: boolean;
-  oldArchMetadataPath: string;
-  newArchMetadataPath: string;
+export type BuildStatus = {
+  buildSuccessful: boolean;
+  metadataPath: string;
 }
 
-export interface AndroidBuildMetadata {
-  packageName: string;
-  version: string;
-  apkPath: string;
-  architecture: 'old' | 'new';
+export type ArchitectureVariants<T> = {
+  [key in Architecture]: T;
 }
 
-export interface IOSBuildMetadata {
+export type BuildResults = {
+  android?: ArchitectureVariants<BuildStatus>;
+  ios?: ArchitectureVariants<BuildStatus>;
+}
+
+export type BuildMetadata = {
   bundleId: string;
   version: string;
   appPath: string;
-  architecture: 'old' | 'new';
+  arch: Architecture;
 }
 
-export interface SuccessfulInstall {
-  arch: 'old' | 'new';
+export type SuccessfulInstall = {
+  arch: Architecture;
   deviceId: string;
+  bundleId?: string;
 }
-
-export interface SuccessfulIOSInstall {
-  arch: 'old' | 'new';
-  simulatorId: string;
-  bundleId: string;
-} 

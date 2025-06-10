@@ -3,18 +3,17 @@
 import fs from 'fs';
 import path from 'path';
 import { buildAppIOS, cleanBuild, modifyPodfile, installPods } from './helper';
-import { logMessage } from '../../utils/logger';
-import { getErrorLogFile } from '../../utils/config';
-import { IOSBuildMetadata } from '../../utils/types';
+import { Architecture, BuildMetadata } from '../../utils/types';
+import { Logger } from '../../utils/logger';
+import { parseBuildArgs } from '../../utils/args';
 
-async function main(): Promise<void> {
+async function main() {
+  const logger = new Logger();
   try {
-    const RN_VERSION = process.argv[2];
-    const BENCHMARK_DIR = process.argv[3];
-    const ARCH_TYPE = process.argv[4];
+    const { RN_VERSION, BENCHMARK_DIR, ARCH_TYPE } = parseBuildArgs();
 
     if (!RN_VERSION || !BENCHMARK_DIR || !ARCH_TYPE) {
-      logMessage('ERROR', 'Usage: ./build-ios-app.js <RN_VERSION> <BENCHMARK_DIR> <ARCH_TYPE>');
+      logger.warn('Usage: ./build-ios-app.js <RN_VERSION> <BENCHMARK_DIR> <ARCH_TYPE>');
       process.exit(1);
     }
 
@@ -23,37 +22,33 @@ async function main(): Promise<void> {
     const APP_OUTPUT_DIR = path.join(BENCHMARK_DIR, '..', '..', 'built_apps_ios');
     const isNewArch = ARCH_TYPE === 'new';
     const PROJECT_NAME = `RN_${RN_VERSION.replace(/\./g, '_')}_Benchmark`;
-    const BUNDLE_ID = `org.reactjs.native.example.RN_${RN_VERSION.replace(/\./g, '-')}-Benchmark`;
+    const BUNDLE_ID = `org.reactjs.native.example.RN-${RN_VERSION.replace(/\./g, '-')}-Benchmark`;
     const APP_PATH = path.join(APP_OUTPUT_DIR, `rn_${RN_VERSION}_${ARCH_TYPE}_arch.app`);
-    const ERROR_LOG_FILE = getErrorLogFile();
 
-    cleanBuild(IOS_DIR, PROJECT_NAME, ERROR_LOG_FILE);
+    cleanBuild(IOS_DIR);
     modifyPodfile(isNewArch, PODFILE_PATH);
-    installPods(IOS_DIR, ERROR_LOG_FILE);
-    const buildSuccess = buildAppIOS(isNewArch, ERROR_LOG_FILE, APP_PATH, IOS_DIR, PROJECT_NAME);
+    installPods(IOS_DIR);
+    const buildSuccess = buildAppIOS(isNewArch, APP_PATH, IOS_DIR, PROJECT_NAME);
 
     if (buildSuccess) {
-      const metadata: IOSBuildMetadata = {
+      const metadata: BuildMetadata = {
         bundleId: BUNDLE_ID,
         version: RN_VERSION,
         appPath: APP_PATH,
-        architecture: ARCH_TYPE as 'old' | 'new',
+        arch: ARCH_TYPE as Architecture,
       };
 
       const metadataPath = path.join(APP_OUTPUT_DIR, `rn_${RN_VERSION}_${ARCH_TYPE}_arch_metadata.json`);
       fs.writeFileSync(metadataPath, JSON.stringify(metadata, null, 2));
-      logMessage('INFO', `Metadata saved to ${metadataPath}`);
+      logger.info(`Metadata saved to ${metadataPath}`);
     } else {
-      logMessage('ERROR', 'Build failed');
+      logger.error('Build failed', null);
       process.exit(1);
     }
   } catch (error) {
-    logMessage('ERROR', 'Error in build process', error);
+    logger.error('Error in build process', error);
     process.exit(1);
   }
 }
 
-main().catch(error => {
-  logMessage('ERROR', 'Unhandled error in build process', error);
-  process.exit(1);
-}); 
+main()

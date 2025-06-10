@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 import fs from 'fs';
-import { IOSBuildMetadata } from '../../utils/types';
-import { getErrorLogFile } from '../../utils/config';
-import { installApp, launchApp } from './helper';
+import { BuildMetadata } from '../../utils/types';
+import { installApp } from './helper';
+import { Logger } from '../../utils/logger';
 
 const METADATA_PATH = process.argv[2];
 const simulatorId = process.argv[3];
@@ -22,22 +22,22 @@ interface InstallResult {
   simulatorId: string;
 }
 
-function installAndLaunchApp(): InstallResult {
-  console.log('\n=== Installing and Launching iOS App ===\n');
+function installIOSApp(): InstallResult {
+  const logger = new Logger();
+  logger.info('\n=== Installing and Launching iOS App ===\n');
 
-  console.log('Reading metadata file...');
-  const metadata = JSON.parse(fs.readFileSync(METADATA_PATH, 'utf8')) as IOSBuildMetadata;
+  logger.info('Reading metadata file...');
+  const metadata = JSON.parse(fs.readFileSync(METADATA_PATH, 'utf8')) as BuildMetadata;
 
   const bundleId = metadata.bundleId;
   const version = metadata.version;
   const appPath = metadata.appPath;
-  const architecture = metadata.architecture;
-  const ERROR_LOG_FILE = getErrorLogFile();
+  const architecture = metadata.arch;
 
-  console.log(`Bundle ID: ${bundleId}`);
-  console.log(`Version: ${version}`);
-  console.log(`Architecture: ${architecture}`);
-  console.log(`App path: ${appPath}`);
+  logger.info(`Bundle ID: ${bundleId}`);
+  logger.info(`Version: ${version}`);
+  logger.info(`Architecture: ${architecture}`);
+  logger.info(`App path: ${appPath}`);
 
   if (!fs.existsSync(appPath)) {
     throw new Error(`App not found at ${appPath}`);
@@ -49,14 +49,13 @@ function installAndLaunchApp(): InstallResult {
 
   console.log(`Using simulator: ${simulatorId}`);
 
-  installApp(simulatorId, appPath, ERROR_LOG_FILE);
-  launchApp(simulatorId, bundleId, ERROR_LOG_FILE);
+  installApp(simulatorId, appPath);
 
   fs.writeFileSync(METADATA_PATH, JSON.stringify(metadata, null, 2));
 
-  console.log('\n=== App Installation and Launch Completed ===\n');
+  console.log('\n=== App Installation Completed ===\n');
 
   return { bundleId, version, architecture, simulatorId };
 }
 
-installAndLaunchApp(); 
+installIOSApp(); 

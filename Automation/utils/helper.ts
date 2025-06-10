@@ -1,14 +1,16 @@
 import { execSync, ExecSyncOptions } from 'child_process';
 import fs from 'fs';
 import path from 'path';
-import { logMessage, initializeLogFile } from './logger';
-import { getBenchmarkDir, getErrorLogFile } from './config';
-import { parseArgs } from './args';
-import { StateFile } from './types';
+import { Logger } from './logger';
+import { getBenchmarkDir } from './config';
+import { BenchmarkStateFile, InitializeResult } from './types';
+import { parseIterationArgs } from './args';
 
 type ExecOptions = Omit<ExecSyncOptions, 'shell'> & { shell?: string };
 
-export function runCommand(command: string, errorLogFile: string, options: ExecOptions = {}): boolean {
+export function runCommand(command: string, options: ExecOptions = {}): boolean {
+  const logger = new Logger();
+
   try {
     execSync(command, {
       stdio: 'inherit',
@@ -18,97 +20,113 @@ export function runCommand(command: string, errorLogFile: string, options: ExecO
     });
     return true;
   } catch (error) {
-    logMessage('ERROR', `Command failed: ${command}`, error, errorLogFile);
+    logger.error(`Command failed: ${command}`, error);
     process.exit(1);
   }
 }
 
-export function loadState(benchmarkDir: string): StateFile | null {
-  const stateFile = path.join(benchmarkDir, 'benchmark-state.json');
-  if (!fs.existsSync(stateFile)) {
-    logMessage('ERROR', `State file not found at ${stateFile}`);
+export function loadState(benchmarkDir: string): BenchmarkStateFile | null {
+  const BenchmarkStateFile = path.join(benchmarkDir, 'benchmark-state.json');
+  const logger = new Logger();
+  if (!fs.existsSync(BenchmarkStateFile)) {
+    logger.error(`State file not found at ${BenchmarkStateFile}`, null);
     return null;
   }
 
   try {
-    return JSON.parse(fs.readFileSync(stateFile, 'utf8'));
+    return JSON.parse(fs.readFileSync(BenchmarkStateFile, 'utf8'));
   } catch (error) {
-    logMessage('ERROR', `Error reading state file: ${stateFile}`, error);
+    logger.error(`Error reading state file: ${BenchmarkStateFile}`, error);
     return null;
   }
 }
 
-export function updateState(benchmarkDir: string, updates: Partial<StateFile>): StateFile | null {
-  const stateFile = path.join(benchmarkDir, 'benchmark-state.json');
-  let currentState: StateFile = {} as StateFile;
+export function updateState(benchmarkDir: string, updates: Partial<BenchmarkStateFile>): BenchmarkStateFile | null {
+  const BenchmarkStateFile = path.join(benchmarkDir, 'benchmark-state.json');
+  let currentState: BenchmarkStateFile = {} as BenchmarkStateFile;
+  const logger = new Logger();
 
-  if (fs.existsSync(stateFile)) {
+  if (fs.existsSync(BenchmarkStateFile)) {
     try {
-      currentState = JSON.parse(fs.readFileSync(stateFile, 'utf8'));
+      currentState = JSON.parse(fs.readFileSync(BenchmarkStateFile, 'utf8'));
     } catch (error) {
-      logMessage('ERROR', `Error reading state file: ${stateFile}`, error);
+      logger.error(`Error reading state file: ${BenchmarkStateFile}`, error);
     }
   }
 
   const newState = { ...currentState, ...updates };
 
   try {
-    fs.writeFileSync(stateFile, JSON.stringify(newState, null, 2));
+    fs.writeFileSync(BenchmarkStateFile, JSON.stringify(newState, null, 2));
     return newState;
   } catch (error) {
-    logMessage('ERROR', `Error writing state file: ${stateFile}`, error);
+    logger.error(`Error writing state file: ${BenchmarkStateFile}`, error);
     return null;
   }
 }
 
-export function generateReports(ERROR_LOG_FILE: string): boolean {
-  console.log(`\n=== Generating benchmark reports ===\n`);
+export function generateReports(): boolean {
+  const logger = new Logger();
+  logger.info(`\n=== Generating benchmark reports ===\n`);
 
   try {
-    console.log('Running report generation...');
+    logger.info('Running report generation...');
     const BASE_DIR = path.resolve(__dirname, '..', '..');
-    runCommand('yarn generate-reports', ERROR_LOG_FILE, { cwd: path.join(BASE_DIR, 'WebpageRevamped') });
+    runCommand('yarn generate-reports', { cwd: path.join(BASE_DIR, 'WebpageRevamped') });
 
     console.log('Running statistical data generation...');
-    runCommand('yarn generate-statistical-data', ERROR_LOG_FILE, { cwd: path.join(BASE_DIR, 'WebpageRevamped') });
+    runCommand('yarn generate-statistical-data', { cwd: path.join(BASE_DIR, 'WebpageRevamped') });
 
     console.log('\n=== Benchmark reports generated successfully ===\n');
     return true;
   } catch (error) {
-    logMessage('ERROR', 'Error generating reports', error);
+    logger.error('Error generating reports', error);
     return false;
   }
 }
 
-export function createStateFile(RN_VERSION: string, BENCHMARK_DIR: string): StateFile {
-  const stateFile: StateFile = {
+export function createBenchmarkStateFile(RN_VERSION: string, BENCHMARK_DIR: string): BenchmarkStateFile {
+  const BenchmarkStateFile: BenchmarkStateFile = {
     version: RN_VERSION,
     projectCreated: false,
     templatesApplied: false,
-    androidOldArchTested: false,
-    androidNewArchTested: false,
-    iosOldArchTested: false,
-    iosNewArchTested: false,
+    android: {
+      old: {
+        tested: false
+      },
+      new: {
+        tested: false
+      }
+    },
+    ios: {
+      old: {
+        tested: false
+      },
+      new: {
+        tested: false
+      }
+    },
     reportsGenerated: false,
     startTime: new Date().toISOString()
   };
 
   fs.writeFileSync(
     path.join(BENCHMARK_DIR, 'benchmark-state.json'),
-    JSON.stringify(stateFile, null, 2)
+    JSON.stringify(BenchmarkStateFile, null, 2)
   );
 
-  return stateFile;
+  return BenchmarkStateFile;
 }
 
-export function generateProject(RN_VERSION: string, BENCHMARK_DIR: string, BASE_DIR: string, ERROR_LOG_FILE: string): StateFile | null {
-  logMessage('INFO', `\n=== Generating React Native ${RN_VERSION} project ===\n`);
+export function generateProject(RN_VERSION: string, BENCHMARK_DIR: string, BASE_DIR: string): BenchmarkStateFile | null {
+  const logger = new Logger();
+  logger.info(`\n=== Generating React Native ${RN_VERSION} project ===\n`);
 
   const hasValidProject = fs.existsSync(path.join(BENCHMARK_DIR, 'package.json'));
 
   if (!hasValidProject) {
     if (fs.existsSync(BENCHMARK_DIR)) {
-      logMessage('INFO', `Removing incomplete project directory: ${BENCHMARK_DIR}`);
+      logger.info(`Removing incomplete project directory: ${BENCHMARK_DIR}`);
       fs.rmSync(BENCHMARK_DIR, { recursive: true, force: true });
     }
 
@@ -117,16 +135,15 @@ export function generateProject(RN_VERSION: string, BENCHMARK_DIR: string, BASE_
       const sampleAppsDir = path.join(BASE_DIR, 'SampleApps');
       if (!fs.existsSync(sampleAppsDir)) {
         fs.mkdirSync(sampleAppsDir, { recursive: true });
-        logMessage('INFO', `Created SampleApps directory at: ${sampleAppsDir}`);
+        logger.info(`Created SampleApps directory at: ${sampleAppsDir}`);
       }
 
-      logMessage('INFO', 'Initializing React Native project...');
+      logger.info('Initializing React Native project...');
       process.chdir(path.join(BASE_DIR, 'SampleApps'));
       const projectName = `RN_${RN_VERSION.replace(/\./g, '_')}_Benchmark`;
-      logMessage('INFO', 'Creating React Native project...');
+      logger.info('Creating React Native project...');
       runCommand(
         `npx --yes @react-native-community/cli@latest init ${projectName} --version ${RN_VERSION} --install-pods false`,
-        ERROR_LOG_FILE,
         {
           cwd: path.join(BASE_DIR, 'SampleApps'),
           env: {
@@ -142,27 +159,28 @@ export function generateProject(RN_VERSION: string, BENCHMARK_DIR: string, BASE_
       if (!fs.existsSync(path.join(BENCHMARK_DIR, 'package.json'))) {
         throw new Error('Failed to create React Native project. package.json not found after project initialization.');
       }
-      logMessage('INFO', `React Native ${RN_VERSION} project created successfully.`);
-      createStateFile(RN_VERSION, BENCHMARK_DIR);
+      logger.info(`React Native ${RN_VERSION} project created successfully.`);
+      createBenchmarkStateFile(RN_VERSION, BENCHMARK_DIR);
 
     } catch (error) {
-      logMessage('ERROR', 'Error creating React Native project', error);
+      logger.error('Error creating React Native project', error);
       throw error;
     }
 
     return updateState(BENCHMARK_DIR, { projectCreated: true });
   } else {
-    logMessage('INFO', `Project directory already exists and contains a valid project.`);
+    logger.info(`Project directory already exists and contains a valid project.`);
     if (!fs.existsSync(path.join(BENCHMARK_DIR, 'benchmark-state.json'))) {
-      createStateFile(RN_VERSION, BENCHMARK_DIR);
+      createBenchmarkStateFile(RN_VERSION, BENCHMARK_DIR);
     }
 
     return updateState(BENCHMARK_DIR, { projectCreated: true });
   }
 }
 
-export function applyTemplates(RN_VERSION: string, ERROR_LOG_FILE: string, TEMPLATE_DIR: string, BENCHMARK_DIR: string): StateFile | null {
-  logMessage('INFO', `\n=== Applying benchmark templates ===\n`);
+export function applyTemplates(RN_VERSION: string, TEMPLATE_DIR: string, BENCHMARK_DIR: string): BenchmarkStateFile | null {
+  const logger = new Logger();
+  logger.info(`\n=== Applying benchmark templates ===\n`);
 
   fs.cpSync(
     path.join(TEMPLATE_DIR, 'src'),
@@ -206,31 +224,32 @@ export function applyTemplates(RN_VERSION: string, ERROR_LOG_FILE: string, TEMPL
 
   fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
 
-  runCommand('yarn install', ERROR_LOG_FILE, { cwd: BENCHMARK_DIR });
+  runCommand('yarn install', { cwd: BENCHMARK_DIR });
 
   return updateState(BENCHMARK_DIR, { templatesApplied: true });
 }
 
 export function openTerminalWithCommand(command: string, title: string): boolean {
   let terminalCommand: string;
+  const logger = new Logger();
 
   if (process.platform === 'darwin') {
-    logMessage('INFO', 'Detected macOS, attempting to open terminal with command...');
+    logger.info('Detected macOS, attempting to open terminal with command...');
 
     const escapedCommand = command
       .replace(/"/g, '\\"')       // Escape double quotes
       .replace(/'/g, "'\\''");    // Escape single quotes
 
     try {
-      logMessage('INFO', 'Attempting to launch Terminal.app...');
+      logger.info('Attempting to launch Terminal.app...');
       execSync(`osascript -e 'tell application "Terminal" to do script "${escapedCommand}"'`, {
         stdio: 'inherit',
         encoding: 'utf-8'
       });
-      logMessage('INFO', 'Successfully launched Terminal.app');
+      logger.info('Successfully launched Terminal.app');
       return true;
     } catch (error) {
-      logMessage('ERROR', 'Failed to open Terminal.app:', error);
+      logger.error('Failed to open Terminal.app:', error);
       return false;
     }
   } else if (process.platform === 'win32') {
@@ -240,7 +259,7 @@ export function openTerminalWithCommand(command: string, title: string): boolean
   }
 
   if (process.platform !== ('darwin' as NodeJS.Platform)) {
-    logMessage('INFO', `\nLaunching terminal with command: ${command}`);
+    logger.info(`\nLaunching terminal with command: ${command}`);
 
     try {
       execSync(terminalCommand, {
@@ -251,7 +270,7 @@ export function openTerminalWithCommand(command: string, title: string): boolean
 
       return true;
     } catch (error) {
-      logMessage('ERROR', `Failed to open terminal: ${error.message}`);
+      logger.error(`Failed to open terminal: ${error.message}`, error);
       return false;
     }
   }
@@ -274,15 +293,16 @@ export function makeScriptsExecutable(baseDir: string, scripts: string[] = ['and
   });
 }
 
-export function handleCompletedBenchmarks(state: StateFile, benchmarkDir: string, errorLogFile: string): void {
-  if (state.androidOldArchTested && state.androidNewArchTested && state.iosOldArchTested && state.iosNewArchTested) {
-    logMessage('INFO', '\n=== All benchmarks completed successfully ===\n');
-    generateReports(errorLogFile);
+export function handleCompletedBenchmarks(state: BenchmarkStateFile, benchmarkDir: string): void {
+  const logger = new Logger();
+  if (state.android.old.tested && state.android.new.tested && state.ios.old.tested && state.ios.new.tested) {
+    logger.info('\n=== All benchmarks completed successfully ===\n');
+    generateReports();
     updateState(benchmarkDir, { reportsGenerated: true });
   }
 }
 
-export function launchBenchmarkIfNeeded(platform: 'android' | 'ios', state: StateFile, baseDir: string, rnVersion: string, iterations: number): void {
+export function launchBenchmarkIfNeeded(platform: 'android' | 'ios', state: BenchmarkStateFile, baseDir: string, rnVersion: string, iterations: number): void {
   const arch = state[`${platform}OldArchTested`] ? 'new' : 'old';
   const scriptPath = path.join(baseDir, `./platform/${platform}/${platform}-benchmark.ts`);
   
@@ -294,20 +314,12 @@ export function launchBenchmarkIfNeeded(platform: 'android' | 'ios', state: Stat
   }
 }
 
-export interface InitializeResult {
-  RN_VERSION: string;
-  ITERATIONS: number;
-  BENCHMARK_DIR: string;
-  TEMPLATE_DIR: string;
-  BASE_DIR: string;
-}
 
 export function initialize(): InitializeResult {
-  const { RN_VERSION, ITERATIONS } = parseArgs();
+  const { RN_VERSION, ITERATIONS } = parseIterationArgs();
   const BENCHMARK_DIR = getBenchmarkDir(RN_VERSION);
   const TEMPLATE_DIR = path.join(process.cwd(), 'templates');
   const BASE_DIR = process.cwd();
-  initializeLogFile(getErrorLogFile());
 
   return {
     RN_VERSION,

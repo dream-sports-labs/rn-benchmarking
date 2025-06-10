@@ -4,8 +4,3 @@ export function getBenchmarkDir(rnVersion: string): string {
   const BASE_DIR = path.resolve(__dirname, '..');
   return path.join(BASE_DIR, 'SampleApps', `RN_${rnVersion.replace(/\./g, '_')}_Benchmark`);
 }
-
-export function getErrorLogFile(): string {
-  const BASE_DIR = path.resolve(__dirname, '..');
-  return path.join(BASE_DIR, 'error.log');
-}

@@ -1,11 +1,12 @@
 import { runCommand, loadState, updateState } from "../../utils/helper";
-import { logMessage } from "../../utils/logger";
 import { execSync } from "child_process";
 import * as fs from 'fs-extra';
 import path from "path";
-import { BuildResults, IOSBuildMetadata, SuccessfulIOSInstall, StateFile } from "../../utils/types";
+import { BuildResults, BuildMetadata, SuccessfulInstall, Architecture } from "../../utils/types";
+import { Logger } from "../../utils/logger";
 
 export function getAvailableIOSDevices(): string[] {
+    const logger = new Logger();
     try {
         const output = execSync('xcrun simctl list devices booted', { encoding: 'utf8' });
         const lines = output.split('\n');
@@ -21,13 +22,14 @@ export function getAvailableIOSDevices(): string[] {
         }
         return devices;
     } catch (error) {
-        logMessage('ERROR', 'Error getting iOS devices', error);
+        logger.error('Error getting iOS devices', error);
         return [];
     }
 }
 
-export function buildIOSApps(BASE_DIR: string, RN_VERSION: string, BENCHMARK_DIR: string, ERROR_LOG_FILE: string): BuildResults {
-    logMessage('INFO', '\n=== Building iOS Apps ===\n');
+export function buildIOSApps(BASE_DIR: string, RN_VERSION: string, BENCHMARK_DIR: string): BuildResults {
+    const logger = new Logger();
+    logger.info('\n=== Building iOS Apps ===\n');
 
     const iosDir = path.join(BASE_DIR, 'built_apps_ios');
     if (!fs.existsSync(iosDir)) {
@@ -44,74 +46,98 @@ export function buildIOSApps(BASE_DIR: string, RN_VERSION: string, BENCHMARK_DIR
     const newArchExists = fs.existsSync(newArchAppPath);
 
     if (oldArchExists && newArchExists) {
-        logMessage('INFO', '\n=== Existing iOS builds found ===\n');
-        logMessage('INFO', `Old architecture app exists at: ${oldArchAppPath}`);
-        logMessage('INFO', `New architecture app exists at: ${newArchAppPath}`);
-        logMessage('INFO', 'Using existing builds...');
+        logger.info('\n=== Existing iOS builds found ===\n');
+        logger.info(`Old architecture app exists at: ${oldArchAppPath}`);
+        logger.info(`New architecture app exists at: ${newArchAppPath}`);
+        logger.info('Using existing builds...');
 
         updateState(BENCHMARK_DIR, {
-            iosOldArchAppPath: oldArchAppPath,
-            iosNewArchAppPath: newArchAppPath,
-            iosOldArchMetadataPath: oldArchMetadataPath,
-            iosNewArchMetadataPath: newArchMetadataPath,
+            ios: {
+                old: {
+                    appPath: oldArchAppPath,
+                    metadataPath: oldArchMetadataPath
+                },
+                new: {
+                    appPath: newArchAppPath,
+                    metadataPath: newArchMetadataPath
+                }
+            }
         });
 
         return {
-            oldArchBuildSuccessful: oldArchExists,
-            newArchBuildSuccessful: newArchExists,
-            oldArchMetadataPath,
-            newArchMetadataPath,
+            ios: {
+                old: {
+                    buildSuccessful: oldArchExists,
+                    metadataPath: oldArchMetadataPath
+                },
+                new: {
+                    buildSuccessful: newArchExists,
+                    metadataPath: newArchMetadataPath
+                }
+            }
         };
     }
 
     updateState(BENCHMARK_DIR, {
-        iosOldArchAppPath: oldArchAppPath,
-        iosNewArchAppPath: newArchAppPath,
-        iosOldArchMetadataPath: oldArchMetadataPath,
-        iosNewArchMetadataPath: newArchMetadataPath,
+        ios: {
+            old: {
+                appPath: oldArchAppPath,
+                metadataPath: oldArchMetadataPath
+            },
+            new: {
+                appPath: newArchAppPath,
+                metadataPath: newArchMetadataPath
+            }
+        }
     });
 
-    logMessage('INFO', '\n> Building iOS Old Architecture App\n');
+    logger.info('\n> Building iOS Old Architecture App\n');
 
     let oldArchBuildSuccessful = false;
 
     try {
-        runCommand(`ts-node ${path.join(BASE_DIR, './platform/ios/build-ios-app.ts')} ${RN_VERSION} ${BENCHMARK_DIR} old`, ERROR_LOG_FILE);
+        runCommand(`ts-node ${path.join(BASE_DIR, './platform/ios/build-ios-app.ts')} ${RN_VERSION} ${BENCHMARK_DIR} old`);
 
         oldArchBuildSuccessful = fs.existsSync(oldArchAppPath) && fs.existsSync(oldArchMetadataPath);
 
         if (oldArchBuildSuccessful) {
-            logMessage('INFO', `Old architecture iOS app built successfully at: ${oldArchAppPath}`);
+            logger.info(`Old architecture iOS app built successfully at: ${oldArchAppPath}`);
         } else {
-            logMessage('ERROR', 'Old architecture iOS build failed or app/metadata not found');
+            logger.error('Old architecture iOS build failed or app/metadata not found', null);
         }
     } catch (error) {
-        logMessage('ERROR', 'Error building old architecture for iOS', error);
+        logger.error('Error building old architecture for iOS', error);
     }
 
-    logMessage('INFO', '\n> Building iOS New Architecture App\n');
+    logger.info('\n> Building iOS New Architecture App\n');
 
     let newArchBuildSuccessful = false;
 
     try {
-        runCommand(`ts-node ${path.join(BASE_DIR, './platform/ios/build-ios-app.ts')} ${RN_VERSION} ${BENCHMARK_DIR} new`, ERROR_LOG_FILE);
+        runCommand(`ts-node ${path.join(BASE_DIR, './platform/ios/build-ios-app.ts')} ${RN_VERSION} ${BENCHMARK_DIR} new`);
 
         newArchBuildSuccessful = fs.existsSync(newArchAppPath) && fs.existsSync(newArchMetadataPath);
 
         if (newArchBuildSuccessful) {
-            logMessage('INFO', `New architecture iOS app built successfully at: ${newArchAppPath}`);
+            logger.info(`New architecture iOS app built successfully at: ${newArchAppPath}`);
         } else {
-            logMessage('ERROR', 'New architecture iOS build failed or app/metadata not found');
+            logger.error('New architecture iOS build failed or app/metadata not found', null);
         }
     } catch (error) {
-        logMessage('ERROR', 'Error building new architecture for iOS', error);
+        logger.error('Error building new architecture for iOS', error);
     }
 
     return {
-        oldArchBuildSuccessful,
-        newArchBuildSuccessful,
-        oldArchMetadataPath,
-        newArchMetadataPath
+        ios: {
+            old: {
+                buildSuccessful: oldArchBuildSuccessful,
+                metadataPath: oldArchMetadataPath
+            },
+            new: {
+                buildSuccessful: newArchBuildSuccessful,
+                metadataPath: newArchMetadataPath
+            }
+        }
     };
 }
 
@@ -119,104 +145,102 @@ export function runInstallAndTestsIOS(
     runOldArch: boolean = true,
     runNewArch: boolean = true,
     BENCHMARK_DIR: string,
-    ERROR_LOG_FILE: string,
     BASE_DIR: string,
-    RN_VERSION: string,
     ITERATIONS: number
 ): void {
-    logMessage('INFO', '\n=== Running iOS Tests ===\n');
+    const logger = new Logger();
+    logger.info('\n=== Running iOS Tests ===\n');
 
     const state = loadState(BENCHMARK_DIR);
 
-    if (!state.iosOldArchMetadataPath || !state.iosNewArchMetadataPath) {
-        logMessage('ERROR', 'Error: Missing iOS metadata paths in state file. Cannot proceed with testing.');
+    if (!state.ios.old.metadataPath || !state.ios.new.metadataPath) {
+        logger.error('Error: Missing iOS metadata paths in state file. Cannot proceed with testing.', null);
         return;
     }
 
     const simulatorIds = getAvailableIOSDevices();
     if (simulatorIds.length === 0) {
-        logMessage('ERROR', 'No iOS simulators found. Please start at least two simulators.');
+        logger.warn('No iOS simulators found. Please start at least two simulators.');
         throw new Error('No iOS simulators found');
     } else if (simulatorIds.length === 1) {
-        logMessage('ERROR', 'Only one iOS simulator found. Please start at least two simulators.');
+        logger.warn('Only one iOS simulator found. Please start at least two simulators.');
         throw new Error('Only one iOS simulator found');
     }
     const oldArchSimulatorId = simulatorIds[0];
     const newArchSimulatorId = simulatorIds[1];
 
-    const oldArchMetadataPath = state.iosOldArchMetadataPath;
-    const newArchMetadataPath = state.iosNewArchMetadataPath;
+    const oldArchMetadataPath = state.ios.old.metadataPath;
+    const newArchMetadataPath = state.ios.new.metadataPath;
 
-    const successfulInstalls: SuccessfulIOSInstall[] = [];
+    const successfulInstalls: SuccessfulInstall[] = [];
 
     if (runOldArch) {
-        logMessage('INFO', '\n=== Installing and launching iOS old architecture app ===\n');
+        logger.info('\n=== Installing and launching iOS old architecture app ===\n');
 
         try {
-            runCommand(`ts-node ${path.join(BASE_DIR, './platform/ios/run-ios-tests.ts')} ${oldArchMetadataPath} ${oldArchSimulatorId}`, ERROR_LOG_FILE);
-            logMessage('INFO', 'Old architecture app installed and launched successfully');
+            runCommand(`ts-node ${path.join(BASE_DIR, './platform/ios/run-ios-tests.ts')} ${oldArchMetadataPath} ${oldArchSimulatorId}`);
+            logger.info('Old architecture app installed and launched successfully');
 
             try {
-                const metadata = JSON.parse(fs.readFileSync(oldArchMetadataPath, 'utf8')) as IOSBuildMetadata;
+                const metadata = JSON.parse(fs.readFileSync(oldArchMetadataPath, 'utf8')) as BuildMetadata;
                 successfulInstalls.push({
-                    arch: 'old',
-                    simulatorId: oldArchSimulatorId,
+                    arch: Architecture.OLD,
+                    deviceId: oldArchSimulatorId,
                     bundleId: metadata.bundleId
                 });
             } catch (error) {
-                logMessage('ERROR', 'Failed to read iOS metadata after successful installation', error);
+                logger.error('Failed to read iOS metadata after successful installation', error);
             }
         } catch (error) {
-            logMessage('ERROR', 'Failed to install/launch old architecture app', error);
+            logger.error('Failed to install/launch old architecture app', error);
         }
     }
 
     if (runNewArch) {
-        logMessage('INFO', '\n=== Installing and launching iOS new architecture app ===\n');
+        logger.info('\n=== Installing and launching iOS new architecture app ===\n');
 
         try {
-            runCommand(`ts-node ${path.join(BASE_DIR, './platform/ios/run-ios-tests.ts')} ${newArchMetadataPath} ${newArchSimulatorId}`, ERROR_LOG_FILE);
-            logMessage('INFO', 'New architecture app installed and launched successfully');
+            runCommand(`ts-node ${path.join(BASE_DIR, './platform/ios/run-ios-tests.ts')} ${newArchMetadataPath} ${newArchSimulatorId}`);
+            logger.info('New architecture app installed and launched successfully');
 
             try {
-                const metadata = JSON.parse(fs.readFileSync(newArchMetadataPath, 'utf8')) as IOSBuildMetadata;
+                const metadata = JSON.parse(fs.readFileSync(newArchMetadataPath, 'utf8')) as BuildMetadata;
                 successfulInstalls.push({
-                    arch: 'new',
-                    simulatorId: newArchSimulatorId,
+                    arch: Architecture.NEW,
+                    deviceId: newArchSimulatorId,
                     bundleId: metadata.bundleId
                 });
             } catch (error) {
-                logMessage('ERROR', 'Failed to read iOS metadata after successful installation', error);
+                logger.error('Failed to read iOS metadata after successful installation', error);
             }
         } catch (error) {
-            logMessage('ERROR', 'Failed to install/launch new architecture app', error);
+            logger.error('Failed to install/launch new architecture app', error);
         }
     }
 
-    logMessage('INFO', `\n=== Installations completed: ${successfulInstalls.length} successful ===\n`);
+    logger.info(`\n=== Installations completed: ${successfulInstalls.length} successful ===\n`);
 
     if (successfulInstalls.length === 0) {
-        logMessage('ERROR', 'No installations were successful. Cannot run tests.');
+        logger.error('No installations were successful. Cannot run tests.', null);
         return;
     }
 
-    logMessage('INFO', '\n=== Running benchmark tests ===\n');
-
-    const benchmarkDir = `SampleApps/RN_${RN_VERSION.replace(/\./g, '_')}_Benchmark`;
+    logger.info('\n=== Running benchmark tests ===\n');
 
     try {
-        runCommand(`cd ${benchmarkDir} && yarn test:ios ${ITERATIONS} ${oldArchSimulatorId} ${newArchSimulatorId}`, ERROR_LOG_FILE);
-        logMessage('INFO', 'Benchmark tests completed successfully');
+        runCommand(`cd ${BENCHMARK_DIR} && yarn test:ios ${ITERATIONS} ${oldArchSimulatorId} ${newArchSimulatorId}`);
+        logger.info('Benchmark tests completed successfully');
     } catch (error) {
-        logMessage('ERROR', 'Benchmark tests failed', error);
+        logger.error('Benchmark tests failed', error);
     }
 }
 
 export function modifyPodfile(isNewArch: boolean, PODFILE_PATH: string): boolean {
-    logMessage('INFO', `\n=== Configuring iOS Podfile for ${isNewArch ? 'New' : 'Old'} Architecture ===\n`);
+    const logger = new Logger();
+    logger.info(`\n=== Configuring iOS Podfile for ${isNewArch ? 'New' : 'Old'} Architecture ===\n`);
 
     if (!fs.existsSync(PODFILE_PATH)) {
-        logMessage('ERROR', `Podfile not found at ${PODFILE_PATH}`);
+        logger.error(`Podfile not found at ${PODFILE_PATH}`, null);
         throw new Error('Podfile not found');
     }
 
@@ -235,103 +259,107 @@ export function modifyPodfile(isNewArch: boolean, PODFILE_PATH: string): boolean
     }
 
     fs.writeFileSync(PODFILE_PATH, podfileContent);
-    logMessage('INFO', `Podfile updated with RCT_NEW_ARCH_ENABLED=${isNewArch ? '1' : '0'}`);
+    logger.info(`Podfile updated with RCT_NEW_ARCH_ENABLED=${isNewArch ? '1' : '0'}`);
 
     return true;
 }
 
-export function cleanBuild(IOS_DIR: string, PROJECT_NAME: string, ERROR_LOG_FILE: string): void {
-    logMessage('INFO', '\n=== Cleaning previous build artifacts ===\n');
+export function cleanBuild(IOS_DIR: string): void {
+    const logger = new Logger();
+    logger.info('\n=== Cleaning previous build artifacts ===\n');
 
     try {
-        runCommand('rm -rf ~/Library/Developer/Xcode/DerivedData/*${PROJECT_NAME}*', ERROR_LOG_FILE, { stdio: 'pipe', shell: '/bin/bash' });
-        runCommand(`rm -rf ${IOS_DIR}/build`, ERROR_LOG_FILE, { stdio: 'pipe', shell: '/bin/bash' });
-        runCommand(`rm -rf ${IOS_DIR}/Pods`, ERROR_LOG_FILE, { stdio: 'pipe', shell: '/bin/bash' });
+        runCommand('rm -rf ~/Library/Developer/Xcode/DerivedData/*${PROJECT_NAME}*', { stdio: 'pipe', shell: '/bin/bash' });
+        runCommand(`rm -rf ${IOS_DIR}/build`, { stdio: 'pipe', shell: '/bin/bash' });
+        runCommand(`rm -rf ${IOS_DIR}/Pods`, { stdio: 'pipe', shell: '/bin/bash' });
     } catch (error) {
-        logMessage('ERROR', 'Error cleaning build artifacts', error);
+        logger.error('Error cleaning build artifacts', error);
     }
 }
 
-export function installPods(IOS_DIR: string, ERROR_LOG_FILE: string): void {
-    logMessage('INFO', '\n=== Installing Pods ===\n');
+export function installPods(IOS_DIR: string): void {
+    const logger = new Logger();
+    logger.info('\n=== Installing Pods ===\n');
 
     try {
-        logMessage('INFO', 'Installing Ruby dependencies...');
+        logger.info('Installing Ruby dependencies...');
         try {
-            runCommand('bundle install', ERROR_LOG_FILE, {
+            runCommand('bundle install', {
                 cwd: IOS_DIR,
                 env: {
                     ...process.env
                 }
             });
         } catch (error) {
-            logMessage('ERROR', 'Failed to install Ruby dependencies', error);
+            logger.error('Failed to install Ruby dependencies', error);
             throw error;
         }
 
-        logMessage('INFO', 'Installing CocoaPods...');
+        logger.info('Installing CocoaPods...');
         try {
-            runCommand('bundle exec pod install', ERROR_LOG_FILE, {
+            runCommand('bundle exec pod install', {
                 cwd: IOS_DIR,
                 env: {
                     ...process.env
                 }
             });
         } catch (error) {
-            logMessage('ERROR', 'Failed to install CocoaPods', error);
+            logger.error('Failed to install CocoaPods', error);
             throw error;
         }
 
-        logMessage('INFO', 'Pods installed successfully');
+        logger.info('Pods installed successfully');
     } catch (error) {
-        logMessage('ERROR', 'Error installing pods', error);
+        logger.error('Error installing pods', error);
         throw error;
     }
 }
 
 export function buildAppIOS(
     isNewArch: boolean,
-    ERROR_LOG_FILE: string,
     APP_PATH: string,
     IOS_DIR: string,
     PROJECT_NAME: string
 ): boolean {
-    logMessage('INFO', `\n=== Building iOS App (${isNewArch ? 'New' : 'Old'} Architecture) ===\n`);
+    const logger = new Logger();
+    logger.info(`\n=== Building iOS App (${isNewArch ? 'New' : 'Old'} Architecture) ===\n`);
 
     try {
         const command = `xcodebuild -workspace ${PROJECT_NAME}.xcworkspace -scheme ${PROJECT_NAME} -configuration Release -sdk iphonesimulator -derivedDataPath "build" CODE_SIGNING_ALLOWED=NO build`;
-        runCommand(command, ERROR_LOG_FILE, { cwd: IOS_DIR });
+        runCommand(command, { cwd: IOS_DIR });
 
         const buildPath = path.join(IOS_DIR, 'build/Build/Products/Release-iphonesimulator', `${PROJECT_NAME}.app`);
         if (!fs.existsSync(buildPath)) {
-            logMessage('ERROR', 'Release app not found after build');
+            logger.error('Release app not found after build', null);
             return false;
         }
 
         fs.copySync(buildPath, APP_PATH, { overwrite: true });
-        logMessage('INFO', `App copied to ${APP_PATH}`);
+        logger.info(`App copied to ${APP_PATH}`);
 
         return true;
     } catch (error) {
-        logMessage('ERROR', 'Error building iOS app', error);
+        logger.error('Error building iOS app', error);
         return false;
     }
 } 
 
-export function installApp(simulatorId: string, appPath: string, ERROR_LOG_FILE: string): boolean {
-    console.log(`\n=== Installing App on Simulator ${simulatorId} ===`);
+export function installApp(simulatorId: string, appPath: string): boolean {
+    const logger = new Logger();
+    logger.info(`\n=== Installing App on Simulator ${simulatorId} ===`);
   
-    runCommand(`xcrun simctl install ${simulatorId} "${appPath}"`, ERROR_LOG_FILE);
-    console.log('App installation command completed');
+    runCommand(`xcrun simctl install ${simulatorId} "${appPath}"`);
+    logger.info('App installation command completed');
   
     return true;
   }
   
-export function launchApp(simulatorId: string, bundleId: string, ERROR_LOG_FILE: string): boolean {
-    console.log(`\n=== Launching App ${bundleId} on Simulator ${simulatorId} ===`);
+export function launchApp(simulatorId: string, bundleId: string): boolean {
+    const logger = new Logger();
+    logger.info(`\n=== Launching App ${bundleId} on Simulator ${simulatorId} ===`);
   
-    runCommand(`xcrun simctl launch ${simulatorId} ${bundleId}`, ERROR_LOG_FILE);
-    console.log('App launched successfully');
+    runCommand(`xcrun simctl launch ${simulatorId} ${bundleId}`);
+    logger.info('App launched successfully');
   
     return true;
 }

@@ -3,59 +3,52 @@
 import fs from 'fs';
 import path from 'path';
 import { modifyGradleProperties, buildApp } from './helper';
-import { logMessage } from '../../utils/logger';
-import { getErrorLogFile } from '../../utils/config';
-import { AndroidBuildMetadata } from '../../utils/types';
+import { Logger } from '../../utils/logger';
+import { Architecture, BuildMetadata } from '../../utils/types';
+import { parseBuildArgs } from '../../utils/args';
 
-async function main(): Promise<void> {
+async function main() {
+  const { RN_VERSION, BENCHMARK_DIR, ARCH_TYPE } = parseBuildArgs();
+  const logger = new Logger();
   try {
-    const RN_VERSION = process.argv[2];
-    const BENCHMARK_DIR = process.argv[3];
-    const ARCH_TYPE = process.argv[4] as 'old' | 'new';
-    const ERROR_LOG_FILE = getErrorLogFile();
-
     if (!RN_VERSION || !BENCHMARK_DIR || !ARCH_TYPE) {
-      logMessage('ERROR', 'Usage: ./build-android-app.js <RN_VERSION> <BENCHMARK_DIR> <ARCH_TYPE>');
+      logger.warn('Usage: ./build-android-app.js <RN_VERSION> <BENCHMARK_DIR> <ARCH_TYPE>');
       process.exit(1);
     }
 
     const ANDROID_DIR = path.join(BENCHMARK_DIR, 'android');
     const GRADLE_PROPERTIES = path.join(ANDROID_DIR, 'gradle.properties');
     const APK_OUTPUT_DIR = path.join(path.resolve(__dirname, '..', '..'), 'built_apks');
-    const isNewArch = ARCH_TYPE === 'new';
-    const PACKAGE_SUFFIX = '';
+    const isNewArch = ARCH_TYPE === Architecture.NEW;
     const APK_PATH = path.join(APK_OUTPUT_DIR, `rn_${RN_VERSION}_${ARCH_TYPE}_arch.apk`);
-    const PACKAGE_NAME = `com.rn_${RN_VERSION.replace(/\./g, '_')}_benchmark${PACKAGE_SUFFIX}`;
+    const PACKAGE_NAME = `com.rn_${RN_VERSION.replace(/\./g, '_')}_benchmark`;
 
     if (!fs.existsSync(APK_OUTPUT_DIR)) {
       fs.mkdirSync(APK_OUTPUT_DIR, { recursive: true });
     }
 
     modifyGradleProperties(isNewArch, GRADLE_PROPERTIES, PACKAGE_NAME);
-    const buildSuccess = buildApp(isNewArch, ANDROID_DIR, BENCHMARK_DIR, ERROR_LOG_FILE, APK_PATH);
+    const buildSuccess = buildApp(isNewArch, ANDROID_DIR, APK_PATH);
 
     if (buildSuccess) {
-      const metadata: AndroidBuildMetadata = {
-        packageName: PACKAGE_NAME,
+      const metadata: BuildMetadata = {
+        bundleId: PACKAGE_NAME,
         version: RN_VERSION,
-        apkPath: APK_PATH,
-        architecture: ARCH_TYPE
+        appPath: APK_PATH,
+        arch: ARCH_TYPE as Architecture
       };
 
       const metadataPath = path.join(APK_OUTPUT_DIR, `rn_${RN_VERSION}_${ARCH_TYPE}_arch_metadata.json`);
       fs.writeFileSync(metadataPath, JSON.stringify(metadata, null, 2));
-      logMessage('INFO', `Metadata saved to ${metadataPath}`);
+      logger.info(`Metadata saved to ${metadataPath}`);
     } else {
-      logMessage('ERROR', 'Build failed');
+      logger.warn('Build failed');
       process.exit(1);
     }
   } catch (error) {
-    logMessage('ERROR', 'Error in build process', error);
+    logger.error('Error in build process', error);
     process.exit(1);
   }
 }
 
-main().catch(error => {
-  logMessage('ERROR', 'Unhandled error in build process', error);
-  process.exit(1);
-}); 
+main()

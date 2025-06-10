@@ -1,47 +1,50 @@
-import fs from 'fs';
 import { LogLevel } from './types';
 
-export function formatError(error: unknown): string {
-  let formattedError = '';
+export interface LogInterface {
+  debug(message: string): void;
+  info(message: string): void;
+  warn(message: string): void;
+  error(message: string, error: unknown): void;
+}
 
-  if (error instanceof Error) {
-    formattedError += `Error: ${error.message}\n`;
-    formattedError += `Stack: ${error.stack}\n`;
+export class Logger implements LogInterface {
 
-    for (const key in error) {
-      if (Object.prototype.hasOwnProperty.call(error, key) &&
-        key !== 'message' &&
-        key !== 'stack') {
-        formattedError += `${key}: ${JSON.stringify(error[key])}\n`;
+  private formatError(error: unknown): string {
+    let formattedError = '';
+  
+    if (error instanceof Error) {
+      formattedError += `Error: ${error.message}\n`;
+      formattedError += `Stack: ${error.stack}\n`;
+  
+      for (const key in error) {
+        if (Object.prototype.hasOwnProperty.call(error, key) &&
+          key !== 'message' &&
+          key !== 'stack') {
+          formattedError += `${key}: ${JSON.stringify(error[key])}\n`;
+        }
       }
+    } else {
+      formattedError = `${JSON.stringify(error, null, 2)}`;
     }
-  } else {
-    formattedError = `${JSON.stringify(error, null, 2)}`;
+  
+    return formattedError;
   }
 
-  return formattedError;
-}
+  debug(message: string): void {
+    console.debug(message);
+  }
 
-export function initializeLogFile(errorLogFile: string): void {
-  const timestamp = new Date().toISOString();
-  fs.writeFileSync(errorLogFile, `=== Log Started at ${timestamp} ===\n\n`, 'utf8');
-}
+  info(message: string): void {
+    console.info(message);
+  }
 
-export function logMessage(level: LogLevel, message: string, error: unknown = null, errorLogFile: string | null = null): void {
-  const timestamp = new Date().toISOString();
-  const logEntry = `[${timestamp}] [${level}] ${message}${error ? '\n' + formatError(error) : ''}`;
+  warn(message: string): void {
+    console.warn(message);
+  }
 
-  if (level === 'ERROR') {
+  error(message: string, error: unknown): void {
+    const timestamp = new Date().toISOString();
+    const logEntry = `[${timestamp}] [${LogLevel.ERROR}] ${message}${error ? '\n' + this.formatError(error) : ''}`;
     console.error(logEntry);
-
-    if (errorLogFile) {
-      try {
-        fs.appendFileSync(errorLogFile, logEntry + '\n\n', 'utf8');
-      } catch (err) {
-        console.error('Failed to write to error log file:', err);
-      }
-    }
-  } else if (level === 'INFO') {
-    console.log(message);
   }
-} 
+}

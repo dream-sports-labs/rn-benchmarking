@@ -1,11 +1,12 @@
 import { runCommand, loadState, updateState } from '../../utils/helper';
-import { logMessage } from '../../utils/logger';
+import { Logger } from '../../utils/logger';
 import { execSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
-import { BuildResults, SuccessfulInstall, StateFile } from '../../utils/types';
+import { Architecture, BuildResults, SuccessfulInstall } from '../../utils/types';
 
 export function getAvailableAndroidDevices(): string[] {
+    const logger = new Logger();
     try {
         const output = execSync('adb devices -l', { encoding: 'utf8' });
         const lines = output.split('\n').slice(1);
@@ -22,13 +23,14 @@ export function getAvailableAndroidDevices(): string[] {
 
         return devices;
     } catch (error) {
-        logMessage('ERROR', 'Error getting Android devices', error);
+        logger.error('Error getting Android devices', error);
         return [];
     }
 }
 
-export function buildAndroidApps(BASE_DIR: string, RN_VERSION: string, BENCHMARK_DIR: string, ERROR_LOG_FILE: string): BuildResults {
-    logMessage('INFO', '\n=== Building Android APKs ===\n');
+export function buildAndroidApps(BASE_DIR: string, RN_VERSION: string, BENCHMARK_DIR: string): BuildResults {
+    const logger = new Logger();
+    logger.info('\n=== Building Android APKs ===\n');
 
     const apksDir = path.join(BASE_DIR, 'built_apks');
     if (!fs.existsSync(apksDir)) {
@@ -46,78 +48,102 @@ export function buildAndroidApps(BASE_DIR: string, RN_VERSION: string, BENCHMARK
     const newArchExists = fs.existsSync(newArchApkPath)
 
     if (oldArchExists && newArchExists) {
-        logMessage('INFO', '\n=== Existing Android builds found ===\n');
-        logMessage('INFO', `Old architecture APK exists at: ${oldArchApkPath}`);
-        logMessage('INFO', `New architecture APK exists at: ${newArchApkPath}`);
-        logMessage('INFO', 'Using existing builds...');
+        logger.info('\n=== Existing Android builds found ===\n');
+        logger.info(`Old architecture APK exists at: ${oldArchApkPath}`);
+        logger.info(`New architecture APK exists at: ${newArchApkPath}`);
+        logger.info('Using existing builds...');
 
         updateState(BENCHMARK_DIR, {
-            androidOldArchApkPath: oldArchApkPath,
-            androidNewArchApkPath: newArchApkPath,
-            androidOldArchMetadataPath: oldArchMetadataPath,
-            androidNewArchMetadataPath: newArchMetadataPath,
+            android: {
+                old: {
+                    appPath: oldArchApkPath,
+                    metadataPath: oldArchMetadataPath
+                },
+                new: {
+                    appPath: newArchApkPath,
+                    metadataPath: newArchMetadataPath
+                }
+            }
         });
 
         return {
-            oldArchBuildSuccessful: oldArchExists,
-            newArchBuildSuccessful: newArchExists,
-            oldArchMetadataPath,
-            newArchMetadataPath
+            android: {
+                old: {
+                    buildSuccessful: oldArchExists,
+                    metadataPath: oldArchMetadataPath
+                },
+                new: {
+                    buildSuccessful: newArchExists,
+                    metadataPath: newArchMetadataPath
+                }
+            }
         };
     }
 
     updateState(BENCHMARK_DIR, {
-        androidOldArchApkPath: oldArchApkPath,
-        androidNewArchApkPath: newArchApkPath,
-        androidOldArchMetadataPath: oldArchMetadataPath,
-        androidNewArchMetadataPath: newArchMetadataPath
+        android: {
+            old: {
+                appPath: oldArchApkPath,
+                metadataPath: oldArchMetadataPath,
+            },
+            new: {
+                appPath: newArchApkPath,
+                metadataPath: newArchMetadataPath,
+            }
+        }
     });
 
-    logMessage('INFO', '\n> Building Android Old Architecture APK\n');
+    logger.info('\n> Building Android Old Architecture APK\n');
 
     let oldArchBuildSuccessful = false;
 
     try {
-        runCommand(`ts-node ${path.join(BASE_DIR, './platform/android/build-android-app.ts')} ${RN_VERSION} ${BENCHMARK_DIR} old`, ERROR_LOG_FILE);
+        runCommand(`ts-node ${path.join(BASE_DIR, './platform/android/build-android-app.ts')} ${RN_VERSION} ${BENCHMARK_DIR} old`);
 
         oldArchBuildSuccessful = fs.existsSync(oldArchApkPath) && fs.existsSync(oldArchMetadataPath);
 
         if (oldArchBuildSuccessful) {
-            logMessage('INFO', `Old architecture APK built successfully at: ${oldArchApkPath}`);
+            logger.info(`Old architecture APK built successfully at: ${oldArchApkPath}`);
         } else {
-            logMessage('ERROR', 'Old architecture build failed or APK/metadata not found');
+            logger.warn('Old architecture build failed or APK/metadata not found');
             process.exit(1);
         }
     } catch (error) {
-        logMessage('ERROR', 'Error building old architecture', error);
+        logger.error('Error building old architecture', error);
         process.exit(1);
     }
 
-    logMessage('INFO', '\n> Building Android New Architecture APK\n');
+    logger.info('\n> Building Android New Architecture APK\n');
 
     let newArchBuildSuccessful = false;
 
     try {
-        runCommand(`ts-node ${path.join(BASE_DIR, './platform/android/build-android-app.ts')} ${RN_VERSION} ${BENCHMARK_DIR} new`, ERROR_LOG_FILE);
+        runCommand(`ts-node ${path.join(BASE_DIR, './platform/android/build-android-app.ts')} ${RN_VERSION} ${BENCHMARK_DIR} new`);
 
         newArchBuildSuccessful = fs.existsSync(newArchApkPath) && fs.existsSync(newArchMetadataPath);
 
         if (newArchBuildSuccessful) {
-            logMessage('INFO', `New architecture APK built successfully at: ${newArchApkPath}`);
+            logger.info(`New architecture APK built successfully at: ${newArchApkPath}`);
         } else {
-            logMessage('ERROR', 'New architecture build failed or APK/metadata not found');
+            logger.warn('New architecture build failed or APK/metadata not found');
             process.exit(1);
         }
     } catch (error) {
-        logMessage('ERROR', 'Error building new architecture', error);
+        logger.error('Error building new architecture', error);
         process.exit(1);
     }
 
     return {
-        oldArchBuildSuccessful,
-        newArchBuildSuccessful,
-        oldArchMetadataPath,
-        newArchMetadataPath,
+        android: {
+            old: {
+                buildSuccessful: oldArchBuildSuccessful,
+                metadataPath: oldArchMetadataPath
+            },
+            new: {
+                buildSuccessful: newArchBuildSuccessful,
+                metadataPath: newArchMetadataPath
+            }
+        }
     };
 }
 
@@ -125,103 +151,109 @@ export function runInstallAndTests(
     runOldArch: boolean = true,
     runNewArch: boolean = true,
     BENCHMARK_DIR: string,
-    ERROR_LOG_FILE: string,
     BASE_DIR: string,
-    RN_VERSION: string,
     ITERATIONS: number
 ): void {
-    logMessage('INFO', '\n=== Running Android Tests ===\n');
+    const logger = new Logger();
+    logger.info('\n=== Running Android Tests ===\n');
 
     const state = loadState(BENCHMARK_DIR);
 
-    if (!state.androidOldArchMetadataPath || !state.androidNewArchMetadataPath) {
-        logMessage('ERROR', 'Error: Missing metadata paths in state file. Cannot proceed with testing.');
+    if (!state.android.old.metadataPath || !state.android.new.metadataPath) {
+        logger.error('Error: Missing metadata paths in state file. Cannot proceed with testing.', null);
         process.exit(1);
     }
 
     const deviceIds = getAvailableAndroidDevices();
     if (deviceIds.length === 0) {
-        logMessage('ERROR', 'No Android devices/emulators found. Please start at least two emulators.');
+        logger.warn('No Android devices/emulators found. Please start at least two emulators.');
         process.exit(1);
     } else if (deviceIds.length === 1) {
-        logMessage('ERROR', 'Only one Android device/emulator found. Please start at least two emulators.');
+        logger.warn('Only one Android device/emulator found. Please start at least two emulators.');
         process.exit(1);
     }
 
     const oldArchDeviceId = deviceIds[0];
     const newArchDeviceId = deviceIds[1];
-    const oldArchMetadataPath = state.androidOldArchMetadataPath;
-    const newArchMetadataPath = state.androidNewArchMetadataPath;
+    const oldArchMetadataPath = state.android.old.metadataPath;
+    const newArchMetadataPath = state.android.new.metadataPath;
 
     const successfulInstalls: SuccessfulInstall[] = [];
 
     if (runOldArch) {
-        logMessage('INFO', '\n=== Installing and launching old architecture app ===\n');
+        logger.info('\n=== Installing and launching old architecture app ===\n');
 
         try {
-            runCommand(`ts-node ${path.join(BASE_DIR, './platform/android/run-android-tests.ts')} ${oldArchMetadataPath} ${oldArchDeviceId}`, ERROR_LOG_FILE);
+            runCommand(`ts-node ${path.join(BASE_DIR, './platform/android/run-android-tests.ts')} ${oldArchMetadataPath} ${oldArchDeviceId}`);
 
             successfulInstalls.push({
-                arch: 'old',
+                arch: Architecture.OLD,
                 deviceId: oldArchDeviceId
             });
         } catch (error) {
-            logMessage('ERROR', 'Failed to install/launch old architecture app', error);
+            logger.error('Failed to install/launch old architecture app', error);
             process.exit(1);
         }
     }
 
     if (runNewArch) {
-        logMessage('INFO', '\n=== Installing and launching new architecture app ===\n');
+        logger.info('\n=== Installing and launching new architecture app ===\n');
 
         try {
-            runCommand(`ts-node ${path.join(BASE_DIR, './platform/android/run-android-tests.ts')} ${newArchMetadataPath} ${newArchDeviceId}`, ERROR_LOG_FILE);
+            runCommand(`ts-node ${path.join(BASE_DIR, './platform/android/run-android-tests.ts')} ${newArchMetadataPath} ${newArchDeviceId}`);
 
             successfulInstalls.push({
-                arch: 'new',
+                arch: Architecture.NEW,
                 deviceId: newArchDeviceId
             });
         } catch (error) {
-            logMessage('ERROR', 'Failed to install/launch new architecture app', error);
+            logger.error('Failed to install/launch new architecture app', error);
             process.exit(1);
         }
     }
 
-    logMessage('INFO', `\n=== Installations completed: ${successfulInstalls.length} successful ===\n`);
+    logger.info(`\n=== Installations completed: ${successfulInstalls.length} successful ===\n`);
 
     if (successfulInstalls.length === 0) {
-        logMessage('ERROR', 'No installations were successful. Cannot run tests.');
+        logger.error('No installations were successful. Cannot run tests.', null);
         return;
     }
 
-    logMessage('INFO', '\n=== Running benchmark tests ===\n');
+    logger.info('\n=== Running benchmark tests ===\n');
 
     const command = `cd ${BENCHMARK_DIR} && yarn test:android ${ITERATIONS} ${oldArchDeviceId} ${newArchDeviceId}`;
 
-    logMessage('INFO', `\n=== Running: ${command} ===\n`);
+    logger.info(`\n=== Running: ${command} ===\n`);
 
     try {
-        runCommand(command, ERROR_LOG_FILE);
+        runCommand(command);
 
-        logMessage('INFO', '\n=== Tests completed successfully ===\n');
+        logger.info('\n=== Tests completed successfully ===\n');
 
         updateState(BENCHMARK_DIR, {
-            androidOldArchTested: true,
-            androidNewArchTested: true
+            android: {
+                old: {
+                    tested: true
+                },
+                new: {
+                    tested: true
+                }
+            }
         });
 
     } catch (error) {
-        logMessage('ERROR', 'Error running tests', error);
+        logger.error('Error running tests', error);
         process.exit(1);
     }
 }
 
 export function modifyGradleProperties(isNewArch: boolean, GRADLE_PROPERTIES: string, PACKAGE_NAME: string): boolean {
-    logMessage('INFO', `\n=== Configuring Android Gradle Properties for ${isNewArch ? 'New' : 'Old'} Architecture ===\n`);
+    const logger = new Logger();
+    logger.info(`\n=== Configuring Android Gradle Properties for ${isNewArch ? 'New' : 'Old'} Architecture ===\n`);
 
     if (!fs.existsSync(GRADLE_PROPERTIES)) {
-        logMessage('ERROR', `Gradle properties file not found at ${GRADLE_PROPERTIES}`);
-        throw new Error('Gradle properties file not found');
+        logger.error(`Gradle properties file not found at ${GRADLE_PROPERTIES}`, null);
+        process.exit(1);
     }
 
     let gradleContent = fs.readFileSync(GRADLE_PROPERTIES, 'utf8');
@@ -243,13 +275,14 @@ export function modifyGradleProperties(isNewArch: boolean, GRADLE_PROPERTIES: st
     }
 
     fs.writeFileSync(GRADLE_PROPERTIES, gradleContent);
-    logMessage('INFO', `Gradle properties updated with newArchEnabled=${isNewArch} and applicationId=${PACKAGE_NAME}`);
+    logger.info(`Gradle properties updated with newArchEnabled=${isNewArch} and applicationId=${PACKAGE_NAME}`);
 
     return true;
 }
 
-export function buildApp(isNewArch: boolean, ANDROID_DIR: string, BENCHMARK_DIR: string, ERROR_LOG_FILE: string, APK_PATH: string): boolean {
-    logMessage('INFO', `\n=== Building Android App (${isNewArch ? 'New' : 'Old'} Architecture) ===\n`);
+export function buildApp(isNewArch: boolean, ANDROID_DIR: string, APK_PATH: string): boolean {
+    const logger = new Logger();
+    logger.info(`\n=== Building Android App (${isNewArch ? 'New' : 'Old'} Architecture) ===\n`);
 
     try {
         const assetsDir = path.join(ANDROID_DIR, 'app/src/main/assets');
@@ -258,20 +291,20 @@ export function buildApp(isNewArch: boolean, ANDROID_DIR: string, BENCHMARK_DIR:
         }
 
         const command = `cd ${ANDROID_DIR} && ./gradlew assembleRelease`;
-        runCommand(command, ERROR_LOG_FILE);
+        runCommand(command);
 
         const releaseApkPath = path.join(ANDROID_DIR, 'app/build/outputs/apk/release/app-release.apk');
         if (!fs.existsSync(releaseApkPath)) {
-            logMessage('ERROR', 'Release APK not found after build');
+            logger.error('Release APK not found after build', null);
             return false;
         }
 
         fs.copyFileSync(releaseApkPath, APK_PATH);
-        logMessage('INFO', `APK copied to ${APK_PATH}`);
+        logger.info(`APK copied to ${APK_PATH}`);
 
         return true;
     } catch (error) {
-        logMessage('ERROR', 'Error building Android app', error);
+        logger.error('Error building Android app', error);
         return false;
     }
 } 
