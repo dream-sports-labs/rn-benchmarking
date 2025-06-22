@@ -3,6 +3,31 @@ import './OtherBenchmarks.css';
 import { BENCHMARKS, BenchmarkItem } from '../../constants/benchmarks';
 import { isUrlAllowed } from '../../utils';
 
+const renderLibraryComparison = (libraries: Array<{ name: string; version: string; url: string }>, type: 'single' | 'multiple') => {
+  if (!libraries || libraries.length === 0) return null;
+
+  return (
+    <div className="library-items">
+      <span className="library-label">{type === 'single' ? 'Version:' : 'Libraries:'}</span>
+      {libraries.map((lib, index) => (
+        <React.Fragment key={lib.name + lib.version}>
+          <a 
+            href={lib.url} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="library-link"
+            title={`View ${lib.name} documentation`}
+          >
+            <span className="library-name">{lib.name}</span>
+            <span className="library-version">{lib.version}</span>
+          </a>
+          {index < libraries.length - 1 && <span className="library-vs">vs</span>}
+        </React.Fragment>
+      ))}
+    </div>
+  );
+};
+
 const OtherBenchmarks: React.FC = () => {
   // Set the first benchmark with a URL as default
   const defaultBenchmark = BENCHMARKS.find(b => b.benchmarkUrl) || BENCHMARKS[0];
@@ -58,6 +83,7 @@ const OtherBenchmarks: React.FC = () => {
               </div>
             </div>
           ))}
+          <div className="benchmark-item-footer"></div>
         </div>
       </div>
 
@@ -65,7 +91,10 @@ const OtherBenchmarks: React.FC = () => {
       <div className="benchmarks-main">
         <div className="benchmark-viewer-header">
           <div className="viewer-info">
-            <h2>{selectedBenchmark.title}</h2>
+            <div className="viewer-title-row">
+              <h2>{selectedBenchmark.title}</h2>
+              {selectedBenchmark.libraries && renderLibraryComparison(selectedBenchmark.libraries, selectedBenchmark.type)}
+            </div>
             <p>{selectedBenchmark.description}</p>
           </div>
           <div className="viewer-actions">

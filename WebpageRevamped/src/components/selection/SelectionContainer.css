@@ -157,6 +157,7 @@
     gap: 8px;
     padding-top: 10px;
     border-top: 1px solid #f0f0f0;
+    margin-bottom: 20px;
 }
 
 [data-theme="dark"] .NoteContainer {

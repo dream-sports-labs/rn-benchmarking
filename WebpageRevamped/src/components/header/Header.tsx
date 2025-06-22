@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import favicon from '../../assets/icons/dream11-logo.svg'
 import './Header.css'
-import { useTheme } from '../../contexts/ThemeContext'
 
 interface HeaderProps {
   activeTab?: 'rn-benchmarks' | 'other-benchmarks';
@@ -10,7 +9,6 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab, toggleSelection }) => {
-  const { theme, toggleTheme } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
@@ -33,14 +31,14 @@ const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab, toggleSelectio
                 onClick={() => setActiveTab('rn-benchmarks')}
               >
                 <span className="tab-full">React Native</span>
-                <span className="tab-short">RN Benchmarks</span>
+                <span className="tab-short">React Native</span>
               </button>
               <button 
                 className={`nav-tab ${activeTab === 'other-benchmarks' ? 'active' : ''}`}
                 onClick={() => setActiveTab('other-benchmarks')}
               >
                 <span className="tab-full">Libraries</span>
-                <span className="tab-short">Other</span>
+                <span className="tab-short">Libraries</span>
               </button>
             </div>
 

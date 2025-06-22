@@ -97,6 +97,7 @@
 
 .nav-tab .tab-full {
   display: inline;
+  font-size: 16px;
 }
 
 .nav-tab:hover {

@@ -231,5 +231,5 @@ const Selection = (props: SelectionProps) => {
       </div>
   );
 };
-
 export default Selection;
+
