@@ -405,7 +405,7 @@
 @media (max-width: 768px) {
   .other-benchmarks-container {
     flex-direction: column;
-    height: auto;
+    height: 100vh;
     min-height: 100vh;
     overflow: visible;
   }

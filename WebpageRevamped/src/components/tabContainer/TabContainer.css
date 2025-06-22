@@ -45,5 +45,5 @@
   height: 100%;
   flex-direction: row;
   overflow-y: hidden;
-  background-color: #EBF5FF;
+  background-color: var(--bg-secondary);
 } 

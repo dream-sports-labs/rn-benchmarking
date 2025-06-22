@@ -171,6 +171,7 @@
   display: none;
   position: relative;
   z-index: 20;
+  margin-left: auto;
 }
 
 /* Mobile responsive */
@@ -178,7 +179,8 @@
   .HeaderContainer {
     padding: 12px 16px;
     min-height: 56px;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: auto 1fr auto;
+    justify-content: space-between;
   }
   
   .HeaderTitle {
@@ -215,28 +217,13 @@
   .nav-tab:not(:last-child)::after {
     right: -4px;
   }
-  
-  .theme-toggle {
-    width: 32px;
-    height: 32px;
-    font-size: 14px;
-    margin-left: 4px;
-  }
-  
-  .header-right {
-    gap: 8px;
-  }
-  
-  .mobile-menu-button {
-    width: 32px;
-    height: 32px;
-  }
 }
 
 /* Extra small screens - Switch to hamburger menu */
 @media (max-width: 480px) {
   .HeaderContainer {
     padding: 8px 12px;
+    grid-template-columns: auto 1fr auto;
   }
   
   .HeaderTitle {
@@ -250,27 +237,22 @@
   
   .mobile-menu-container {
     display: block;
-  }
-  
-  .theme-toggle {
-    width: 28px;
-    height: 28px;
-    margin-left: 2px;
-  }
-  
-  .theme-toggle svg {
-    width: 14px;
-    height: 14px;
+    justify-self: end;
   }
   
   .mobile-menu-button {
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
   }
   
   .mobile-menu-button svg {
     width: 16px;
     height: 16px;
+  }
+  
+  .mobile-dropdown {
+    right: 0;
+    left: auto;
   }
 }
 
@@ -317,6 +299,7 @@
   cursor: pointer;
   transition: all 0.2s ease;
   color: var(--header-text);
+  margin-left: auto;
 }
 
 .mobile-menu-button:hover {
