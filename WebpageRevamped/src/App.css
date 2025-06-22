@@ -19,7 +19,57 @@ html, body, #app, #app>div, #root {
   overflow-x: hidden;
 }
 
+/* Global Material-UI Dark Theme Overrides */
+[data-theme="dark"] .MuiPaper-root {
+  background-color: #2a2a2a !important;
+  color: #ffffff !important;
+}
 
+[data-theme="dark"] .MuiMenuItem-root {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .MuiMenuItem-root:hover {
+  background-color: #333333 !important;
+}
+
+[data-theme="dark"] .MuiListItemText-primary {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .MuiInputLabel-root {
+  color: #e0e0e0 !important;
+}
+
+[data-theme="dark"] .MuiOutlinedInput-root {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .MuiOutlinedInput-notchedOutline {
+  border-color: #444444 !important;
+}
+
+[data-theme="dark"] .MuiSelect-select {
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .MuiCheckbox-root {
+  color: #cccccc !important;
+}
+
+[data-theme="dark"] .MuiCheckbox-root.Mui-checked {
+  color: #00bcd4 !important;
+}
+
+[data-theme="dark"] .MuiChip-root {
+  background-color: #333333 !important;
+  color: #ffffff !important;
+  border-color: #444444 !important;
+}
+
+[data-theme="dark"] .MuiFormControlLabel-label {
+  color: #ffffff !important;
+}
 
 .App-header {
   background-color: #282c34;

@@ -9,12 +9,13 @@ import {
     MenuItem,
     Select,
     SelectChangeEvent,
+    IconButton,
 } from '@mui/material'
 import {GenerateReportProps} from '../../RnBenchmarkingWebPage.interface'
 import {SnackbarAlert} from '../SnackbarAlert/SnackbarAlert'
 import {maxCheckboxSelection} from "../../RnBenchmarkingWebPage.constant";
 import GithubLogo from '../../assets/icons/GitHubMark.png'
-import ReportIcon from '../../assets/icons/Reports2.png'
+import { useTheme } from '../../contexts/ThemeContext'
 
 type SelectionContainerProps = {
     onGenerateReport: (params: GenerateReportProps) => void;
@@ -24,6 +25,7 @@ type SelectionContainerProps = {
 export const SelectionContainer = ({
   onGenerateReport, hideSelection,
 }: SelectionContainerProps) => {
+  const { theme, toggleTheme } = useTheme();
   const {versions} = require('../../supportedVersions.json')
   const versionName = versions
   const [selectedVersion, setSelectedVersion] = useState<string[]>([])
@@ -130,6 +132,29 @@ export const SelectionContainer = ({
                    href="https://github.com/dream-sports-labs/rn-benchmarking/tree/main/WebpageRevamped/src/Reports">
                     Access All the Reports Here</a>
                 <div className="Note">*Benchmarking numbers are generated from debug builds.</div>
+                
+                {/* Theme Toggle at Bottom */}
+                <div className="ThemeToggleContainer">
+                    <span className="ThemeToggleLabel">Theme:</span>
+                    <IconButton 
+                        onClick={toggleTheme}
+                        className={'ThemeToggleButton'}
+                        size="small"
+                        aria-label="Toggle theme"
+                        title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+                    >
+                        {theme === 'light' ? (
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                        ) : (
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="5" stroke="currentColor" strokeWidth="2"/>
+                                <path d="m12 1-1 2-1-2m6.36 1.64L15 6l1.36-1.36M23 12l-2 1 2 1m-1.64 6.36L19 18l1.36 1.36M12 23l1-2 1 2m-6.36-1.64L9 20l-1.36 1.36M1 12l2-1-2-1m1.64-6.36L5 6 3.64 4.64" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                        )}
+                    </IconButton>
+                </div>
             </div>
 
             <SnackbarAlert

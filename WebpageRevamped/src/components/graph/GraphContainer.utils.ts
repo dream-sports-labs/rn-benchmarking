@@ -4,6 +4,7 @@ import {
   yAxisLabels,
 } from '../../RnBenchmarkingWebPage.constant'
 import { ChartOptions } from 'chart.js';
+import { Theme } from '../../contexts/ThemeContext'
 
 export const chartData = (labels: string[], data: number[]) => ({
   labels: labels.map((value: string) => {
@@ -24,7 +25,7 @@ export const chartData = (labels: string[], data: number[]) => ({
   ],
 })
 
-export const options = (title: string, max: number): ChartOptions<'bar'> => ({
+export const options = (title: string, max: number, theme: Theme): ChartOptions<'bar'> => ({
   maintainAspectRatio: false,
   responsive: true,
   plugins: {
@@ -34,25 +35,32 @@ export const options = (title: string, max: number): ChartOptions<'bar'> => ({
     title: {
       display: true,
       text: title,
-      color: '#333333',
+      color: theme === 'dark' ? '#FFFFFF' : '#333333',
+      font: {
+        size: 14,
+        weight: 'bold'
+      }
     },
   },
   scales: {
     x: {
       ticks: {
         autoSkip: false,
-        font:{
+        font: {
           size: window.innerWidth <= 768 ? 10 : 12
         },
         callback: function (value, index, values) {
           const label = this.getLabelForValue(value as number); // Get the full label
           return label.split('/');
         },
-        color: '#333333',
+        color: theme === 'dark' ? '#FFFFFF' : '#333333',
       },
       border: {
         dash: [0, 1],
-        color: 'black',
+        color: theme === 'dark' ? '#666666' : '#333333',
+      },
+      grid: {
+        color: theme === 'dark' ? '#333333' : '#E5E5E5',
       },
       title: {
         display: false,
@@ -65,13 +73,17 @@ export const options = (title: string, max: number): ChartOptions<'bar'> => ({
         color: 'transparent',
       },
       grid: {
-        color: '#8F8F8F',
+        color: theme === 'dark' ? '#333333' : '#8F8F8F',
+      },
+      ticks: {
+        color: theme === 'dark' ? '#FFFFFF' : '#333333',
       },
       beginAtZero: true,
       max: max,
       title: {
         display: true,
         text: yAxisLabels,
+        color: theme === 'dark' ? '#FFFFFF' : '#333333',
       },
     },
   },

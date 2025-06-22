@@ -2,51 +2,156 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 16px;
     margin-bottom: 20px;
+    font-family: inherit;
 }
 
 .PlatformName {
-    color: #757575;
+    color: #666666;
     font-size: 12px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 500;
     line-height: 20px;
     margin-top: 12px;
+    letter-spacing: -0.01em;
+}
+
+[data-theme="dark"] .PlatformName {
+    color: #cccccc;
 }
 
 .VersionContainer {
-    margin-top: 10px;
+    margin-top: 12px;
+    padding: 12px;
+    border: 1px solid #f0f0f0;
+    border-radius: 6px;
+    background: #fafafa;
+    transition: all 0.2s ease;
+}
+
+[data-theme="dark"] .VersionContainer {
+    border-color: #444444;
+    background: #2a2a2a;
+}
+
+.VersionContainer:hover {
+    border-color: #d0d0d0;
+}
+
+[data-theme="dark"] .VersionContainer:hover {
+    border-color: #555555;
 }
 
 .InputLabel {
-    font-size: 20px;
-    color: black;
+    font-size: 16px;
+    color: #333333 !important;
+    font-weight: 600 !important;
+    font-family: inherit !important;
+    letter-spacing: -0.01em !important;
+}
+
+[data-theme="dark"] .InputLabel {
+    color: #e0e0e0 !important;
+}
+
+/* Improve form field theming */
+[data-theme="dark"] .VersionContainer .MuiOutlinedInput-root {
+    background-color: #333333;
+    color: #ffffff;
+}
+
+[data-theme="dark"] .VersionContainer .MuiOutlinedInput-notchedOutline {
+    border-color: #555555;
+}
+
+[data-theme="dark"] .VersionContainer .MuiInputLabel-root {
+    color: #e0e0e0 !important;
 }
 
 .Button {
     width: 100%;
     margin-top: 20px;
     align-self: flex-start;
+    font-family: inherit !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    border-radius: 6px !important;
+    padding: 10px 20px !important;
+    background-color: #1976d2 !important;
+    transition: all 0.2s ease !important;
+}
+
+.Button:hover {
+    background-color: #1565c0 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(25, 118, 210, 0.3) !important;
+}
+
+[data-theme="dark"] .Button {
+    background-color: #00bcd4 !important;
+    color: #1a1a1a !important;
+}
+
+[data-theme="dark"] .Button:hover {
+    background-color: #00acc1 !important;
+    box-shadow: 0 4px 8px rgba(0, 188, 212, 0.3) !important;
 }
 
 .PlatformNameTypeContainer {
     display: flex;
     flex-direction: row;
+    gap: 16px;
+    margin-top: 8px;
+}
+
+/* Checkbox theming */
+.PlatformNameTypeContainer .MuiFormControlLabel-label {
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    color: #333333;
+}
+
+[data-theme="dark"] .PlatformNameTypeContainer .MuiFormControlLabel-label {
+    color: #ffffff;
+}
+
+.PlatformNameTypeContainer .MuiCheckbox-root {
+    color: #666666;
+}
+
+[data-theme="dark"] .PlatformNameTypeContainer .MuiCheckbox-root {
+    color: #cccccc;
+}
+
+.PlatformNameTypeContainer .MuiCheckbox-root.Mui-checked {
+    color: #1976d2;
+}
+
+[data-theme="dark"] .PlatformNameTypeContainer .MuiCheckbox-root.Mui-checked {
+    color: #00bcd4;
 }
 
 /* Mobile adjustments */
 @media (max-width: 768px) {
     .Selection {
         flex-direction: column;
+        gap: 12px;
+    }
+
+    .VersionContainer {
+        margin-top: 8px;
+        padding: 10px;
+    }
+
+    .PlatformNameTypeContainer {
+        flex-direction: column;
         gap: 8px;
     }
 
-    /*.PlatformNameTypeContainer {*/
-    /*    flex-direction: column; !* Stack checkboxes vertically *!*/
-    /*}*/
-
     .Button {
         width: 100%;
+        margin-top: 16px;
     }
 }

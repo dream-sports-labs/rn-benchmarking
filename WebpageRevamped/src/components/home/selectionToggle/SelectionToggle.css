@@ -7,10 +7,16 @@
     z-index: 10;
 }
 
-/* Show toggle icon on mobile */
-@media (max-width: 768px) {
+/* Show toggle icon on mobile - but hide when navigation hamburger is shown */
+@media (max-width: 768px) and (min-width: 481px) {
     .SelectionToggleContainer {
         display: block;
     }
+}
 
+/* Hide sidebar toggle when navigation hamburger is active */
+@media (max-width: 480px) {
+    .SelectionToggleContainer {
+        display: none;
+    }
 }

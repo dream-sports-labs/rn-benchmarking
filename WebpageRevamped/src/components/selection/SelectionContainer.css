@@ -11,39 +11,142 @@
     height: auto;
     overflow-y: auto;
     box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Dark theme support */
+[data-theme="dark"] .SelectionContainer {
+    background: #1a1a1a;
+    border-color: #333333;
 }
 
 .SelectionContainerHeader {
     color: #333333;
-    font-size: 14px;
+    font-size: 15px;
     font-style: normal;
-    font-weight: 700;
-    line-height: 20px;
+    font-weight: 600;
+    line-height: 22px;
     margin-bottom: 10px;
+    letter-spacing: -0.01em;
+}
+
+[data-theme="dark"] .SelectionContainerHeader {
+    color: #ffffff;
 }
 
 .DeviceContainer {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    width: 80%;
-    padding-bottom: 10px; /* Add some padding at the bottom */
+    gap: 10px;
+    width: 100%;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: 5px;
+}
+
+[data-theme="dark"] .DeviceContainer {
+    border-bottom-color: #333333;
 }
 
 .Title {
     color: #333333;
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 600;
     line-height: 20px;
-    margin-right: 10px; /* Add some margin between title and chips */
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+}
+
+[data-theme="dark"] .Title {
+    color: #ffffff;
+}
+
+/* Improve Chip styling */
+.DeviceContainer .MuiChip-root {
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 500;
+    background-color: #f5f5f5;
+    color: #333333;
+    border: 1px solid #e0e0e0;
+}
+
+[data-theme="dark"] .DeviceContainer .MuiChip-root {
+    background-color: #333333;
+    color: #ffffff;
+    border-color: #444444;
+}
+
+/* Form Control theming */
+.SelectionContainer .MuiInputLabel-root {
+    font-family: inherit;
+    font-weight: 500;
+    color: #555555;
+}
+
+[data-theme="dark"] .SelectionContainer .MuiInputLabel-root {
+    color: #e0e0e0 !important;
+}
+
+.SelectionContainer .MuiOutlinedInput-root {
+    font-family: inherit;
+    background-color: #ffffff;
+    color: #333333;
+}
+
+[data-theme="dark"] .SelectionContainer .MuiOutlinedInput-root {
+    background-color: #2a2a2a;
+    color: #ffffff;
+}
+
+[data-theme="dark"] .SelectionContainer .MuiOutlinedInput-notchedOutline {
+    border-color: #444444;
+}
+
+[data-theme="dark"] .SelectionContainer .MuiSelect-select {
+    color: #ffffff !important;
+}
+
+/* Dropdown menu theming */
+[data-theme="dark"] .MuiPaper-root {
+    background-color: #2a2a2a !important;
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .MuiMenuItem-root {
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .MuiMenuItem-root:hover {
+    background-color: #333333 !important;
+}
+
+[data-theme="dark"] .MuiListItemText-primary {
+    color: #ffffff !important;
+}
+
+/* Checkbox theming in dropdown */
+[data-theme="dark"] .MuiCheckbox-root {
+    color: #cccccc !important;
+}
+
+[data-theme="dark"] .MuiCheckbox-root.Mui-checked {
+    color: #00bcd4 !important;
 }
 
 .Note {
     display: flex;
-    color: gray;
-    font-size: 12px;
+    color: #666666;
+    font-size: 11px;
     line-height: 16px;
     margin-bottom: 16px;
+    font-style: italic;
+    font-weight: 400;
+}
+
+[data-theme="dark"] .Note {
+    color: #999999;
 }
 
 .NoteContainer {
@@ -51,13 +154,86 @@
     flex-direction: column;
     margin-top: auto;
     justify-content: center;
+    gap: 8px;
+    padding-top: 10px;
+    border-top: 1px solid #f0f0f0;
 }
+
+[data-theme="dark"] .NoteContainer {
+    border-top-color: #333333;
+}
+
 .Link {
     font-size: 12px;
     display: flex;
     flex-direction: row;
     align-items: center;
+    color: #1976d2;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 4px 0;
+    transition: color 0.2s ease;
 }
+
+.Link:hover {
+    color: #1565c0;
+    text-decoration: underline;
+}
+
+[data-theme="dark"] .Link {
+    color: #00bcd4;
+}
+
+[data-theme="dark"] .Link:hover {
+    color: #00acc1;
+}
+
+/* Theme Toggle Container */
+.ThemeToggleContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 12px;
+    padding: 8px 0;
+    border-top: 1px solid #f0f0f0;
+}
+
+[data-theme="dark"] .ThemeToggleContainer {
+    border-top-color: #333333;
+}
+
+.ThemeToggleLabel {
+    font-size: 12px;
+    font-weight: 500;
+    color: #666666;
+    letter-spacing: -0.01em;
+}
+
+[data-theme="dark"] .ThemeToggleLabel {
+    color: #cccccc;
+}
+
+.ThemeToggleButton {
+    color: #666666 !important;
+    transition: all 0.2s ease !important;
+    border-radius: 6px !important;
+    padding: 6px !important;
+}
+
+.ThemeToggleButton:hover {
+    background-color: #f5f5f5 !important;
+    color: #1976d2 !important;
+}
+
+[data-theme="dark"] .ThemeToggleButton {
+    color: #cccccc !important;
+}
+
+[data-theme="dark"] .ThemeToggleButton:hover {
+    background-color: #333333 !important;
+    color: #00bcd4 !important;
+}
+
 /* Mobile adjustments */
 @media (max-width: 768px) {
     .SelectionContainer {
@@ -66,19 +242,20 @@
         height: 100vh;
         top: 0;
         left: 0;
-        background-color: rgba(255, 255, 255, 0.9);
+        background-color: #ffffff;
         z-index: 999;
         overflow-y: auto;
     }
-    /*.SelectionContainer {*/
-    /*    padding: 10px;*/
-    /*    min-width: 100%;*/
-    /*    max-width: 100%;*/
-    /*    max-height: none;*/
-    /*    height: auto; !* Ensure container height adjusts with content *!*/
-    /*}*/
+
+    [data-theme="dark"] .SelectionContainer {
+        background-color: #1a1a1a;
+    }
 
     .SelectionContainerHeader {
-        font-size: 12px; /* Adjust font size for smaller screens */
+        font-size: 14px;
+    }
+
+    .DeviceContainer {
+        width: 100%;
     }
 }
