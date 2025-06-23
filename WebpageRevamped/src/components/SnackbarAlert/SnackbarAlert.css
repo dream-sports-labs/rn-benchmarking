@@ -1,0 +1,133 @@
+.SnackbarAlert {
+  /* This class is for the container */
+}
+
+/* Style the MUI Alert component */
+.SnackbarAlert .MuiAlert-root {
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-family: inherit;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  min-width: 280px;
+  max-width: 400px;
+}
+
+/* Top-right snackbar specific styles */
+.top-right-snackbar {
+  margin-top: 24px !important;
+  margin-right: 24px !important;
+}
+
+/* Animation for the snackbar */
+.MuiSnackbar-root {
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Light theme styles */
+[data-theme="light"] .MuiAlert-root {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+[data-theme="light"] .MuiAlert-standardInfo {
+  background-color: #E3F2FD;
+  color: #0D47A1;
+  border: 1px solid #90CAF9;
+}
+
+[data-theme="light"] .MuiAlert-standardSuccess {
+  background-color: #E8F5E9;
+  color: #1B5E20;
+  border: 1px solid #A5D6A7;
+}
+
+[data-theme="light"] .MuiAlert-standardError {
+  background-color: #FFEBEE;
+  color: #B71C1C;
+  border: 1px solid #EF9A9A;
+}
+
+[data-theme="light"] .MuiAlert-standardWarning {
+  background-color: #FFF3E0;
+  color: #E65100;
+  border: 1px solid #FFCC80;
+}
+
+/* Dark theme styles */
+[data-theme="dark"] .MuiAlert-root {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .MuiAlert-standardInfo {
+  background-color: #1E3A5F;
+  color: #90CAF9;
+  border: 1px solid #1E88E5;
+}
+
+[data-theme="dark"] .MuiAlert-standardSuccess {
+  background-color: #1B5E20;
+  color: #69F0AE;
+  border: 1px solid #00C853;
+}
+
+[data-theme="dark"] .MuiAlert-standardError {
+  background-color: #B71C1C;
+  color: #FF8A80;
+  border: 1px solid #FF1744;
+}
+
+[data-theme="dark"] .MuiAlert-standardWarning {
+  background-color: #E65100;
+  color: #FFD180;
+  border: 1px solid #FF9100;
+}
+
+/* Common styles for both themes */
+.MuiAlert-icon {
+  font-size: 24px !important;
+  opacity: 0.9;
+}
+
+.MuiAlert-message {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 4px 0;
+}
+
+.MuiAlert-action {
+  padding-left: 16px;
+  margin-right: -8px;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .top-right-snackbar {
+    margin-top: 16px !important;
+    margin-right: 16px !important;
+  }
+
+  .SnackbarAlert .MuiAlert-root {
+    margin: 0;
+    width: calc(100% - 32px);
+    max-width: none;
+    min-width: auto;
+  }
+
+  .MuiAlert-message {
+    font-size: 13px;
+  }
+} 

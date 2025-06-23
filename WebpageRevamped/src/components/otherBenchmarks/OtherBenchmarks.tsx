@@ -4,6 +4,7 @@ import { BENCHMARKS, BenchmarkItem } from '../../constants/benchmarks';
 import { isUrlAllowed } from '../../utils';
 import { useIsMobile } from '../../hooks/useIsMobile';
 import IFrameModal from '../iFrameModal/IFrameModal';
+import { SnackbarAlert } from '../SnackbarAlert/SnackbarAlert';
 
 const renderLibraryComparison = (libraries: Array<{ name: string; version: string; url: string }>, type: 'single' | 'multiple') => {
   if (!libraries || libraries.length === 0) return null;
@@ -33,6 +34,7 @@ const renderLibraryComparison = (libraries: Array<{ name: string; version: strin
 const OtherBenchmarks: React.FC = () => {
   const isMobile = useIsMobile();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [showToast, setShowToast] = useState(false);
   
   // Only set default benchmark on desktop
   const defaultBenchmark = isMobile ? null : (BENCHMARKS.find(b => b.benchmarkUrl) || BENCHMARKS[0]);
@@ -47,6 +49,11 @@ const OtherBenchmarks: React.FC = () => {
   }, [isMobile]);
 
   const handleBenchmarkSelect = (benchmark: BenchmarkItem) => {
+    if (isMobile && !benchmark.benchmarkUrl) {
+      setShowToast(true);
+      return;
+    }
+    
     setSelectedBenchmark(benchmark);
     if (isMobile && benchmark.benchmarkUrl) {
       setIsModalOpen(true);
@@ -189,6 +196,16 @@ const OtherBenchmarks: React.FC = () => {
             setSelectedBenchmark(null);
           }}
         />
+      )}
+
+      {/* Toast for Coming Soon on Mobile */}
+      {isMobile && (
+          <SnackbarAlert
+            open={showToast}
+            handleClose={() => setShowToast(false)}
+            snackbarMessage="This benchmark is coming soon. Please check back later."
+            severity='info'
+          />
       )}
     </div>
   );
