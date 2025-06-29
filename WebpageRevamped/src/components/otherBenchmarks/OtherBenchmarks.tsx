@@ -6,8 +6,8 @@ import { useIsMobile } from '../../hooks/useIsMobile';
 import IFrameModal from '../iFrameModal/IFrameModal';
 import { SnackbarAlert } from '../SnackbarAlert/SnackbarAlert';
 
-const renderLibraryComparison = (libraries: Array<{ name: string; version: string; url: string }>, type: 'single' | 'multiple') => {
-  if (!libraries || libraries.length === 0) return null;
+export const renderLibraryComparison = (libraries: Array<{ name: string; version: string; url: string }>, type: 'single' | 'multiple') => {
+  if (libraries.length === 0) return null;
 
   return (
     <div className="library-items">
@@ -39,6 +39,7 @@ const OtherBenchmarks: React.FC = () => {
   // Only set default benchmark on desktop
   const defaultBenchmark = isMobile ? null : (BENCHMARKS.find(b => b.benchmarkUrl) || BENCHMARKS[0]);
   const [selectedBenchmark, setSelectedBenchmark] = useState<BenchmarkItem | null>(defaultBenchmark);
+  const [isIframeLoading, setIsIframeLoading] = useState(true);
 
   useEffect(() => {
     if (isMobile) {
@@ -58,6 +59,7 @@ const OtherBenchmarks: React.FC = () => {
     if (isMobile && benchmark.benchmarkUrl) {
       setIsModalOpen(true);
     }
+    setIsIframeLoading(true);
   };
 
   const handleViewInNewTab = () => {
@@ -72,6 +74,12 @@ const OtherBenchmarks: React.FC = () => {
     }
   };
 
+  const handleIframeLoad = () => {
+    setIsIframeLoading(false);
+  };
+
+  const showList = isMobile && selectedBenchmark?.id;
+
   return (
     <div className="other-benchmarks-container">
       {/* Side Navigation */}
@@ -82,10 +90,10 @@ const OtherBenchmarks: React.FC = () => {
         </div>
         
         <div className="benchmarks-list">
-          {BENCHMARKS.map((benchmark) => (
+          {showList || BENCHMARKS.map((benchmark) => (
             <div 
               key={benchmark.id}
-              className={`benchmark-item ${selectedBenchmark?.id === benchmark.id ? 'active' : ''}`}
+              className={`benchmark-item ${selectedBenchmark?.id === benchmark.id ? 'clicked' : ''}`}
               onClick={() => handleBenchmarkSelect(benchmark)}
             >
               <div className="benchmark-item-header">
@@ -116,7 +124,7 @@ const OtherBenchmarks: React.FC = () => {
             <div className="viewer-info">
               <div className="viewer-title-row">
                 <h2>{selectedBenchmark.title}</h2>
-                {selectedBenchmark.libraries && renderLibraryComparison(selectedBenchmark.libraries, selectedBenchmark.type)}
+                {selectedBenchmark.libraries && selectedBenchmark.libraries.length > 0 && renderLibraryComparison(selectedBenchmark.libraries!, selectedBenchmark.type || 'multiple')}
               </div>
               <p>{selectedBenchmark.description}</p>
             </div>
@@ -147,16 +155,38 @@ const OtherBenchmarks: React.FC = () => {
           </div>
           
           <div className="benchmark-iframe-container">
-            {selectedBenchmark.benchmarkUrl && isUrlAllowed(selectedBenchmark.benchmarkUrl) ? (
-              <iframe
-                src={selectedBenchmark.benchmarkUrl}
-                title={selectedBenchmark.title}
-                className="benchmark-iframe"
-                sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
-                referrerPolicy="no-referrer"
-                allow="fullscreen"
-                loading="lazy"
-              />
+            {selectedBenchmark.benchmarkUrl ? (
+              <>
+                {isIframeLoading && (
+                  <div className="iframe-loader">
+                    <div className="loader-spinner">
+                      <svg width="40" height="40" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" fill="none">
+                        <circle cx="12" cy="12" r="10" strokeDasharray="42" strokeLinecap="round">
+                          <animateTransform
+                            attributeName="transform"
+                            type="rotate"
+                            from="0 12 12"
+                            to="360 12 12"
+                            dur="1s"
+                            repeatCount="indefinite"
+                          />
+                        </circle>
+                      </svg>
+                    </div>
+                    <p>Loading benchmark data...</p>
+                  </div>
+                )}
+                <iframe
+                  src={selectedBenchmark.benchmarkUrl}
+                  title={selectedBenchmark.title}
+                  className={`benchmark-iframe ${isIframeLoading ? 'loading' : 'loaded'}`}
+                  sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+                  referrerPolicy="no-referrer"
+                  allow="fullscreen"
+                  loading="lazy"
+                  onLoad={handleIframeLoad}
+                />
+              </>
             ) : (
               <div className="benchmark-placeholder">
                 {!selectedBenchmark.benchmarkUrl ? (
@@ -188,6 +218,7 @@ const OtherBenchmarks: React.FC = () => {
       {/* IFrame Modal for Mobile */}
       {isMobile && selectedBenchmark && (
         <IFrameModal
+          libraries={selectedBenchmark.libraries}
           repoUrl={selectedBenchmark.repoUrl}
           description={selectedBenchmark.description}
           isOpen={isModalOpen}

@@ -90,7 +90,7 @@
 }
 
 .benchmark-item {
-  background: var(--bg-primary);
+  /* background: var(--bg-primary); */
   border: 1px solid var(--border-color);
   border-radius: 6px;
   padding: 12px;
@@ -106,7 +106,8 @@
   background: var(--bg-hover);
 }
 
-.benchmark-item.active {
+
+.benchmark-item.clicked {
   border-color: var(--border-hover);
   background: var(--bg-active);
 }
@@ -334,16 +335,67 @@
 
 .benchmark-iframe-container {
   flex: 1;
+  position: relative;
   overflow: hidden;
-  background: var(--bg-secondary);
-  transition: background-color 0.3s ease;
+  background: var(--bg-primary);
 }
 
 .benchmark-iframe {
   width: 100%;
   height: 100%;
   border: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.benchmark-iframe.loaded {
+  opacity: 1;
+}
+
+.iframe-loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   background: var(--bg-primary);
+  z-index: 1;
+}
+
+.loader-spinner {
+  margin-bottom: 16px;
+  color: var(--text-secondary);
+  animation: pulse 2s infinite;
+}
+
+.iframe-loader p {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin: 0;
+  font-weight: 500;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .iframe-loader p {
+    font-size: 13px;
+  }
 }
 
 .benchmark-placeholder {

@@ -102,4 +102,11 @@
         margin-bottom: 24px;
         padding: 20px;
     }
+    .benchmark-item-footer {
+        width: 80vw;
+        height: 400px;
+        margin-right: 0;
+        margin-bottom: 24px;
+        padding: 20px;
+    }
 }

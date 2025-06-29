@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import './IFrameModal.css';
 import { isUrlAllowed } from '../../utils';
 import { useTheme } from '../../contexts/ThemeContext';
+import { renderLibraryComparison } from '../otherBenchmarks/OtherBenchmarks';
 
 interface IFrameModalProps {
   isOpen: boolean;
@@ -10,28 +11,17 @@ interface IFrameModalProps {
   onClose: () => void;
   description: string;
   repoUrl: string;
+  libraries?: Array<{
+    name: string;
+    version: string;
+    url: string;
+  }>;
 }
 
-const IFrameModal: React.FC<IFrameModalProps> = ({ isOpen, url, title, onClose, description, repoUrl }) => {
+const IFrameModal: React.FC<IFrameModalProps> = ({ isOpen, url, title, onClose, description, repoUrl, libraries }) => {
   const { theme } = useTheme();
-
-  useEffect(() => {
-    const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        onClose();
-      }
-    };
-
-    if (isOpen) {
-      document.addEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'hidden';
-    }
-
-    return () => {
-      document.removeEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'unset';
-    };
-  }, [isOpen, onClose]);
+  const [isIframeLoading, setIsIframeLoading] = useState(true);
+  const [showDescription, setShowDescription] = useState(false);
 
   if (!isOpen) return null;
 
@@ -39,7 +29,7 @@ const IFrameModal: React.FC<IFrameModalProps> = ({ isOpen, url, title, onClose, 
   if (!isUrlAllowed(url)) {
     return (
       <div className="iframe-modal-overlay" onClick={onClose}>
-        <div className={`iframe-modal-container ${theme}`} onClick={(e) => e.stopPropagation()}>
+        <div className={`iframe-modal-container ${theme}`}>
           <div className="iframe-modal-header">
             <h3>Error</h3>
             <button 
@@ -63,11 +53,13 @@ const IFrameModal: React.FC<IFrameModalProps> = ({ isOpen, url, title, onClose, 
 
   return (
     <div className="iframe-modal-overlay" onClick={onClose}>
-      <div className={`iframe-modal-container ${theme}`} onClick={(e) => e.stopPropagation()}>
+      <div className={`iframe-modal-container ${theme}`} onClick={e => e.stopPropagation()}>
         <div className="iframe-modal-header">
           <div className="iframe-modal-header-content">
             <div className="iframe-modal-title">
-              <h3>{title}</h3>
+              <div className="iframe-modal-title-row">
+                <h3>{title}</h3>
+              </div>
               <div className="iframe-modal-controls">
                 <a 
                   href={url} 
@@ -84,7 +76,7 @@ const IFrameModal: React.FC<IFrameModalProps> = ({ isOpen, url, title, onClose, 
                   </svg>
                 </a>
                 <a 
-                  href={`https://github.com/dream11/react-native-benchmarking`}
+                  href={repoUrl}
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="iframe-modal-external-link"
@@ -107,22 +99,59 @@ const IFrameModal: React.FC<IFrameModalProps> = ({ isOpen, url, title, onClose, 
                 </button>
               </div>
             </div>
-            {description && (
-              <div className="iframe-modal-description-wrapper">
-                <p className="iframe-modal-description">{description}</p>
+            <div className="modal-description-container">
+              <p className="modal-description">{description}</p>
+              <button className="dropdown-toggle" onClick={() => setShowDescription(!showDescription)}>
+                <svg 
+                  width="16" 
+                  height="16" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2"
+                  className={showDescription ? 'up' : ''}
+                >
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </button>
+            </div>
+            {showDescription && libraries && libraries.length > 0 && (
+              <div className="libraries-content">
+                {renderLibraryComparison(libraries, libraries.length === 1 ? 'single' : 'multiple')}
               </div>
             )}
           </div>
         </div>
         <div className="iframe-modal-content">
+          {isIframeLoading && (
+            <div className="iframe-loader">
+              <div className="loader-spinner">
+                <svg width="40" height="40" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" fill="none">
+                  <circle cx="12" cy="12" r="10" strokeDasharray="42" strokeLinecap="round">
+                    <animateTransform
+                      attributeName="transform"
+                      type="rotate"
+                      from="0 12 12"
+                      to="360 12 12"
+                      dur="1s"
+                      repeatCount="indefinite"
+                    />
+                  </circle>
+                </svg>
+              </div>
+              <p>Loading benchmark data...</p>
+            </div>
+          )}
           <iframe
             src={url}
             title={title}
-            className="iframe-modal-frame"
+            className={`iframe-modal-frame ${isIframeLoading ? 'loading' : 'loaded'}`}
             sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
             referrerPolicy="no-referrer"
             loading="lazy"
             allow="fullscreen"
+            onError={() => setIsIframeLoading(false)}
+            onLoad={() => setIsIframeLoading(false)}
           />
         </div>
       </div>

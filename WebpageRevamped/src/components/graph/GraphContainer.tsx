@@ -71,6 +71,11 @@ export const GraphContainer = ({
                 options={options('5000 Image', 8, theme)}
             />
           </div>
+          {
+            isMobile && (
+              <div className='benchmark-item-footer' />
+            )
+          }
         </div>
       </div>
   )
