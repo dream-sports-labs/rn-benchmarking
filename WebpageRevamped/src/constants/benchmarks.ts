@@ -19,7 +19,7 @@ export const BENCHMARKS: BenchmarkItem[] = [
   {
     id: 'rn-navigation',
     title: 'React Navigation',
-    description: 'Native vs JS navigation performance benchmarks and metrics',
+    description: 'Native vs JS stack load time performance benchmarks',
     benchmarkUrl: 'https://dream-sports-labs.github.io/react-navigation-benchmark/',
     repoUrl: 'https://github.com/dream-sports-labs/react-navigation-benchmark',
     icon: '🧭',
@@ -87,8 +87,8 @@ export const BENCHMARKS: BenchmarkItem[] = [
     id: 'rn-bottomtabs',
     title: 'React Native Bottom Tabs',
     description: 'Native vs JS bottom tab implementation performance comparison',
-    benchmarkUrl: '', // Add your benchmark URL here
-    repoUrl: '', // Add your repo URL here
+    benchmarkUrl: 'https://dream-sports-labs.github.io/rn-webview-benchmark/',
+    repoUrl: 'https://github.com/dream-sports-labs/rn-webview-benchmark', // Add your repo URL here
     icon: '📱',
     category: 'Navigation',
     type: 'multiple',

@@ -67,7 +67,7 @@
 
 .sidebar-header h3 {
   color: var(--text-primary);
-  font-size: 14px;
+  font-size: 16px;
   font-style: normal;
   font-weight: 700;
   line-height: 20px;
@@ -77,7 +77,7 @@
 
 .sidebar-header p {
   color: var(--text-secondary);
-  font-size: 12px;
+  font-size: 14px;
   margin: 0;
   line-height: 16px;
   transition: color 0.3s ease;
@@ -155,7 +155,7 @@
 
 .benchmark-item-content h4 {
   color: var(--text-primary);
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 700;
   margin: 0 0 4px 0;
   line-height: 1.3;
@@ -164,7 +164,7 @@
 
 .benchmark-item-content p {
   color: var(--text-secondary);
-  font-size: 10px;
+  font-size: 12px;
   margin: 0;
   line-height: 1.4;
   transition: color 0.3s ease;
@@ -173,6 +173,7 @@
 .benchmark-item-status {
   display: flex;
   justify-content: flex-end;
+  margin-top: 4px;
 }
 
 .status-available {
@@ -424,7 +425,94 @@
   }
 
   .benchmark-item {
+    padding: 20px;
+    gap: 16px;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .benchmark-item:hover {
+    transform: translateY(-1px);
+  }
+
+  .benchmark-item-header {
+    gap: 16px;
+    margin-bottom: 0;
+  }
+
+  .benchmark-item-icon {
+    min-width: 36px;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+  }
+
+  .benchmark-item-category {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 6px;
+  }
+
+  .benchmark-item-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .benchmark-item-content h4 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  .benchmark-item-content p {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .benchmark-item-status {
+    margin-top: 4px;
+  }
+
+  .status-available,
+  .status-coming-soon {
+    font-size: 10px;
+    letter-spacing: 0.5px;
+  }
+}
+
+/* Additional mobile adjustments for very small screens */
+@media (max-width: 380px) {
+  .benchmark-item {
     padding: 16px;
+    gap: 12px;
+  }
+
+  .benchmark-item-icon {
+    min-width: 40px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .benchmark-item-content h4 {
+    font-size: 20px;
+  }
+
+  .benchmark-item-content p {
+    font-size: 14px;
+  }
+
+  .benchmark-item-category {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+
+  .status-available,
+  .status-coming-soon {
+    font-size: 12px;
   }
 }
 
@@ -757,7 +845,7 @@
 
 .viewer-title-row h2 {
   margin: 0;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   color: var(--text-primary);
 }

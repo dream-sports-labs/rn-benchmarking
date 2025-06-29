@@ -188,6 +188,8 @@ const OtherBenchmarks: React.FC = () => {
       {/* IFrame Modal for Mobile */}
       {isMobile && selectedBenchmark && (
         <IFrameModal
+          repoUrl={selectedBenchmark.repoUrl}
+          description={selectedBenchmark.description}
           isOpen={isModalOpen}
           url={selectedBenchmark.benchmarkUrl || ''}
           title={selectedBenchmark.title}
