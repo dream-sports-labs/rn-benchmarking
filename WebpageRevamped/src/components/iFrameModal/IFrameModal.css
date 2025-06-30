@@ -51,13 +51,12 @@
 }
 
 .iframe-modal-header {
-  display: flex;
-  flex-direction: column;
-  padding: 20px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 1500;
   background-color: var(--modal-bg);
+  padding: 20px 24px;
   border-bottom: 1px solid var(--modal-border);
-  position: relative;
-  z-index: 1500;  /* Ensure header is above content */
 }
 
 .iframe-modal-header-content {
@@ -318,8 +317,10 @@
 /* Mobile styles */
 @media (max-width: 768px) {
   .iframe-modal-overlay {
-    padding: 0;
-    background-color: 'red';
+    width: 100vw;
+    height: 100%;
+    overflow-y: hidden;
+    padding-left: 0 !important;
   }
 
   .iframe-modal-container {
