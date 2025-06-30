@@ -27,14 +27,14 @@ export const BENCHMARKS: BenchmarkItem[] = [
     type: 'multiple',
     libraries: [
       {
-        name: 'react-navigation/native',
-        version: '6.1.9',
-        url: 'https://reactnavigation.org/docs/native-stack-navigator'
+        name: '@react-navigation/native',
+        version: '7.1.8',
+        url: 'https://reactnavigation.org/docs/native-stack-navigator/'
       },
       {
-        name: 'react-navigation/stack',
-        version: '6.3.20',
-        url: 'https://reactnavigation.org/docs/stack-navigator'
+        name: '@react-navigation/stack',
+        version: '7.3.1',
+        url: 'https://reactnavigation.org/docs/stack-navigator/'
       }
     ]
   },
@@ -49,14 +49,14 @@ export const BENCHMARKS: BenchmarkItem[] = [
     type: 'single',
     libraries: [
       {
-        name: 'gorhom/bottom-sheet',
-        version: '4.x',
-        url: 'https://github.com/gorhom/react-native-bottom-sheet'
+        name: '@gorhom/bottom-sheet',
+        version: '4.4.5',
+        url: 'https://gorhom.dev/react-native-bottom-sheet/'
       },
       {
-        name: 'gorhom/bottom-sheet',
-        version: '3.x',
-        url: 'https://github.com/gorhom/react-native-bottom-sheet/tree/3.x'
+        name: '@gorhom/bottom-sheet',
+        version: '5.1.5',
+        url: 'https://gorhom.dev/react-native-bottom-sheet/'
       }
     ]
   },
@@ -65,42 +65,41 @@ export const BENCHMARKS: BenchmarkItem[] = [
     title: 'WebView Performance',
     description: 'WebView rendering and loading benchmarks across versions',
     benchmarkUrl: 'https://dream-sports-labs.github.io/rn-webview-benchmark/',
-    repoUrl: 'https://github.com/dream-sports-labs/rn-webview-benchmark', // Add your repo URL here
+    repoUrl: 'https://github.com/dream-sports-labs/rn-webview-benchmark',
     icon: '🌐',
     category: 'WebView',
     type: 'single',
     libraries: [
       {
         name: 'react-native-webview',
-        version: '13.6.2',
+        version: '13.13.5',
         url: 'https://github.com/react-native-webview/react-native-webview'
       },
       {
         name: 'react-native-webview',
-        version: '13.7.0',
+        version: '13.14.1',
         url: 'https://github.com/react-native-webview/react-native-webview'
       }
     ]
   },
-  // Coming Soon Benchmarks (shown last)
   {
     id: 'rn-bottomtabs',
     title: 'React Native Bottom Tabs',
-    description: 'Native vs JS bottom tab implementation performance comparison',
-    benchmarkUrl: 'https://dream-sports-labs.github.io/rn-webview-benchmark/',
-    repoUrl: 'https://github.com/dream-sports-labs/rn-webview-benchmark', // Add your repo URL here
+    description: 'Native vs JS bottom tab comparison in terms of Tab Load time and Tab Switch time using Native Stack.',
+    benchmarkUrl: 'https://dream-sports-labs.github.io/rn-tabs-benchmarks/',
+    repoUrl: 'https://github.com/dream-sports-labs/rn-tabs-benchmarks',
     icon: '📱',
     category: 'Navigation',
     type: 'multiple',
     libraries: [
       {
         name: 'react-native-bottom-tabs',
-        version: '1.0.0',
-        url: 'https://github.com/react-native-bottom-tabs/react-native-bottom-tabs'
+        version: '0.8.6',
+        url: 'https://callstackincubator.github.io/react-native-bottom-tabs/'
       },
       {
         name: 'react-navigation/bottom-tabs',
-        version: '6.5.11',
+        version: '7.0.11',
         url: 'https://reactnavigation.org/docs/bottom-tab-navigator'
       }
     ]
@@ -128,6 +127,3 @@ export const BENCHMARKS: BenchmarkItem[] = [
     ]
   }
 ];
-
-// You can easily add more benchmarks here in the future
-// Just follow the same structure and they'll automatically appear in the UI 
