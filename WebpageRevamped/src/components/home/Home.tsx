@@ -6,10 +6,12 @@ import {GenerateReportProps} from '../../RnBenchmarkingWebPage.interface'
 import SelectionToggle from "./selectionToggle/SelectionToggle";
 import SelectionContainerWrapper from "../home/selectionContainerWrapper/SelectionContainerWrapper";
 import {useIsMobile} from "../../hooks/useIsMobile";
+import TabContainer from '../tabContainer/TabContainer';
 
 const Home = () => {
   const [showGraph, setShowGraph] = useState<boolean>(false);
   const [showSelection, setShowSelection] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<'rn-benchmarks' | 'other-benchmarks'>('rn-benchmarks');
   const [graphData, setGraphData] = useState<GenerateReportProps>({
     labels: [],
     fifteenHundredViewDataLabels: [],
@@ -54,24 +56,22 @@ const Home = () => {
 
   return (
       <div className={'MainContainer'}>
-        <Header/>
-        <div className={'HomeContainer'}>
-          {/* Icon for mobile view */}
-          {isMobile &&
-              <SelectionToggle toggleSelection={toggleSelection}/>
-          }
-
-          {/* Selection Container */}
-          <SelectionContainerWrapper
-              isMobile={isMobile}
-              showSelection={showSelection}
-              onGenerateReport={handleGenerateReport}
-              handleClose={handleClose}
-          />
-
-          {/* Graph Container */}
-          {showGraph ? <GraphContainer {...graphData} /> : null}
-        </div>
+        <Header 
+          activeTab={activeTab} 
+          setActiveTab={setActiveTab} 
+          toggleSelection={toggleSelection}
+        />
+        <TabContainer 
+          activeTab={activeTab} 
+          setActiveTab={setActiveTab}
+          isMobile={isMobile}
+          showGraph={showGraph}
+          showSelection={showSelection}
+          graphData={graphData}
+          onGenerateReport={handleGenerateReport}
+          toggleSelection={toggleSelection}
+          handleClose={handleClose}
+        />
       </div>
   );
 }

@@ -9,12 +9,13 @@ import {
     MenuItem,
     Select,
     SelectChangeEvent,
+    IconButton,
 } from '@mui/material'
 import {GenerateReportProps} from '../../RnBenchmarkingWebPage.interface'
 import {SnackbarAlert} from '../SnackbarAlert/SnackbarAlert'
 import {maxCheckboxSelection} from "../../RnBenchmarkingWebPage.constant";
 import GithubLogo from '../../assets/icons/GitHubMark.png'
-import ReportIcon from '../../assets/icons/Reports2.png'
+import { useTheme } from '../../contexts/ThemeContext'
 
 type SelectionContainerProps = {
     onGenerateReport: (params: GenerateReportProps) => void;
@@ -24,6 +25,7 @@ type SelectionContainerProps = {
 export const SelectionContainer = ({
   onGenerateReport, hideSelection,
 }: SelectionContainerProps) => {
+  const { theme, toggleTheme } = useTheme();
   const {versions} = require('../../supportedVersions.json')
   const versionName = versions
   const [selectedVersion, setSelectedVersion] = useState<string[]>([])
