@@ -39,6 +39,28 @@ export const BENCHMARKS: BenchmarkItem[] = [
     ]
   },
   {
+    id: 'rn-bottomtabs',
+    title: 'React Native Bottom Tabs',
+    description: 'Native vs JS bottom tab comparison in terms of Tab Load time and Tab Switch time using Native Stack.',
+    benchmarkUrl: 'https://dream-sports-labs.github.io/rn-tabs-benchmarks/',
+    repoUrl: 'https://github.com/dream-sports-labs/rn-tabs-benchmarks',
+    icon: '📱',
+    category: 'Navigation',
+    type: 'multiple',
+    libraries: [
+      {
+        name: 'react-native-bottom-tabs',
+        version: '0.8.6',
+        url: 'https://callstackincubator.github.io/react-native-bottom-tabs/'
+      },
+      {
+        name: 'react-navigation/bottom-tabs',
+        version: '7.0.11',
+        url: 'https://reactnavigation.org/docs/bottom-tab-navigator'
+      }
+    ]
+  },
+  {
     id: 'gotham-bottomsheet',
     title: 'Gorham BottomSheet',
     description: 'BottomSheet performance benchmarks across different versions',
@@ -79,28 +101,6 @@ export const BENCHMARKS: BenchmarkItem[] = [
         name: 'react-native-webview',
         version: '13.14.1',
         url: 'https://github.com/react-native-webview/react-native-webview'
-      }
-    ]
-  },
-  {
-    id: 'rn-bottomtabs',
-    title: 'React Native Bottom Tabs',
-    description: 'Native vs JS bottom tab comparison in terms of Tab Load time and Tab Switch time using Native Stack.',
-    benchmarkUrl: 'https://dream-sports-labs.github.io/rn-tabs-benchmarks/',
-    repoUrl: 'https://github.com/dream-sports-labs/rn-tabs-benchmarks',
-    icon: '📱',
-    category: 'Navigation',
-    type: 'multiple',
-    libraries: [
-      {
-        name: 'react-native-bottom-tabs',
-        version: '0.8.6',
-        url: 'https://callstackincubator.github.io/react-native-bottom-tabs/'
-      },
-      {
-        name: 'react-navigation/bottom-tabs',
-        version: '7.0.11',
-        url: 'https://reactnavigation.org/docs/bottom-tab-navigator'
       }
     ]
   },
