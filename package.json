@@ -1,0 +1,20 @@
+{
+  "name": "rn-benchmarking",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "description": "React Native Performance Benchmarking Toolkit",
+  "scripts": {
+    "benchmark": "npx ts-node scripts/run-benchmark.ts",
+    "generate-reports": "npx ts-node scripts/generate-reports.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.25",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.0.4"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
+
