@@ -1,0 +1,26 @@
+{
+  "name": "rn-benchmarking",
+  "version": "1.0.0",
+  "description": "React Native Benchmarking Automation",
+  "main": "index.js",
+  "scripts": {
+    "benchmark": "ts-node ./rn-benchmark.ts"
+  },
+  "dependencies": {
+    "fs-extra": "^11.2.0",
+    "glob": "^10.3.10",
+    "inquirer": "^9.2.15",
+    "node-fetch": "^3.3.2",
+    "ora": "^8.0.1",
+    "shelljs": "^0.8.5"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/glob": "^8.1.0",
+    "@types/inquirer": "^9.0.7",
+    "@types/node": "^20.11.24",
+    "@types/shelljs": "^0.8.12",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+} 

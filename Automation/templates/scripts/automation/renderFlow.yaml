@@ -1,0 +1,100 @@
+# renderflow.yaml
+appId: ${APP_ID}
+---
+- launchApp:
+    clearState: false
+- tapOn:
+    id: ${MAESTRO_RESET_LOGS_BUTTON}
+    retryTapIfNoChange: false # Sometimes, tapOn will try to tap again if it doesn't detect a hierarchy change. To fix such cases, use retryTapIfNoChange
+    waitToSettleTimeoutMs: 1000
+- repeat:
+    times: ${ITERATIONS}
+    commands:
+      - tapOn:
+          id: ${MAESTRO_RENDER_1500_VIEW_BUTTON}
+          retryTapIfNoChange: false
+          waitToSettleTimeoutMs: 1000
+      - assertVisible:
+          id: ${MAESTRO_VIEW_CONTAINER}
+          waitToSettleTimeoutMs: 1000
+      - tapOn:
+          id: ${MAESTRO_RESET_VIEW_BUTTON}
+          retryTapIfNoChange: false
+          waitToSettleTimeoutMs: 1000
+      - assertVisible:
+          id: ${MAESTRO_EMPTY_VIEW}
+          waitToSettleTimeoutMs: 1000
+      - tapOn:
+          id: ${MAESTRO_RENDER_1500_TEXT_BUTTON}
+          retryTapIfNoChange: false
+          waitToSettleTimeoutMs: 1000
+      - assertVisible:
+          id: ${MAESTRO_TEXT_CONTAINER}
+          waitToSettleTimeoutMs: 1000
+      - tapOn:
+          id: ${MAESTRO_RESET_VIEW_BUTTON}
+          retryTapIfNoChange: false
+          waitToSettleTimeoutMs: 1000
+      - assertVisible:
+          id: ${MAESTRO_EMPTY_VIEW}
+          waitToSettleTimeoutMs: 1000
+      - tapOn:
+          id: ${MAESTRO_RENDER_1500_IMAGE_BUTTON}
+          retryTapIfNoChange: false
+          waitToSettleTimeoutMs: 1000
+      - assertVisible:
+          id: ${MAESTRO_IMAGE_CONTAINER}
+          waitToSettleTimeoutMs: 1000
+      - tapOn:
+          id: ${MAESTRO_RESET_VIEW_BUTTON}
+          retryTapIfNoChange: false
+          waitToSettleTimeoutMs: 1000
+      - assertVisible:
+          id: ${MAESTRO_EMPTY_VIEW}
+          waitToSettleTimeoutMs: 1000
+      - tapOn:
+          id: ${MAESTRO_RENDER_4000_VIEW_BUTTON}
+          retryTapIfNoChange: false
+          waitToSettleTimeoutMs: 1000
+      - assertVisible:
+          id: ${MAESTRO_VIEW_CONTAINER}
+          waitToSettleTimeoutMs: 1000
+      - tapOn:
+          id: ${MAESTRO_RESET_VIEW_BUTTON}
+          retryTapIfNoChange: false
+          waitToSettleTimeoutMs: 1000
+      - assertVisible:
+          id: ${MAESTRO_EMPTY_VIEW}
+          waitToSettleTimeoutMs: 1000
+      - tapOn:
+          id: ${MAESTRO_RENDER_4000_TEXT_BUTTON}
+          retryTapIfNoChange: false
+          waitToSettleTimeoutMs: 1000
+      - assertVisible:
+          id: ${MAESTRO_TEXT_CONTAINER}
+          waitToSettleTimeoutMs: 1000
+      - tapOn:
+          id: ${MAESTRO_RESET_VIEW_BUTTON}
+          retryTapIfNoChange: false
+          waitToSettleTimeoutMs: 1000
+      - assertVisible:
+          id: ${MAESTRO_EMPTY_VIEW}
+          waitToSettleTimeoutMs: 1000
+      - tapOn:
+          id: ${MAESTRO_RENDER_4000_IMAGE_BUTTON}
+          retryTapIfNoChange: false
+          waitToSettleTimeoutMs: 1000
+      - assertVisible:
+          id: ${MAESTRO_IMAGE_CONTAINER}
+          waitToSettleTimeoutMs: 1000
+      - tapOn:
+          id: ${MAESTRO_RESET_VIEW_BUTTON}
+          retryTapIfNoChange: false
+          waitToSettleTimeoutMs: 1000
+      - assertVisible:
+          id: ${MAESTRO_EMPTY_VIEW}
+          waitToSettleTimeoutMs: 1000
+- tapOn:
+    id: ${MAESTRO_GET_REPORT_BUTTON}
+    retryTapIfNoChange: false
+    waitToSettleTimeoutMs: 1000

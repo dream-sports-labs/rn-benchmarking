@@ -1,6 +1,6 @@
 type ReportsType = {
   [key: string]: any
-} 
+}
 export const Reports: ReportsType = {
   "0.73.0/android/newarch": require('./Reports/0.73.0/android/newarch.json'),
   "0.73.0/android/oldarch": require('./Reports/0.73.0/android/oldarch.json'),
