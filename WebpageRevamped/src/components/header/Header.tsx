@@ -1,100 +1,86 @@
-import React, { useState } from 'react'
-import favicon from '../../assets/icons/dream11-logo.svg'
-import './Header.css'
-import { useTheme } from '../../contexts/ThemeContext'
+import React from 'react';
+import './Header.css';
+import { SunIcon, MoonIcon, SettingsIcon, GridIcon, LayersIcon } from '../ui/Icons';
+import { useTheme } from '../../contexts/ThemeContext';
+import { useIsMobile } from '../../hooks/useIsMobile';
 
-interface HeaderProps {
-  activeTab?: 'rn-benchmarks' | 'other-benchmarks';
-  setActiveTab?: (tab: 'rn-benchmarks' | 'other-benchmarks') => void;
-  toggleSelection?: () => void;
-}
+type HeaderProps = {
+  activeTab: 'rn-benchmarks' | 'other-benchmarks';
+  setActiveTab: (tab: 'rn-benchmarks' | 'other-benchmarks') => void;
+  toggleSelection: () => void;
+};
 
-const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab, toggleSelection }) => {
+const Header = ({ activeTab, setActiveTab, toggleSelection }: HeaderProps) => {
   const { theme, toggleTheme } = useTheme();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const isMobile = useIsMobile();
 
   return (
-    <div className={'HeaderContainer'}>
-      <div className="header-left">
-        <img src={favicon} alt={'Dream11 Logo'} width={24} height={24} />
-        <div className={'HeaderTitle'}>
-          <span className="title-full">React Native Benchmarking</span>
-          <span className="title-short">RN Benchmarking</span>
+    <header className="header">
+      <div className="header__left">
+        {/* Logo */}
+        <div className="header__logo">
+          <div className="header__logo-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <rect x="3" y="3" width="18" height="18" rx="4" fill="url(#logo-gradient)" />
+              <path d="M8 17V7L16 12L8 17Z" fill="white" />
+              <defs>
+                <linearGradient id="logo-gradient" x1="3" y1="3" x2="21" y2="21" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#00d4aa" />
+                  <stop offset="1" stopColor="#00b894" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div className="header__logo-text">
+            <span className="header__logo-name">RN Benchmarks</span>
+            <span className="header__logo-tag">Performance Testing</span>
+          </div>
         </div>
+
+        {/* Navigation Tabs */}
+        <nav className="header__nav">
+          <button
+            className={`header__tab ${activeTab === 'rn-benchmarks' ? 'header__tab--active' : ''}`}
+            onClick={() => setActiveTab('rn-benchmarks')}
+          >
+            <LayersIcon size={16} />
+            <span>RN Benchmarks</span>
+          </button>
+          <button
+            className={`header__tab ${activeTab === 'other-benchmarks' ? 'header__tab--active' : ''}`}
+            onClick={() => setActiveTab('other-benchmarks')}
+          >
+            <GridIcon size={16} />
+            <span>Other Benchmarks</span>
+          </button>
+        </nav>
       </div>
 
-      {/* Navigation Tabs - Desktop */}
-      {activeTab && setActiveTab && (
-        <>
-          <div className="header-nav-tabs desktop-tabs">
-            <button 
-              className={`nav-tab ${activeTab === 'rn-benchmarks' ? 'active' : ''}`}
-              onClick={() => setActiveTab('rn-benchmarks')}
-            >
-              <span className="tab-full">React Native</span>
-              <span className="tab-short">React Native</span>
-            </button>
-            <button 
-              className={`nav-tab ${activeTab === 'other-benchmarks' ? 'active' : ''}`}
-              onClick={() => setActiveTab('other-benchmarks')}
-            >
-              <span className="tab-full">Libraries</span>
-              <span className="tab-short">Libraries</span>
-            </button>
-          </div>
+      <div className="header__right">
+        {/* Theme Toggle */}
+        <button
+          className="header__icon-btn"
+          onClick={toggleTheme}
+          aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+          title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+        >
+          {theme === 'dark' ? <SunIcon size={18} /> : <MoonIcon size={18} />}
+        </button>
 
-          {/* Mobile Menu Button and Dropdown */}
-          <div className="mobile-menu-container">
-            <button 
-              className="mobile-menu-button"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label="Toggle navigation menu"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </button>
-            
-            {/* Mobile Dropdown */}
-            {isMobileMenuOpen && (
-              <div className="mobile-dropdown">
-                <button 
-                  className={`mobile-nav-item ${activeTab === 'rn-benchmarks' ? 'active' : ''}`}
-                  onClick={() => {
-                    setActiveTab('rn-benchmarks');
-                    setIsMobileMenuOpen(false);
-                  }}
-                >
-                  RN Benchmarks
-                </button>
-                <button 
-                  className={`mobile-nav-item ${activeTab === 'other-benchmarks' ? 'active' : ''}`}
-                  onClick={() => {
-                    setActiveTab('other-benchmarks');
-                    setIsMobileMenuOpen(false);
-                  }}
-                >
-                  Other Benchmarks
-                </button>
-                {/* Show sidebar toggle only when on RN Benchmarks tab */}
-                {activeTab === 'rn-benchmarks' && toggleSelection && (
-                  <button 
-                    className="mobile-nav-item"
-                    onClick={() => {
-                      toggleSelection();
-                      setIsMobileMenuOpen(false);
-                    }}
-                  >
-                    Toggle Sidebar
-                  </button>
-                )}
-              </div>
-            )}
-          </div>
-        </>
-      )}
-    </div>
-  )
-}
+        {/* Mobile Config Toggle */}
+        {isMobile && activeTab === 'rn-benchmarks' && (
+          <button
+            className="header__icon-btn header__icon-btn--config"
+            onClick={toggleSelection}
+            aria-label="Open configuration"
+            title="Configuration"
+          >
+            <SettingsIcon size={18} />
+          </button>
+        )}
+      </div>
+    </header>
+  );
+};
 
-export default Header
+export default Header;

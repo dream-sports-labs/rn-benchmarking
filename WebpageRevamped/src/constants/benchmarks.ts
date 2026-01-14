@@ -4,7 +4,7 @@ export interface BenchmarkItem {
   description: string;
   benchmarkUrl: string;
   repoUrl: string;
-  icon: string;
+  iconType: 'navigation' | 'tabs' | 'component' | 'webview' | 'modules';
   category: string;
   type: 'single' | 'multiple';
   libraries?: Array<{
@@ -22,7 +22,7 @@ export const BENCHMARKS: BenchmarkItem[] = [
     description: 'Native vs JS stack load time performance benchmarks',
     benchmarkUrl: 'https://dream-horizon-org.github.io/react-navigation-benchmark/',
     repoUrl: 'https://github.com/dream-horizon-org/react-navigation-benchmark',
-    icon: '🧭',
+    iconType: 'navigation',
     category: 'Navigation',
     type: 'multiple',
     libraries: [
@@ -44,7 +44,7 @@ export const BENCHMARKS: BenchmarkItem[] = [
     description: 'Native vs JS bottom tab comparison in terms of Tab Load time and Tab Switch time using Native Stack.',
     benchmarkUrl: 'https://dream-horizon-org.github.io/rn-tabs-benchmarks/',
     repoUrl: 'https://github.com/dream-horizon-org/rn-tabs-benchmarks',
-    icon: '📱',
+    iconType: 'tabs',
     category: 'Navigation',
     type: 'multiple',
     libraries: [
@@ -66,7 +66,7 @@ export const BENCHMARKS: BenchmarkItem[] = [
     description: 'BottomSheet performance benchmarks across different versions',
     benchmarkUrl: 'https://dream-horizon-org.github.io/GorhomBottomSheetBenchmark/',
     repoUrl: 'https://github.com/dream-horizon-org/GorhomBottomSheetBenchmark',
-    icon: '📊',
+    iconType: 'component',
     category: 'Components',
     type: 'single',
     libraries: [
@@ -88,7 +88,7 @@ export const BENCHMARKS: BenchmarkItem[] = [
     description: 'WebView rendering and loading benchmarks across versions',
     benchmarkUrl: 'https://dream-horizon-org.github.io/rn-webview-benchmark/',
     repoUrl: 'https://github.com/dream-horizon-org/rn-webview-benchmark',
-    icon: '🌐',
+    iconType: 'webview',
     category: 'WebView',
     type: 'single',
     libraries: [
@@ -110,7 +110,7 @@ export const BENCHMARKS: BenchmarkItem[] = [
     description: 'Performance comparison between Turbo Modules and Nitro Modules',
     benchmarkUrl: '', // Add your benchmark URL here
     repoUrl: '', // Add your repo URL here
-    icon: '⚡',
+    iconType: 'modules',
     category: 'Modules',
     type: 'multiple',
     libraries: [

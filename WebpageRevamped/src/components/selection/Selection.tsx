@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './Selection.css';
-import {
-  Button,
-  Checkbox,
-  FormControl,
-  FormControlLabel,
-  InputLabel,
-  OutlinedInput,
-} from '@mui/material';
 import { SelectionProps } from '../../RnBenchmarkingWebPage.interface';
 import { SnackbarAlert } from '../SnackbarAlert/SnackbarAlert';
-import { Reports } from "../../Reports";
-import {maxCheckboxSelection} from "../../RnBenchmarkingWebPage.constant";
+import { Reports } from '../../Reports';
+import { maxCheckboxSelection } from '../../RnBenchmarkingWebPage.constant';
+import { Button } from '../ui';
+import { AndroidIcon, AppleIcon, OldArchIcon, NewArchIcon, ChartIcon } from '../ui/Icons';
 
 const Selection = (props: SelectionProps) => {
   const { versionName, selectedOptions, setSelectedOptions, selectedVersion, onGenerateReport, hideSelection } = props;
@@ -55,7 +49,7 @@ const Selection = (props: SelectionProps) => {
         setSelectedOptions((prev) => prev.filter((item) => item !== option));
       }
     } else {
-      setSnackbarMessage('You can select a maximum of 4 options.');
+      setSnackbarMessage('You can select a maximum of 4 configurations.');
       setOpenSnackbar(true);
     }
   };
@@ -118,9 +112,7 @@ const Selection = (props: SelectionProps) => {
       fiveThousandImageDataLabels,
     });
 
-    // Hide the selection container after generating the report (for mobile view)
     if (window.innerWidth <= 768) {
-      // Assuming hideSelection function is passed as prop for hiding the selection container on mobile
       if (hideSelection) {
         hideSelection();
       }
@@ -128,108 +120,113 @@ const Selection = (props: SelectionProps) => {
   };
 
   return (
-      <div className={'Selection'}>
-        {versionName.map((version) => (
-            <div key={version} className={'VersionContainer'}>
-              <FormControl variant="outlined">
-                <InputLabel
-                    htmlFor="outlined-label"
-                    shrink
-                    style={{ fontSize: 20, color: 'black' }}>
-                  {version.toString()}
-                </InputLabel>
-                <OutlinedInput
-                    id="outlined-label"
-                    notched
-                    label={version + `' '`}
-                    readOnly
-                    fullWidth
-                    startAdornment={
-                      <div>
-                        <div className={'PlatformName'}>Android:</div>
-                        <div className={'PlatformNameTypeContainer'}>
-                          <FormControlLabel
-                              control={
-                                <Checkbox
-                                    onChange={handleCheckboxChange(
-                                        version,
-                                        'android/oldarch',
-                                    )}
-                                    checked={selectedOptions.includes(
-                                        `${version}/android/oldarch`,
-                                    )}
-                                />
-                              }
-                              label="Old"
-                          />
-                          <FormControlLabel
-                              control={
-                                <Checkbox
-                                    onChange={handleCheckboxChange(
-                                        version,
-                                        'android/newarch',
-                                    )}
-                                    checked={selectedOptions.includes(
-                                        `${version}/android/newarch`,
-                                    )}
-                                />
-                              }
-                              label="New"
-                          />
-                        </div>
-                        <div className={'PlatformName'}>iOS:</div>
-                        <div className={'PlatformNameTypeContainer'}>
-                          <FormControlLabel
-                              control={
-                                <Checkbox
-                                    onChange={handleCheckboxChange(
-                                        version,
-                                        'ios/oldarch',
-                                    )}
-                                    checked={selectedOptions.includes(
-                                        `${version}/ios/oldarch`,
-                                    )}
-                                />
-                              }
-                              label="Old"
-                          />
-                          <FormControlLabel
-                              control={
-                                <Checkbox
-                                    onChange={handleCheckboxChange(
-                                        version,
-                                        'ios/newarch',
-                                    )}
-                                    checked={selectedOptions.includes(
-                                        `${version}/ios/newarch`,
-                                    )}
-                                />
-                              }
-                              label="New"
-                          />
-                        </div>
-                      </div>
-                    }
-                />
-              </FormControl>
+    <div className="selection">
+      {versionName.map((version) => (
+        <div key={version} className="selection__version-card">
+          <div className="selection__version-header">
+            <span className="selection__version-number">{version}</span>
+          </div>
+          
+          <div className="selection__platforms">
+            {/* Android */}
+            <div className="selection__platform">
+              <div className="selection__platform-header">
+                <div className="selection__platform-icon selection__platform-icon--android">
+                  <AndroidIcon size={14} />
+                </div>
+                <span className="selection__platform-name">Android</span>
+              </div>
+              <div className="selection__arch-options">
+                <label className={`selection__arch-option ${selectedOptions.includes(`${version}/android/oldarch`) ? 'selection__arch-option--selected' : ''}`}>
+                  <input
+                    type="checkbox"
+                    className="selection__checkbox-input"
+                    checked={selectedOptions.includes(`${version}/android/oldarch`)}
+                    onChange={handleCheckboxChange(version, 'android/oldarch')}
+                  />
+                  <div className="selection__arch-icon">
+                    <OldArchIcon size={14} />
+                  </div>
+                  <span className="selection__arch-label">Old</span>
+                </label>
+                <label className={`selection__arch-option ${selectedOptions.includes(`${version}/android/newarch`) ? 'selection__arch-option--selected' : ''}`}>
+                  <input
+                    type="checkbox"
+                    className="selection__checkbox-input"
+                    checked={selectedOptions.includes(`${version}/android/newarch`)}
+                    onChange={handleCheckboxChange(version, 'android/newarch')}
+                  />
+                  <div className="selection__arch-icon">
+                    <NewArchIcon size={14} />
+                  </div>
+                  <span className="selection__arch-label">New</span>
+                </label>
+              </div>
             </div>
-        ))}
+
+            {/* iOS */}
+            <div className="selection__platform">
+              <div className="selection__platform-header">
+                <div className="selection__platform-icon selection__platform-icon--ios">
+                  <AppleIcon size={14} />
+                </div>
+                <span className="selection__platform-name">iOS</span>
+              </div>
+              <div className="selection__arch-options">
+                <label className={`selection__arch-option ${selectedOptions.includes(`${version}/ios/oldarch`) ? 'selection__arch-option--selected' : ''}`}>
+                  <input
+                    type="checkbox"
+                    className="selection__checkbox-input"
+                    checked={selectedOptions.includes(`${version}/ios/oldarch`)}
+                    onChange={handleCheckboxChange(version, 'ios/oldarch')}
+                  />
+                  <div className="selection__arch-icon">
+                    <OldArchIcon size={14} />
+                  </div>
+                  <span className="selection__arch-label">Old</span>
+                </label>
+                <label className={`selection__arch-option ${selectedOptions.includes(`${version}/ios/newarch`) ? 'selection__arch-option--selected' : ''}`}>
+                  <input
+                    type="checkbox"
+                    className="selection__checkbox-input"
+                    checked={selectedOptions.includes(`${version}/ios/newarch`)}
+                    onChange={handleCheckboxChange(version, 'ios/newarch')}
+                  />
+                  <div className="selection__arch-icon">
+                    <NewArchIcon size={14} />
+                  </div>
+                  <span className="selection__arch-label">New</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+
+      <div className="selection__actions">
+        <div className="selection__count">
+          {selectedOptions.length} of {maxCheckboxSelection} selected
+        </div>
         <Button
-            variant="contained"
-            style={{ width: '100%', marginTop: 20 }}
-            onClick={handleGenerateReport}
-            disabled={selectedOptions.length <= 0}>
+          variant="primary"
+          size="md"
+          fullWidth
+          onClick={handleGenerateReport}
+          disabled={selectedOptions.length <= 0}
+          icon={<ChartIcon size={16} />}
+        >
           Generate Report
         </Button>
-
-        <SnackbarAlert
-            snackbarMessage={snackbarMessage}
-            severity={'error'}
-            open={openSnackbar}
-            handleClose={handleCloseSnackbar}
-        />
       </div>
+
+      <SnackbarAlert
+        snackbarMessage={snackbarMessage}
+        severity="error"
+        open={openSnackbar}
+        handleClose={handleCloseSnackbar}
+      />
+    </div>
   );
 };
-export default Selection;
 
+export default Selection;

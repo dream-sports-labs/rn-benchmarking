@@ -1,10 +1,49 @@
 import React, { useEffect, useState } from 'react';
 import './OtherBenchmarks.css';
 import { BENCHMARKS, BenchmarkItem } from '../../constants/benchmarks';
-import { isUrlAllowed } from '../../utils';
 import { useIsMobile } from '../../hooks/useIsMobile';
 import IFrameModal from '../iFrameModal/IFrameModal';
 import { SnackbarAlert } from '../SnackbarAlert/SnackbarAlert';
+import { GitHubIcon, ExternalLinkIcon, ChartIcon, CheckIcon, ClockIcon } from '../ui/Icons';
+
+// Icon mapping based on benchmark type
+const BenchmarkIcon: React.FC<{ type: string; size?: number }> = ({ type, size = 20 }) => {
+  const iconMap: Record<string, React.ReactNode> = {
+    navigation: (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <polygon points="3 11 22 2 13 21 11 13 3 11"/>
+      </svg>
+    ),
+    tabs: (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+        <line x1="3" y1="9" x2="21" y2="9"/>
+      </svg>
+    ),
+    component: (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <rect x="3" y="3" width="7" height="7"/>
+        <rect x="14" y="3" width="7" height="7"/>
+        <rect x="14" y="14" width="7" height="7"/>
+        <rect x="3" y="14" width="7" height="7"/>
+      </svg>
+    ),
+    webview: (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="2" y1="12" x2="22" y2="12"/>
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+      </svg>
+    ),
+    modules: (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+      </svg>
+    ),
+  };
+  
+  return <>{iconMap[type] || <ChartIcon size={size} />}</>;
+};
 
 export const renderLibraryComparison = (libraries: Array<{ name: string; version: string; url: string }>, type: 'single' | 'multiple') => {
   if (libraries.length === 0) return null;
@@ -85,35 +124,42 @@ const OtherBenchmarks: React.FC = () => {
       {/* Side Navigation */}
       <div className="benchmarks-sidebar">
         <div className="sidebar-header">
-          <h3>Performance Benchmarks for Libraries</h3>
-          <p>Select a benchmark to view</p>
+          <h3>Library Benchmarks</h3>
+          <p>Select a benchmark to view performance data</p>
         </div>
         
         <div className="benchmarks-list">
           {showList || BENCHMARKS.map((benchmark) => (
             <div 
               key={benchmark.id}
-              className={`benchmark-item ${selectedBenchmark?.id === benchmark.id ? 'clicked' : ''}`}
+              className={`benchmark-item ${selectedBenchmark?.id === benchmark.id ? 'clicked' : ''} ${!benchmark.benchmarkUrl ? 'benchmark-item--disabled' : ''}`}
               onClick={() => handleBenchmarkSelect(benchmark)}
             >
-              <div className="benchmark-item-header">
-                <div className="benchmark-item-icon">{benchmark.icon}</div>
-                <div className="benchmark-item-category">{benchmark.category}</div>
+              <div className="benchmark-item-icon-wrapper">
+                <BenchmarkIcon type={benchmark.iconType} size={18} />
               </div>
               <div className="benchmark-item-content">
-                <h4>{benchmark.title}</h4>
+                <div className="benchmark-item-header">
+                  <h4>{benchmark.title}</h4>
+                  <span className="benchmark-item-category">{benchmark.category}</span>
+                </div>
                 <p>{benchmark.description}</p>
               </div>
               <div className="benchmark-item-status">
                 {benchmark.benchmarkUrl ? (
-                  <span className="status-available">Available</span>
+                  <span className="status-available">
+                    <CheckIcon size={12} />
+                    <span>Available</span>
+                  </span>
                 ) : (
-                  <span className="status-coming-soon">Coming Soon</span>
+                  <span className="status-coming-soon">
+                    <ClockIcon size={12} />
+                    <span>Soon</span>
+                  </span>
                 )}
               </div>
             </div>
           ))}
-          <div className="benchmark-item-footer"></div>
         </div>
       </div>
 
@@ -123,10 +169,17 @@ const OtherBenchmarks: React.FC = () => {
           <div className="benchmark-viewer-header">
             <div className="viewer-info">
               <div className="viewer-title-row">
-                <h2>{selectedBenchmark.title}</h2>
-                {selectedBenchmark.libraries && selectedBenchmark.libraries.length > 0 && renderLibraryComparison(selectedBenchmark.libraries!, selectedBenchmark.type || 'multiple')}
+                <div className="viewer-icon">
+                  <BenchmarkIcon type={selectedBenchmark.iconType} size={24} />
+                </div>
+                <div className="viewer-title-content">
+                  <h2>{selectedBenchmark.title}</h2>
+                  <p>{selectedBenchmark.description}</p>
+                </div>
               </div>
-              <p>{selectedBenchmark.description}</p>
+              {selectedBenchmark.libraries && selectedBenchmark.libraries.length > 0 && 
+                renderLibraryComparison(selectedBenchmark.libraries!, selectedBenchmark.type || 'multiple')
+              }
             </div>
             <div className="viewer-actions">
               <button 
@@ -135,9 +188,8 @@ const OtherBenchmarks: React.FC = () => {
                 disabled={!selectedBenchmark.repoUrl}
                 title="View Repository"
               >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z" />
-                </svg>
+                <GitHubIcon size={18} />
+                <span>Repository</span>
               </button>
               <button 
                 className="viewer-btn viewer-btn-primary"
@@ -145,11 +197,8 @@ const OtherBenchmarks: React.FC = () => {
                 disabled={!selectedBenchmark.benchmarkUrl}
                 title="Open in New Tab"
               >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                  <polyline points="15 3 21 3 21 9" />
-                  <line x1="10" y1="14" x2="21" y2="3" />
-                </svg>
+                <ExternalLinkIcon size={18} />
+                <span>Open</span>
               </button>
             </div>
           </div>
@@ -189,26 +238,22 @@ const OtherBenchmarks: React.FC = () => {
               </>
             ) : (
               <div className="benchmark-placeholder">
-                {!selectedBenchmark.benchmarkUrl ? (
-                  <div className="placeholder-content">
-                    <div className="placeholder-icon">{selectedBenchmark.icon}</div>
-                    <h3>Benchmark Coming Soon</h3>
-                    <p>This benchmark is currently under development and will be available soon.</p>
-                    {selectedBenchmark.repoUrl && (
-                      <button 
-                        className="placeholder-btn"
-                        onClick={handleViewRepository}
-                      >
-                        View Repository
-                      </button>
-                    )}
+                <div className="placeholder-content">
+                  <div className="placeholder-icon">
+                    <BenchmarkIcon type={selectedBenchmark.iconType} size={48} />
                   </div>
-                ) : (
-                  <div className="placeholder-content">
-                    <h3>Content Unavailable</h3>
-                    <p>We're unable to display this content at the moment. Please try again later.</p>
-                  </div>
-                )}
+                  <h3>Benchmark Coming Soon</h3>
+                  <p>This benchmark is currently under development and will be available soon.</p>
+                  {selectedBenchmark.repoUrl && (
+                    <button 
+                      className="placeholder-btn"
+                      onClick={handleViewRepository}
+                    >
+                      <GitHubIcon size={16} />
+                      <span>View Repository</span>
+                    </button>
+                  )}
+                </div>
               </div>
             )}
           </div>
@@ -244,4 +289,4 @@ const OtherBenchmarks: React.FC = () => {
   );
 };
 
-export default OtherBenchmarks; 
+export default OtherBenchmarks;

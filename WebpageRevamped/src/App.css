@@ -1,96 +1,81 @@
-.App {
-  text-align: center;
-}
+/* ============================================
+   GLOBAL APP STYLES
+   ============================================ */
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-html, body, #app, #app>div, #root {
+html,
+body,
+#root {
   height: 100%;
-  overflow-y: hidden;
-  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
-/* Global Material-UI Dark Theme Overrides */
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================
+   MATERIAL-UI DARK THEME OVERRIDES
+   ============================================ */
+
 [data-theme="dark"] .MuiPaper-root {
-  background-color: #2a2a2a !important;
-  color: #ffffff !important;
+  background-color: var(--bg-elevated) !important;
+  color: var(--text-primary) !important;
 }
 
 [data-theme="dark"] .MuiMenuItem-root {
-  color: #ffffff !important;
+  color: var(--text-primary) !important;
 }
 
 [data-theme="dark"] .MuiMenuItem-root:hover {
-  background-color: #333333 !important;
+  background-color: var(--bg-tertiary) !important;
 }
 
 [data-theme="dark"] .MuiListItemText-primary {
-  color: #ffffff !important;
+  color: var(--text-primary) !important;
 }
 
 [data-theme="dark"] .MuiInputLabel-root {
-  color: #e0e0e0 !important;
+  color: var(--text-secondary) !important;
 }
 
 [data-theme="dark"] .MuiOutlinedInput-root {
-  color: #ffffff !important;
+  color: var(--text-primary) !important;
 }
 
 [data-theme="dark"] .MuiOutlinedInput-notchedOutline {
-  border-color: #444444 !important;
+  border-color: var(--border-default) !important;
 }
 
 [data-theme="dark"] .MuiSelect-select {
-  color: #ffffff !important;
+  color: var(--text-primary) !important;
 }
 
 [data-theme="dark"] .MuiCheckbox-root {
-  color: #cccccc !important;
+  color: var(--text-tertiary) !important;
 }
 
 [data-theme="dark"] .MuiCheckbox-root.Mui-checked {
-  color: #00bcd4 !important;
+  color: var(--accent-primary) !important;
 }
 
 [data-theme="dark"] .MuiChip-root {
-  background-color: #333333 !important;
-  color: #ffffff !important;
-  border-color: #444444 !important;
+  background-color: var(--bg-tertiary) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-default) !important;
 }
 
 [data-theme="dark"] .MuiFormControlLabel-label {
-  color: #ffffff !important;
+  color: var(--text-primary) !important;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* Light theme MUI overrides */
+[data-theme="light"] .MuiPaper-root {
+  background-color: var(--bg-card) !important;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+[data-theme="light"] .MuiChip-root {
+  background-color: var(--bg-tertiary) !important;
 }

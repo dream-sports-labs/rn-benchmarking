@@ -1,0 +1,149 @@
+/* ============================================
+   SELECT COMPONENT
+   ============================================ */
+
+.ui-select {
+  position: relative;
+  width: 100%;
+}
+
+.ui-select__label {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-2);
+}
+
+.ui-select__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  background: var(--bg-input);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  text-align: left;
+  color: var(--text-primary);
+}
+
+.ui-select__trigger:hover {
+  border-color: var(--border-strong);
+}
+
+.ui-select__trigger--open {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px var(--accent-primary-muted);
+}
+
+.ui-select__value {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ui-select__value--placeholder {
+  color: var(--text-muted);
+}
+
+.ui-select__icon {
+  display: flex;
+  align-items: center;
+  color: var(--text-muted);
+  transition: transform var(--transition-fast);
+}
+
+.ui-select__trigger--open .ui-select__icon {
+  transform: rotate(180deg);
+}
+
+.ui-select__dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-dropdown);
+  max-height: 240px;
+  overflow: hidden;
+  animation: selectDropdownIn 0.15s ease-out;
+}
+
+@keyframes selectDropdownIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ui-select__options {
+  overflow-y: auto;
+  max-height: 240px;
+  padding: var(--space-1);
+}
+
+.ui-select__option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--space-3) var(--space-3);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  text-align: left;
+  color: var(--text-primary);
+}
+
+.ui-select__option:hover {
+  background: var(--bg-tertiary);
+}
+
+.ui-select__option--selected {
+  background: var(--accent-primary-muted);
+  color: var(--accent-primary);
+}
+
+.ui-select__option--selected:hover {
+  background: var(--accent-primary-muted);
+}
+
+.ui-select__checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.ui-select__option--selected .ui-select__checkbox {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: var(--text-inverse);
+}
+
+.ui-select__option-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+}
+
