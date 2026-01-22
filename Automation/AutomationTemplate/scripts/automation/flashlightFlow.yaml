@@ -1,0 +1,14 @@
+# flashlight.yaml
+appId: ${APP_ID}
+---
+- launchApp:
+    clearState: true
+- tapOn:
+    id: ${MAESTRO_RENDER_ANIMATION_BUTTON}
+    retryTapIfNoChange: false # Sometimes, tapOn will try to tap again if it doesn't detect a hierarchy change. To fix such cases, use retryTapIfNoChange
+    waitToSettleTimeoutMs: 1000
+- assertVisible:
+    id: ${MAESTRO_ANIMATION_CONTAINER}
+    waitToSettleTimeoutMs: 1000
+- waitForAnimationToEnd:
+    timeout: 10000
