@@ -3425,11 +3425,11 @@ __metadata:
 
 "benchmarking-package@file:../BenchmarkingPackage::locator=Benchamrking%40workspace%3A.":
   version: 0.0.1
-  resolution: "benchmarking-package@file:../BenchmarkingPackage#../BenchmarkingPackage::hash=bff8e6&locator=Benchamrking%40workspace%3A."
+  resolution: "benchmarking-package@file:../BenchmarkingPackage#../BenchmarkingPackage::hash=ac7708&locator=Benchamrking%40workspace%3A."
   peerDependencies:
     react: ^18.2.0
     react-native: ^0.74.5
-  checksum: 5c29861ee3484b93bb28c6a55bd107649784f7799c4bb90444f1afa7816998dd9e52ff25dd2d16e4219b5df3288e115fa29fd5fc7763253f52a245022bcface1
+  checksum: b9582f642442cb9973e27ea936424ea5732384acf577e51949b775a43d58aa62a6bd2e0ea7a4b7ceb806a3d05267e3f330de5d9938b346c206d2a3f7cf454b86
   languageName: node
   linkType: hard
 
@@ -6650,9 +6650,9 @@ __metadata:
   linkType: hard
 
 "lodash@npm:^4.17.21":
-  version: 4.17.21
-  resolution: "lodash@npm:4.17.21"
-  checksum: eb835a2e51d381e561e508ce932ea50a8e5a68f4ebdd771ea240d3048244a8d13658acbd502cd4829768c56f2e16bdd4340b9ea141297d472517b83868e677f7
+  version: 4.17.23
+  resolution: "lodash@npm:4.17.23"
+  checksum: 7daad39758a72872e94651630fbb54ba76868f904211089721a64516ce865506a759d9ad3d8ff22a2a49a50a09db5d27c36f22762d21766e47e3ba918d6d7bab
   languageName: node
   linkType: hard
 
